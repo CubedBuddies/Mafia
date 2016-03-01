@@ -15,6 +15,11 @@
 		723AD9231C8568C10072849E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723AD9211C8568C10072849E /* LaunchScreen.storyboard */; };
 		723AD92E1C8568C20072849E /* MafiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD92D1C8568C20072849E /* MafiaTests.swift */; };
 		723AD9391C8568C20072849E /* MafiaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD9381C8568C20072849E /* MafiaUITests.swift */; };
+		728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA83E1C857C3200630365 /* HomeViewController.swift */; };
+		728BA8411C857C3C00630365 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8401C857C3C00630365 /* NewGameViewController.swift */; };
+		728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8421C857C4500630365 /* JoinGameViewController.swift */; };
+		728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8441C857C4D00630365 /* LobbyViewController.swift */; };
+		728BA8471C857C5400630365 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8461C857C5400630365 /* GameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +55,11 @@
 		723AD9341C8568C20072849E /* MafiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MafiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		723AD9381C8568C20072849E /* MafiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MafiaUITests.swift; sourceTree = "<group>"; };
 		723AD93A1C8568C20072849E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		728BA83E1C857C3200630365 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		728BA8401C857C3C00630365 /* NewGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
+		728BA8421C857C4500630365 /* JoinGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinGameViewController.swift; sourceTree = "<group>"; };
+		728BA8441C857C4D00630365 /* LobbyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
+		728BA8461C857C5400630365 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mafia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -115,6 +125,11 @@
 				723AD9181C8568C10072849E /* AppDelegate.swift */,
 				723AD91A1C8568C10072849E /* ViewController.swift */,
 				723AD91C1C8568C10072849E /* Main.storyboard */,
+				728BA83E1C857C3200630365 /* HomeViewController.swift */,
+				728BA8401C857C3C00630365 /* NewGameViewController.swift */,
+				728BA8421C857C4500630365 /* JoinGameViewController.swift */,
+				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
+				728BA8461C857C5400630365 /* GameViewController.swift */,
 				723AD91F1C8568C10072849E /* Assets.xcassets */,
 				723AD9211C8568C10072849E /* LaunchScreen.storyboard */,
 				723AD9241C8568C10072849E /* Info.plist */,
@@ -331,8 +346,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				728BA8471C857C5400630365 /* GameViewController.swift in Sources */,
+				728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */,
 				723AD91B1C8568C10072849E /* ViewController.swift in Sources */,
+				728BA8411C857C3C00630365 /* NewGameViewController.swift in Sources */,
+				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
+				728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
