@@ -22,10 +22,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0G-gU-YWN">
                                 <rect key="frame" x="262.5" y="429" width="75" height="30"/>
                                 <state key="normal" title="New Game"/>
+                                <connections>
+                                    <action selector="onNewGameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZV3-SK-3EI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h86-tP-3bm">
                                 <rect key="frame" x="263.5" y="491" width="73" height="30"/>
                                 <state key="normal" title="Join Game"/>
+                                <connections>
+                                    <action selector="onJoinGameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zWw-gB-lqF"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAFIA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfz-cq-PRU">
                                 <rect key="frame" x="246.5" y="80" width="107.5" height="44.5"/>
@@ -71,6 +77,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Way-z8-HGJ">
                                 <rect key="frame" x="277" y="483" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onCreateGameClick:" destination="R9P-wX-ulS" eventType="touchUpInside" id="Ght-rC-Z8W"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zF5-Sx-dMn">
                                 <rect key="frame" x="250" y="73" width="100" height="100"/>
@@ -90,6 +99,10 @@
                             <constraint firstItem="HEW-ve-uFt" firstAttribute="centerX" secondItem="kgO-jD-dTf" secondAttribute="centerX" id="xBV-fY-XV5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="avatarImageView" destination="zF5-Sx-dMn" id="s1S-wu-jew"/>
+                        <outlet property="nameLabel" destination="HEW-ve-uFt" id="oN3-Kc-gby"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmO-YZ-9fE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -126,6 +139,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZH-RI-DGQ">
                                 <rect key="frame" x="277" y="483" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onJoinGameClick:" destination="VcF-RF-AZy" eventType="touchUpInside" id="3jp-Ci-GJc"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLT-ij-qWa">
                                 <rect key="frame" x="250" y="90" width="100" height="100"/>
@@ -159,6 +175,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="avatarImageView" destination="Vyh-vR-hsK" id="NZW-s2-PSA"/>
+                        <outlet property="nameLabel" destination="WcE-p5-o38" id="FIX-yG-b5i"/>
+                        <outlet property="tokenLabel" destination="v38-zC-Hdy" id="R5Z-Vz-5W3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e52-og-wVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -236,6 +257,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEk-1V-Ge9">
                                 <rect key="frame" x="261" y="514" width="78" height="30"/>
                                 <state key="normal" title="Start Game"/>
+                                <connections>
+                                    <action selector="onStartGameClick:" destination="veo-v7-Fps" eventType="touchUpInside" id="zNb-Qt-Yw6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -263,6 +287,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="codeLabel" destination="ehE-6a-1hC" id="r2Z-j2-Abo"/>
+                        <outlet property="onStartGameClick" destination="AEk-1V-Ge9" id="TeK-Lk-Tya"/>
+                        <outlet property="playersCollectionView" destination="e70-Sx-hsZ" id="Qc2-Zi-uMp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUl-UR-eEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -375,6 +404,13 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="actionLabel" destination="02U-qa-jzp" id="cP3-VR-5rx"/>
+                        <outlet property="avatarImageView" destination="WYn-lo-3Wz" id="4oz-wn-LUF"/>
+                        <outlet property="nameLabel" destination="iht-ch-uvu" id="vdE-m2-mN9"/>
+                        <outlet property="playersCollectionView" destination="cwF-vb-oFM" id="2WE-iN-ls1"/>
+                        <outlet property="timerLabel" destination="u8r-2r-Ftw" id="xFA-Q9-7Po"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoE-Cu-xrg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

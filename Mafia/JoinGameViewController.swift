@@ -9,11 +9,19 @@
 import UIKit
 
 class JoinGameViewController: UIViewController {
+    
+    @IBOutlet weak var avatarImageView: NSLayoutConstraint!
+    @IBOutlet weak var nameLabel: UITextField!
+    @IBOutlet weak var tokenLabel: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func onJoinGameClick(sender: AnyObject) {
+        
     }
 
     override func didReceiveMemoryWarning() {

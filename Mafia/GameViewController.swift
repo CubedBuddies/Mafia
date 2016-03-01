@@ -10,6 +10,12 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var actionLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var playersCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

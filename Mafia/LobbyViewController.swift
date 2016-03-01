@@ -10,12 +10,20 @@ import UIKit
 
 class LobbyViewController: UIViewController {
 
+    @IBOutlet weak var codeLabel: UILabel!
+    
+    @IBOutlet var playersCollectionView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func onStartGameClick(sender: AnyObject) {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

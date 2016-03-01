@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		190443E1485D2FFEF59F3AE5 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */; };
 		723AD9191C8568C10072849E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD9181C8568C10072849E /* AppDelegate.swift */; };
-		723AD91B1C8568C10072849E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD91A1C8568C10072849E /* ViewController.swift */; };
 		723AD91E1C8568C10072849E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723AD91C1C8568C10072849E /* Main.storyboard */; };
 		723AD9201C8568C10072849E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 723AD91F1C8568C10072849E /* Assets.xcassets */; };
 		723AD9231C8568C10072849E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723AD9211C8568C10072849E /* LaunchScreen.storyboard */; };
@@ -20,6 +19,7 @@
 		728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8421C857C4500630365 /* JoinGameViewController.swift */; };
 		728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8441C857C4D00630365 /* LobbyViewController.swift */; };
 		728BA8471C857C5400630365 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8461C857C5400630365 /* GameViewController.swift */; };
+		728BA84A1C857E6600630365 /* PlayerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		1412AB255EFD31CCB9358A65 /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
 		723AD9151C8568C10072849E /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		723AD9181C8568C10072849E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		723AD91A1C8568C10072849E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		723AD91D1C8568C10072849E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		723AD91F1C8568C10072849E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		723AD9221C8568C10072849E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		728BA8421C857C4500630365 /* JoinGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinGameViewController.swift; sourceTree = "<group>"; };
 		728BA8441C857C4D00630365 /* LobbyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		728BA8461C857C5400630365 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCellTableViewCell.swift; sourceTree = "<group>"; };
 		F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mafia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -122,13 +122,10 @@
 		723AD9171C8568C10072849E /* Mafia */ = {
 			isa = PBXGroup;
 			children = (
+				728BA8481C857E0400630365 /* View Controllers */,
 				723AD9181C8568C10072849E /* AppDelegate.swift */,
-				723AD91A1C8568C10072849E /* ViewController.swift */,
 				723AD91C1C8568C10072849E /* Main.storyboard */,
-				728BA83E1C857C3200630365 /* HomeViewController.swift */,
-				728BA8401C857C3C00630365 /* NewGameViewController.swift */,
-				728BA8421C857C4500630365 /* JoinGameViewController.swift */,
-				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
+				728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */,
 				728BA8461C857C5400630365 /* GameViewController.swift */,
 				723AD91F1C8568C10072849E /* Assets.xcassets */,
 				723AD9211C8568C10072849E /* LaunchScreen.storyboard */,
@@ -153,6 +150,17 @@
 				723AD93A1C8568C20072849E /* Info.plist */,
 			);
 			path = MafiaUITests;
+			sourceTree = "<group>";
+		};
+		728BA8481C857E0400630365 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				728BA83E1C857C3200630365 /* HomeViewController.swift */,
+				728BA8421C857C4500630365 /* JoinGameViewController.swift */,
+				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
+				728BA8401C857C3C00630365 /* NewGameViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		A9BFF2CA4A26FAC7B935619D /* Pods */ = {
@@ -348,11 +356,11 @@
 			files = (
 				728BA8471C857C5400630365 /* GameViewController.swift in Sources */,
 				728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */,
-				723AD91B1C8568C10072849E /* ViewController.swift in Sources */,
 				728BA8411C857C3C00630365 /* NewGameViewController.swift in Sources */,
 				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
 				728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */,
+				728BA84A1C857E6600630365 /* PlayerCellTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

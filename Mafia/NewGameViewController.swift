@@ -10,10 +10,17 @@ import UIKit
 
 class NewGameViewController: UIViewController {
 
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func onCreateGameClick(sender: AnyObject) {
+        
     }
 
     override func didReceiveMemoryWarning() {

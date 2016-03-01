@@ -15,6 +15,14 @@ class HomeViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func onNewGameClick(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func onJoinGameClick(sender: AnyObject) {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
