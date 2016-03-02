@@ -1,26 +1,19 @@
 //
-//  NewGameViewController.swift
+//  ResultsViewController.swift
 //  Mafia
 //
-//  Created by Charles Yeh on 2/29/16.
+//  Created by Priscilla Lok on 3/2/16.
 //  Copyright © 2016 CubedBuddies. All rights reserved.
 //
 
 import UIKit
 
-class NewGameViewController: UIViewController {
+class ResultsViewController: UIViewController {
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    @IBAction func onCreateGameClick(sender: AnyObject) {
-        
     }
 
     override func didReceiveMemoryWarning() {

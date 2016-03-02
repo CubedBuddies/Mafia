@@ -1,23 +1,25 @@
 //
-//  HomeViewController.swift
+//  PlayerProfileViewController.swift
 //  Mafia
 //
-//  Created by Charles Yeh on 2/29/16.
+//  Created by Priscilla Lok on 3/2/16.
 //  Copyright © 2016 CubedBuddies. All rights reserved.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class PlayerProfileViewController: UIViewController {
 
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var playerNameTextField: UITextField!
+    @IBOutlet weak var isNewGameSwitch: UISwitch!
+    @IBOutlet weak var codeLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-    
-    
-    @IBAction func onJoinGameClick(sender: AnyObject) {
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +27,8 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onSubmitClick(sender: AnyObject) {
+    }
 
     /*
     // MARK: - Navigation
