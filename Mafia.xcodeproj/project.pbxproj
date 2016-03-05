@@ -138,7 +138,6 @@
 				723AD9181C8568C10072849E /* AppDelegate.swift */,
 				723AD91C1C8568C10072849E /* Main.storyboard */,
 				728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */,
-				728BA8461C857C5400630365 /* GameViewController.swift */,
 				723AD91F1C8568C10072849E /* Assets.xcassets */,
 				723AD9211C8568C10072849E /* LaunchScreen.storyboard */,
 				723AD9241C8568C10072849E /* Info.plist */,
@@ -167,6 +166,7 @@
 		728BA8481C857E0400630365 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				728BA8461C857C5400630365 /* GameViewController.swift */,
 				728BA83E1C857C3200630365 /* HomeViewController.swift */,
 				728BA8421C857C4500630365 /* JoinGameViewController.swift */,
 				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
