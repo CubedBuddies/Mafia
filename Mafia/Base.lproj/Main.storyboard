@@ -38,8 +38,8 @@
                                             <action selector="onJoinGameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k3G-iC-kEt"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join the Mob" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC5-BG-xkJ">
-                                        <rect key="frame" x="78" y="383" width="165" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOIN THE MOB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hC5-BG-xkJ">
+                                        <rect key="frame" x="65" y="383" width="190" height="28"/>
                                         <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="23"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -53,7 +53,6 @@
                                     <constraint firstAttribute="trailingMargin" secondItem="Hoe-nw-hPH" secondAttribute="trailing" constant="24" id="k1z-Ce-o6e"/>
                                     <constraint firstItem="Hoe-nw-hPH" firstAttribute="centerX" secondItem="TT0-gm-AVY" secondAttribute="centerX" id="kI9-S4-BVp"/>
                                     <constraint firstItem="TT0-gm-AVY" firstAttribute="top" secondItem="Jdh-8R-vhM" secondAttribute="topMargin" constant="59" id="lZl-14-ncU"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="TT0-gm-AVY" secondAttribute="trailing" constant="31" id="uWc-xw-Pt5"/>
                                     <constraint firstItem="Hoe-nw-hPH" firstAttribute="top" secondItem="TT0-gm-AVY" secondAttribute="bottom" constant="61" id="uv1-PB-vlJ"/>
                                 </constraints>
                             </view>
@@ -66,13 +65,10 @@
                             <constraint firstAttribute="trailing" secondItem="Jdh-8R-vhM" secondAttribute="trailing" id="u2A-zc-qA7"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <segue destination="s2H-v6-72V" kind="modal" id="Xq7-ok-JiS"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141" y="31"/>
+            <point key="canvasLocation" x="488" y="-1032"/>
         </scene>
         <!--Player Profile-->
         <scene sceneID="DCk-vu-Iek">
@@ -141,6 +137,9 @@
                                         <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="23"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mafiaBacksplash" translatesAutoresizingMaskIntoConstraints="NO" id="n20-TU-nlv">
+                                        <rect key="frame" x="0.0" y="226" width="320" height="342"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -186,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmO-YZ-9fE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="31"/>
+            <point key="canvasLocation" x="1172" y="-213"/>
         </scene>
         <!--Game Lobby-->
         <scene sceneID="iJ6-mj-SjW">
@@ -236,75 +235,56 @@
                             <view alpha="0.85000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfx-qq-wS8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3t-aa-rmn">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3t-aa-rmn">
                                         <rect key="frame" x="37" y="487" width="247" height="56"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="56" id="pYK-LV-bEo"/>
-                                        </constraints>
                                         <state key="normal" image="button"/>
                                         <connections>
                                             <action selector="onStartGameClick:" destination="xMK-i1-fYz" eventType="touchUpInside" id="ERP-v4-9EV"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="187592" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DS-FU-0dh">
-                                        <rect key="frame" x="68" y="140" width="184" height="51"/>
-                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="51"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="187592" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DS-FU-0dh">
+                                        <rect key="frame" x="213" y="94" width="91" height="25"/>
+                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players (min 6)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIk-Bd-HP3">
-                                        <rect key="frame" x="94" y="225" width="132" height="21"/>
-                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8v1-EF-IG5">
+                                        <rect key="frame" x="16" y="94" width="127" height="25"/>
+                                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXs-hl-ALm">
-                                        <rect key="frame" x="16" y="254" width="288" height="6"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="6" id="c9G-nx-MYX"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8v1-EF-IG5">
-                                        <rect key="frame" x="85" y="86" width="150" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mob Assembled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP9-Cq-5JA">
+                                        <rect key="frame" x="59" y="501" width="202" height="28"/>
                                         <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="23"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8Y-08-HTm">
-                                        <rect key="frame" x="267" y="217" width="37" height="37"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="7Xu-hP-wtT"/>
-                                            <constraint firstAttribute="width" constant="37" id="Cs6-Eb-XQi"/>
-                                        </constraints>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8Y-08-HTm">
+                                        <rect key="frame" x="135" y="141" width="51" height="50"/>
                                         <state key="normal" image="addUsersIcon"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's Play!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP9-Cq-5JA">
-                                        <rect key="frame" x="94" y="501" width="134" height="28"/>
-                                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="23"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ax1-qj-dkc">
+                                        <rect key="frame" x="16" y="199" width="288" height="253"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p2e-M3-V4M">
+                                            <size key="itemSize" width="66" height="68"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="userCell" id="ufx-J6-UT6">
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="68"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="66" height="68"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="T3t-aa-rmn" firstAttribute="leading" secondItem="zfx-qq-wS8" secondAttribute="leading" constant="37" id="Guc-M8-XV0"/>
-                                    <constraint firstAttribute="trailing" secondItem="vXs-hl-ALm" secondAttribute="trailing" constant="16" id="Haw-gu-v4c"/>
-                                    <constraint firstItem="8v1-EF-IG5" firstAttribute="leading" secondItem="zfx-qq-wS8" secondAttribute="leading" constant="85" id="M57-p3-D3f"/>
-                                    <constraint firstItem="D8Y-08-HTm" firstAttribute="centerY" secondItem="RIk-Bd-HP3" secondAttribute="centerY" id="Wbe-mt-LNX"/>
-                                    <constraint firstItem="vXs-hl-ALm" firstAttribute="leading" secondItem="zfx-qq-wS8" secondAttribute="leading" constant="16" id="Y9Q-ha-3ow"/>
-                                    <constraint firstItem="9DS-FU-0dh" firstAttribute="centerX" secondItem="8v1-EF-IG5" secondAttribute="centerX" id="ZHl-pe-rLr"/>
-                                    <constraint firstItem="wP9-Cq-5JA" firstAttribute="centerY" secondItem="T3t-aa-rmn" secondAttribute="centerY" id="ZK9-my-gIR"/>
-                                    <constraint firstItem="RIk-Bd-HP3" firstAttribute="top" secondItem="9DS-FU-0dh" secondAttribute="bottom" constant="34" id="aEY-Ro-kkd"/>
-                                    <constraint firstItem="8v1-EF-IG5" firstAttribute="top" secondItem="zfx-qq-wS8" secondAttribute="top" constant="86" id="aVh-Fh-JpP"/>
-                                    <constraint firstAttribute="trailing" secondItem="T3t-aa-rmn" secondAttribute="trailing" constant="36" id="fmK-lw-mUS"/>
-                                    <constraint firstItem="9DS-FU-0dh" firstAttribute="top" secondItem="8v1-EF-IG5" secondAttribute="bottom" constant="26" id="iru-Ow-7cp"/>
-                                    <constraint firstItem="D8Y-08-HTm" firstAttribute="trailing" secondItem="vXs-hl-ALm" secondAttribute="trailing" id="jlK-UE-a6Y"/>
-                                    <constraint firstAttribute="bottom" secondItem="T3t-aa-rmn" secondAttribute="bottom" constant="25" id="m3H-QG-gEz"/>
-                                    <constraint firstItem="RIk-Bd-HP3" firstAttribute="centerX" secondItem="9DS-FU-0dh" secondAttribute="centerX" id="mcl-LE-spi"/>
-                                    <constraint firstItem="wP9-Cq-5JA" firstAttribute="centerX" secondItem="T3t-aa-rmn" secondAttribute="centerX" id="nbo-wT-9IK"/>
-                                    <constraint firstAttribute="trailing" secondItem="8v1-EF-IG5" secondAttribute="trailing" constant="85" id="t1h-ne-Nnt"/>
-                                    <constraint firstItem="vXs-hl-ALm" firstAttribute="top" secondItem="RIk-Bd-HP3" secondAttribute="bottom" constant="8" id="uXp-1Q-uOc"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -320,12 +300,35 @@
                         <outlet property="codeLabel" destination="9DS-FU-0dh" id="WX6-Cz-3fZ"/>
                         <outlet property="onStartGameClick" destination="T3t-aa-rmn" id="sDp-GP-yl7"/>
                         <outlet property="playersCollectionView" destination="kS6-et-WXh" id="REC-m3-G0U"/>
-                        <segue destination="Fev-t6-kij" kind="push" id="oWo-7X-NeV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pk5-pX-wsM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1661" y="31"/>
+            <point key="canvasLocation" x="1649" y="-213"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ged-bd-Kiz">
+            <objects>
+                <viewController id="YA5-la-JJr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5ms-nA-Sqh"/>
+                        <viewControllerLayoutGuide type="bottom" id="q9p-OE-0IC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qCV-ni-YTF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.85000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CvW-nf-2dd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zdZ-gT-JDm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2071" y="-213"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="jCG-EN-ic2">
@@ -443,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MpK-tt-8vi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2148" y="31"/>
+            <point key="canvasLocation" x="2485" y="-213"/>
         </scene>
         <!--Results View Controller-->
         <scene sceneID="qpg-YV-ugy">
@@ -460,6 +463,9 @@
                             <view alpha="0.85000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RbN-rD-unn">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mafiaBacksplash" translatesAutoresizingMaskIntoConstraints="NO" id="jJj-my-5J6">
+                                        <rect key="frame" x="-7" y="221" width="327" height="347"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPx-H0-fas">
                                         <rect key="frame" x="36" y="454" width="247" height="56"/>
                                         <state key="normal" image="button"/>
@@ -495,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mor-7h-2bP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2629" y="31"/>
+            <point key="canvasLocation" x="2965" y="-213"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9dG-7Y-HAQ">
@@ -513,12 +519,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YA8-rP-AI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="652" y="31"/>
+            <point key="canvasLocation" x="1172" y="-997"/>
         </scene>
     </scenes>
     <resources>
         <image name="addUsersIcon" width="50" height="50"/>
         <image name="button" width="591" height="131"/>
         <image name="mafia logo" width="463" height="463"/>
+        <image name="mafiaBacksplash" width="240" height="250"/>
     </resources>
 </document>
