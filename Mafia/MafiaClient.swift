@@ -11,6 +11,11 @@ import UIKit
 class MafiaClient: NSObject {
     let BASE_URL = "http://eactiv.com/mafia"
     
+    var token: String?
+    var player: Player?
+    
+    static var instance = MafiaClient()
+    
     // TODO: handle errors
     // TODO: get rid of force casts
     
@@ -19,12 +24,19 @@ class MafiaClient: NSObject {
       Calls completion with the new game's token.
      */
     func createGame(completion: Game -> Void) {
+        if token != nil {
+            NSLog("Already connected to game \(token), but trying to create a new game.")
+        }
+        
         sendRequest(BASE_URL + "/games", method: "POST") {
             (data, response, error) -> Void in
             
             if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                 data!, options:[]) as? NSDictionary {
-                    completion(Game(fromResponse: responseDictionary))
+                    
+                    let newGame = Game(fromResponse: responseDictionary)
+                    self.token = newGame.token
+                    completion(newGame)
             }
         }
     }
@@ -33,12 +45,18 @@ class MafiaClient: NSObject {
      POST /games
      Calls completion with the new game's token.
      */
-    func joinGame(token: String, completion: Player -> Void) {
+    func joinGame(joinToken: String, completion: Player -> Void) {
+        if token != nil {
+            NSLog("Already connected to game \(token), but trying to join a new game.")
+        }
+        
         sendRequest(BASE_URL + "/games/\(token)/users", method: "POST") {
             (data, response, error) -> Void in
             
             if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                 data!, options:[]) as? NSDictionary {
+                    
+                    self.token = joinToken
                     completion(Player(fromResponse: responseDictionary))
             }
         }
@@ -48,13 +66,15 @@ class MafiaClient: NSObject {
      GET /games/:token
      Calls completion with the new game's token.
      */
-    func pollGameStatus(token: String, completion: Game -> Void) {
-        sendRequest(BASE_URL + "/games/\(token)", method: "GET") {
-            (data, response, error) -> Void in
-            
-            if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                data!, options:[]) as? NSDictionary {
-                    completion(Game(fromResponse: responseDictionary))
+    func pollGameStatus(completion: Game -> Void) {
+        if let token = token {
+            sendRequest(BASE_URL + "/games/\(token)", method: "GET") {
+                (data, response, error) -> Void in
+                
+                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                    data!, options:[]) as? NSDictionary {
+                        completion(Game(fromResponse: responseDictionary))
+                }
             }
         }
 
@@ -64,32 +84,35 @@ class MafiaClient: NSObject {
      PATCH /games/:token
      Calls completion with the new game's token.
      */
-    func changeGameStatus(token: String, newStatus: String, completion: Game -> Void) {
-        sendRequest(BASE_URL + "/games/\(token)", method: "PATCH") {
-            (data, response, error) -> Void in
-            
-            if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                data!, options:[]) as? NSDictionary {
-                    completion(Game(fromResponse: responseDictionary))
+    func changeGameStatus(newStatus: String, completion: Game -> Void) {
+        if let token = token {
+            sendRequest(BASE_URL + "/games/\(token)", method: "PATCH") {
+                (data, response, error) -> Void in
+                
+                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                    data!, options:[]) as? NSDictionary {
+                        completion(Game(fromResponse: responseDictionary))
+                }
             }
         }
-
     }
     
     /**
      GET /games/:token/events
      Calls completion with the new game's token.
      */
-    func getGameEvents(token: String, completion :[Event] -> Void) {
-        sendRequest(BASE_URL + "/games/\(token)/events", method: "GET") {
-            (data, response, error) -> Void in
-            
-            if let eventResponses = try! NSJSONSerialization.JSONObjectWithData(
-                data!, options:[]) as? NSArray {
-                    let events = eventResponses.map { (eventResponse) -> Event in
-                        Event(fromResponse: eventResponse)
-                    }
-                    completion(events)
+    func getGameEvents(completion :[Event] -> Void) {
+        if let token = token {
+            sendRequest(BASE_URL + "/games/\(token)/events", method: "GET") {
+                (data, response, error) -> Void in
+                
+                if let eventResponses = try! NSJSONSerialization.JSONObjectWithData(
+                    data!, options:[]) as? NSArray {
+                        let events = eventResponses.map { (eventResponse) -> Event in
+                            Event(fromResponse: eventResponse)
+                        }
+                        completion(events)
+                }
             }
         }
     }
@@ -98,14 +121,16 @@ class MafiaClient: NSObject {
      POST /games/:token/events
      Calls completion with the new game's token.
      */
-    func addGameEvent(token: String, completion: Event -> Void) {
-        sendRequest(BASE_URL + "/games/\(token)/events", method: "POST") {
-            (data, response, error) -> Void in
-            // TODO: return whether joining succeeded
-            
-            if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                data!, options:[]) as? NSDictionary {
-                    completion(Event(fromResponse: responseDictionary))
+    func addGameEvent(completion: Event -> Void) {
+        if let token = token {
+            sendRequest(BASE_URL + "/games/\(token)/events", method: "POST") {
+                (data, response, error) -> Void in
+                // TODO: return whether joining succeeded
+                
+                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                    data!, options:[]) as? NSDictionary {
+                        completion(Event(fromResponse: responseDictionary))
+                }
             }
         }
     }

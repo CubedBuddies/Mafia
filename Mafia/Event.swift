@@ -11,7 +11,11 @@ import UIKit
 class Event: NSObject {
     
     var id: Int = 0
-    var name: String = ""
+    var name: EventType!
+    
+    var sourceId: Int = 0
+    var sourceType: String = ""
+    
     var targetId: Int = 0
     var targetType: String = ""
     
@@ -22,12 +26,32 @@ class Event: NSObject {
         
         let data = response as! NSDictionary
         id = data["id"] as! Int
-        name = data["id"] as! String
+        
+        name = EventType.fromRawString(data["id"] as! String)
         targetId = data["id"] as! Int
         targetType = data["id"] as! String
         
         createdAt = data["id"] as! Int
         updatedAt = data["id"] as! Int
         
+    }
+}
+
+enum EventType {
+    case LYNCH, UNLYNCH, KILL, UNKILL, VOTE, UNVOTE
+    
+    static func fromRawString(rawString: String) -> EventType? {
+        switch rawString {
+        case "LYNCH":
+            return .LYNCH
+        case "UNLYNCH":
+            return .UNLYNCH
+        case "KILL":
+            return .KILL
+        case "UNKILL":
+            return .UNKILL
+        default:
+            return nil
+        }
     }
 }

@@ -25,6 +25,9 @@
 		72C7D7DA1C88AE2300B26CDD /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7D91C88AE2300B26CDD /* Game.swift */; };
 		72C7D7DC1C88AE3900B26CDD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7DB1C88AE3900B26CDD /* Event.swift */; };
 		72C7D7E01C88B93200B26CDD /* MafiaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7DF1C88B93200B26CDD /* MafiaClient.swift */; };
+		72F37DCF1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */; };
+		72F37DD11C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */; };
+		72F37DD31C8ACDA800DF2B78 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DD21C8ACDA800DF2B78 /* PlayerState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		72C7D7D91C88AE2300B26CDD /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		72C7D7DB1C88AE3900B26CDD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		72C7D7DF1C88B93200B26CDD /* MafiaClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MafiaClient.swift; sourceTree = "<group>"; };
+		72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersCollectionViewCell.swift; sourceTree = "<group>"; };
+		72F37DD21C8ACDA800DF2B78 /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mafia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,6 +138,8 @@
 		723AD9171C8568C10072849E /* Mafia */ = {
 			isa = PBXGroup;
 			children = (
+				72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */,
+				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 				72C7D7DE1C88B91500B26CDD /* API */,
 				72C7D7DD1C88AE9600B26CDD /* Models */,
 				728BA8481C857E0400630365 /* View Controllers */,
@@ -182,6 +190,7 @@
 				72C7D7D71C88AE1300B26CDD /* Player.swift */,
 				72C7D7DB1C88AE3900B26CDD /* Event.swift */,
 				72C7D7D91C88AE2300B26CDD /* Game.swift */,
+				72F37DD21C8ACDA800DF2B78 /* PlayerState.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -395,8 +404,11 @@
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
 				728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */,
 				72C7D7E01C88B93200B26CDD /* MafiaClient.swift in Sources */,
+				72F37DD31C8ACDA800DF2B78 /* PlayerState.swift in Sources */,
 				728BA84A1C857E6600630365 /* PlayerCellTableViewCell.swift in Sources */,
+				72F37DCF1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift in Sources */,
 				53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */,
+				72F37DD11C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
