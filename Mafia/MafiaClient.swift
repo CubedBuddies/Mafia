@@ -62,6 +62,7 @@ class MafiaClient: NSObject {
         }
     }
     
+    
     /**
      GET /games/:token
      Calls completion with the new game's token.

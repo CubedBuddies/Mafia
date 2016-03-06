@@ -1,15 +1,16 @@
 //
-//  PlayerCellTableViewCell.swift
+//  PlayerTableViewCell.swift
 //  Mafia
 //
-//  Created by Charles Yeh on 2/29/16.
+//  Created by Priscilla Lok on 3/6/16.
 //  Copyright © 2016 CubedBuddies. All rights reserved.
 //
 
 import UIKit
 
-class PlayerCellTableViewCell: UITableViewCell {
+class PlayerTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var playerNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
