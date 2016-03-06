@@ -16,6 +16,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startGameButton: UIButton!
     
+    var refreshTimer = NSTimer()
+    var players: [Player]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,21 +27,37 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.delegate = self
         tableView.dataSource = self
-
-        // Do any additional setup after loading the view.
+        
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
+        
     }
 
     @IBAction func onStartGameClick(sender: AnyObject) {
         MafiaClient.instance.changeGameStatus("Active") { (game: Game) -> Void in
             self.game = game
+            self.refreshTimer.invalidate()
+            
         }
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    //MARK: Private Methods
+    func refreshPlayers() {
+        MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
+            self.players = game.players
+            self.tableView.reloadData()
+        }
+    }
+    
+    //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
-        let player = game?.players[indexPath.row]
-        cell.playerNameLabel.text = player?.name
+        let player = players![indexPath.row]
+        cell.playerNameLabel.text = player.name
         
         return cell
     }
@@ -51,11 +69,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             return (game?.players.count)!
         }
         
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
