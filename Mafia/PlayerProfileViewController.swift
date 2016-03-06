@@ -92,6 +92,9 @@ class PlayerProfileViewController: UIViewController {
             Game.currentGame = game
             Player.currentPlayer = self.currPlayer
         }
+        
+        self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
+        
     }
 
     /*
