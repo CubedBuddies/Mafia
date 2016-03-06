@@ -7,27 +7,77 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PlayerProfileViewController: UIViewController {
 
-    @IBOutlet weak var avatarImageView: UIImageView!
+//    @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var playerNameTextField: UITextField!
-    @IBOutlet weak var isNewGameSwitch: UISwitch!
     @IBOutlet weak var codeLabel: UILabel!
     
+    let captureSession = AVCaptureSession()
+    var previewLayer : AVCaptureVideoPreviewLayer?
+    // If we find a device we'll store it here for later use
+    var captureDevice : AVCaptureDevice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        captureSession.sessionPreset = AVCaptureSessionPresetLow
+        let devices = AVCaptureDevice.devices()
+        print(devices)
+        print("hello")
+        
+        // Loop through all the capture devices on this phone
+        for device in devices {
+            // Make sure this particular device supports video
+            if (device.hasMediaType(AVMediaTypeVideo)) {
+                // Finally check the position and confirm we've got the back camera
+                if(device.position == AVCaptureDevicePosition.Back) {
+                    captureDevice = device as? AVCaptureDevice
+                }
+            }
+        }
+        if captureDevice != nil {
+            beginSession()
+        }
     }
 
+    func beginSession() {
+        configureDevice()
+        
+        do {
+            try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
+        }
+        catch let error as NSError {
+            print("error: \(error.localizedDescription)")
+        }
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.view.layer.addSublayer(previewLayer!)
+        previewLayer?.frame = self.view.layer.frame
+        captureSession.startRunning()
+    }
+    
+    func configureDevice() {
+        if let device = captureDevice {
+            do {
+                try device.lockForConfiguration()
+            }
+            catch let error as NSError {
+                print("error: \(error.localizedDescription)")
+            }
+            device.focusMode = .Locked
+            device.unlockForConfiguration()
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onSubmitClick(sender: AnyObject) {
+   
+    @IBAction func onNextButtonClick(sender: AnyObject) {
     }
 
     /*
