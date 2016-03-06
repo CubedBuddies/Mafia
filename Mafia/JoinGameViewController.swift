@@ -10,25 +10,24 @@ import UIKit
 
 class JoinGameViewController: UIViewController {
     
-    @IBOutlet weak var avatarImageView: NSLayoutConstraint!
+//    @IBOutlet weak var avatarImageView: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UITextField!
-    @IBOutlet weak var tokenLabel: UITextField!
-
+    @IBOutlet weak var gameCodeLabel: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
-    @IBAction func onJoinGameClick(sender: AnyObject) {
-        
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onNextButtonClick(sender: AnyObject) {
+    }
 
     /*
     // MARK: - Navigation
