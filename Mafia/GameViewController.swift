@@ -38,6 +38,8 @@ class GameViewController: UIViewController {
         updateTimer = NSTimer(timeInterval: 0.5, target: self, selector: "update", userInfo: nil, repeats: true)
         
         let playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
+        playersCollectionView.registerClass(PlayersCollectionViewCell.self, forCellWithReuseIdentifier: "playerCell")
+        
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
     }

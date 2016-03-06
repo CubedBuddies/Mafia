@@ -25,12 +25,16 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TODO", forIndexPath: indexPath) as! PlayersCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("playerCell", forIndexPath: indexPath) as! PlayersCollectionViewCell
         
         if let player = playerStates?[indexPath.row] {
             // TODO: get avatar
             cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
+            cell.nameLabel.text = player.name
+            
             cell.voteLabel.text = "\(player.currentVotes)"
+            cell.mafiaLabel.text = "\(player.killVotes)"
+            
             cell.tag = indexPath.row
         }
         
