@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
@@ -22,6 +20,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdh-8R-vhM">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="board_black_line_texture_background_wood_55220_2560x1600" translatesAutoresizingMaskIntoConstraints="NO" id="SqI-0l-UPB">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MafiaHomeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="TT0-gm-AVY">
                                         <rect key="frame" x="76" y="37" width="155" height="308"/>
                                     </imageView>
@@ -100,7 +101,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RV-1V-bJ4">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0RV-1V-bJ4">
                                         <rect key="frame" x="97" y="222" width="126" height="28"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -109,12 +110,6 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="992-IV-bgP">
                                         <rect key="frame" x="111" y="96" width="99" height="99"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGQ-x7-93a">
-                                        <rect key="frame" x="94" y="330" width="133" height="26"/>
-                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Obtain code from game leader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wua-n8-LQ7">
                                         <rect key="frame" x="22" y="425" width="276" height="22"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
@@ -130,6 +125,12 @@
                                             <segue destination="xMK-i1-fYz" kind="push" id="3bM-gX-wRq"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGQ-x7-93a">
+                                        <rect key="frame" x="94" y="330" width="133" height="26"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.01176470588" green="0.054901960780000002" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -272,7 +273,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="userCell" id="HpP-vp-f6F">
-                                        <rect key="frame" x="52" y="64" width="185" height="35"/>
+                                        <rect key="frame" x="51.5" y="64" width="185" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="185" height="35"/>
@@ -302,7 +303,6 @@
                                         <state key="normal" image="button"/>
                                         <connections>
                                             <action selector="onStartGameClick:" destination="xMK-i1-fYz" eventType="touchUpInside" id="ERP-v4-9EV"/>
-                                            <segue destination="dkj-Xf-Wf8" kind="modal" modalTransitionStyle="flipHorizontal" id="CaW-6K-Ks9"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="187592" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DS-FU-0dh">
@@ -359,124 +359,6 @@
             </objects>
             <point key="canvasLocation" x="1773" y="111"/>
         </scene>
-        <!--Game View Controller-->
-        <scene sceneID="jCG-EN-ic2">
-            <objects>
-                <viewController id="Fev-t6-kij" customClass="GameViewController" customModule="Mafia" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bi2-IO-Nv1"/>
-                        <viewControllerLayoutGuide type="bottom" id="JYb-C0-jAf"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9du-yS-AKI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view alpha="0.85000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RW3-X8-935">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Charles Yeh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBj-54-nVZ">
-                                        <rect key="frame" x="103" y="188" width="114" height="21"/>
-                                        <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PB9-Ld-3ch">
-                                        <rect key="frame" x="110" y="80" width="100" height="100"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Left" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgs-0r-Fy4">
-                                        <rect key="frame" x="257" y="80" width="55" height="16"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7f-7A-5bb">
-                                        <rect key="frame" x="279" y="97" width="33" height="16"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap to Vote" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeV-aR-zO8">
-                                        <rect key="frame" x="118" y="225" width="85" height="19"/>
-                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SHd-4Q-3DQ">
-                                <rect key="frame" x="20" y="249" width="280" height="299"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BWe-be-mi8">
-                                    <size key="itemSize" width="109" height="109"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="userCell" id="f9o-yA-8wY">
-                                        <rect key="frame" x="0.0" y="0.0" width="109" height="109"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="109" height="109"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7wh-hz-paD">
-                                                    <rect key="frame" x="14" y="0.0" width="80" height="80"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="1RC-bL-O1g"/>
-                                                        <constraint firstAttribute="width" secondItem="7wh-hz-paD" secondAttribute="height" multiplier="1:1" id="snT-eg-ZSq"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priscilla Lok" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8TQ-TU-YzR">
-                                                    <rect key="frame" x="9" y="80" width="91" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phd-Uu-yY4">
-                                                    <rect key="frame" x="83" y="0.0" width="11" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="bottomMargin" secondItem="8TQ-TU-YzR" secondAttribute="bottom" id="LSQ-l4-ioy"/>
-                                            <constraint firstItem="7wh-hz-paD" firstAttribute="top" secondItem="f9o-yA-8wY" secondAttribute="topMargin" constant="-8" id="Xnc-Wf-lvT"/>
-                                            <constraint firstItem="Phd-Uu-yY4" firstAttribute="trailing" secondItem="7wh-hz-paD" secondAttribute="trailing" id="g2b-SQ-vka"/>
-                                            <constraint firstItem="7wh-hz-paD" firstAttribute="centerX" secondItem="f9o-yA-8wY" secondAttribute="centerX" id="naK-ch-adu"/>
-                                            <constraint firstItem="8TQ-TU-YzR" firstAttribute="centerX" secondItem="f9o-yA-8wY" secondAttribute="centerX" id="njj-UY-G0K"/>
-                                            <constraint firstItem="Phd-Uu-yY4" firstAttribute="top" secondItem="7wh-hz-paD" secondAttribute="top" id="wAz-ee-EBQ"/>
-                                        </constraints>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="30s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xl5-Y2-klo">
-                                <rect key="frame" x="514" y="28" width="66" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="vm2-Ck-sfu"/>
-                    <connections>
-                        <outlet property="actionLabel" destination="DeV-aR-zO8" id="wsm-a1-WPU"/>
-                        <outlet property="avatarImageView" destination="PB9-Ld-3ch" id="Tco-rm-hFC"/>
-                        <outlet property="nameLabel" destination="GBj-54-nVZ" id="eZ7-DW-Aqa"/>
-                        <outlet property="playersCollectionView" destination="SHd-4Q-3DQ" id="KkB-XY-QqJ"/>
-                        <outlet property="timerLabel" destination="R7f-7A-5bb" id="5ls-ae-gYg"/>
-                        <segue destination="Nld-9P-le2" kind="push" id="0vP-nm-a2c"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MpK-tt-8vi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3187" y="111"/>
-        </scene>
         <!--Results View Controller-->
         <scene sceneID="qpg-YV-ugy">
             <objects>
@@ -530,7 +412,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mor-7h-2bP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3660" y="111"/>
+            <point key="canvasLocation" x="2260" y="111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9dG-7Y-HAQ">
@@ -573,28 +455,11 @@
             </objects>
             <point key="canvasLocation" x="672" y="442"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Sa4-fU-LJX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dkj-Xf-Wf8" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FHM-CI-5Bl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Fev-t6-kij" kind="relationship" relationship="rootViewController" id="Jgx-FJ-vDp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8nd-sH-3p2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2655" y="111"/>
-        </scene>
     </scenes>
     <resources>
         <image name="MafiaHomeIcon" width="293" height="631"/>
         <image name="addUsersIcon" width="50" height="50"/>
+        <image name="board_black_line_texture_background_wood_55220_2560x1600" width="2560" height="1600"/>
         <image name="button" width="591" height="131"/>
         <image name="home" width="25" height="25"/>
         <image name="mafiaBacksplash" width="240" height="250"/>
