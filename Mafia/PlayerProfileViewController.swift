@@ -9,76 +9,55 @@
 import UIKit
 import AVFoundation
 
-class PlayerProfileViewController: UIViewController {
+class PlayerProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
 
-//    @IBOutlet weak var avatarImageView: UIImageView!
-    
+
+
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var avatarImageButton: UIButton!
     @IBOutlet weak var playerNameTextField: UITextField!
     var currPlayer: Player?
-
-    
-    //picture taking for avatar variables
-    let captureSession = AVCaptureSession()
-    var previewLayer : AVCaptureVideoPreviewLayer?
-    // If we find a device we'll store it here for later use
-    var captureDevice : AVCaptureDevice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        captureSession.sessionPreset = AVCaptureSessionPresetLow
-//        let devices = AVCaptureDevice.devices()
-//        print(devices)
-//        print("hello")
-//        
-//        // Loop through all the capture devices on this phone
-//        for device in devices {
-//            // Make sure this particular device supports video
-//            if (device.hasMediaType(AVMediaTypeVideo)) {
-//                // Finally check the position and confirm we've got the back camera
-//                if(device.position == AVCaptureDevicePosition.Back) {
-//                    captureDevice = device as? AVCaptureDevice
-//                }
-//            }
-//        }
-//        if captureDevice != nil {
-//            beginSession()
-//        }
     }
-//
-//    func beginSession() {
-//        configureDevice()
-//        
-//        do {
-//            try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
-//        }
-//        catch let error as NSError {
-//            print("error: \(error.localizedDescription)")
-//        }
-//        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//        self.view.layer.addSublayer(previewLayer!)
-//        previewLayer?.frame = self.view.layer.frame
-//        captureSession.startRunning()
-//    }
-//    
-//    func configureDevice() {
-//        if let device = captureDevice {
-//            do {
-//                try device.lockForConfiguration()
-//            }
-//            catch let error as NSError {
-//                print("error: \(error.localizedDescription)")
-//            }
-//            device.focusMode = .Locked
-//            device.unlockForConfiguration()
-//        }
-//        
-//    }
     
+    //MARK: Configure Camera
+    @IBAction func onAvatarButtonClick(sender: AnyObject) {
+        let imageFromSource = UIImagePickerController()
+        imageFromSource.delegate = self
+        imageFromSource.allowsEditing = false
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
+        } else {
+            imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }
+        self.presentViewController(imageFromSource, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        avatarImageView.image = temp
+        avatarImageView.layer.cornerRadius = 30
+        avatarImageView.clipsToBounds = true
+        avatarImageView.contentMode = .ScaleAspectFill
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
+
+    //MARK: Private Methods
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        print("hello")
+        textField.font = UIFont(name: "Avenir", size: 26)
     }
     
     
@@ -97,6 +76,10 @@ class PlayerProfileViewController: UIViewController {
         
     }
 
+    @IBAction func onHomeButtonClicked(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
