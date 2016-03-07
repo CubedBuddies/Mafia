@@ -49,21 +49,21 @@ class GameViewController: UIViewController {
         updateTimer = nil
     }
     
-    func update() {
-        // TODO: fetch events,
-        MafiaClient.instance.getGameEvents { (events: [Event]) in
-            let sortedEvents = events.sort { (event1: Event, event2: Event) in
-                return event1.id < event2.id
-            }
-            
-            for event in sortedEvents {
-                if self.lastEventOffset <= event.id {
-                    self.lastEventOffset = event.id
-                    self.playEvent(event)
-                }
-            }
-        }
-    }
+//    func update() {
+//        // TODO: fetch events,
+//        MafiaClient.instance.getGameEvents { (events: [Event]) in
+//            let sortedEvents = events.sort { (event1: Event, event2: Event) in
+//                return event1.id < event2.id
+//            }
+//            
+//            for event in sortedEvents {
+//                if self.lastEventOffset <= event.id {
+//                    self.lastEventOffset = event.id
+//                    self.playEvent(event)
+//                }
+//            }
+//        }
+//    }
     
     func playEvent(event: Event) {
         let sourcePlayer = playerStatesMap[event.sourceId]

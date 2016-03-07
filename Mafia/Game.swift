@@ -29,7 +29,7 @@ class Game: NSObject {
         id = data["id"] as! Int
         token = data["token"] as! String
         status = data["status"] as! String
-        players = (data["player"] as! NSArray).map { (playerResponse) -> Player in
+        players = (data["players"] as! NSArray).map { (playerResponse) -> Player in
             Player(fromResponse: playerResponse)
         }
         

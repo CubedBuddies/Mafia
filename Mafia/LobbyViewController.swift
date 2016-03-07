@@ -33,12 +33,10 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     @IBAction func onStartGameClick(sender: AnyObject) {
-        MafiaClient.instance.changeGameStatus("Active") { (game: Game) -> Void in
+        MafiaClient.instance.startGame("Active") { (game: Game) -> Void in
             self.game = game
             self.refreshTimer.invalidate()
-            
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

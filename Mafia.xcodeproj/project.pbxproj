@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		190443E1485D2FFEF59F3AE5 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */; };
-		53F21EE81C877A3100163802 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* PlayerProfileViewController.swift */; };
+		53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* CreateGameViewController.swift */; };
 		53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE91C877AE500163802 /* ResultsViewController.swift */; };
 		53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */; };
 		723AD9191C8568C10072849E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD9181C8568C10072849E /* AppDelegate.swift */; };
@@ -21,7 +21,6 @@
 		728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8421C857C4500630365 /* JoinGameViewController.swift */; };
 		728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8441C857C4D00630365 /* LobbyViewController.swift */; };
 		728BA8471C857C5400630365 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8461C857C5400630365 /* GameViewController.swift */; };
-		728BA84A1C857E6600630365 /* PlayerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */; };
 		72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */; };
 		72B4C5111C8C075D000E8DC9 /* PlayersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */; };
 		72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7D71C88AE1300B26CDD /* Player.swift */; };
@@ -31,6 +30,7 @@
 		72F37DCF1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */; };
 		72F37DD11C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */; };
 		72F37DD31C8ACDA800DF2B78 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F37DD21C8ACDA800DF2B78 /* PlayerState.swift */; };
+		7F8991A446739C1C6021EDED /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B977045B0454C4E21E7B8C6 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,8 @@
 /* Begin PBXFileReference section */
 		069F015EFBBC401E98FDA902 /* Pods-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
 		1412AB255EFD31CCB9358A65 /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
-		53F21EE71C877A3100163802 /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
+		4B977045B0454C4E21E7B8C6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F21EE71C877A3100163802 /* CreateGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameViewController.swift; sourceTree = "<group>"; };
 		53F21EE91C877AE500163802 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		723AD9151C8568C10072849E /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +73,6 @@
 		728BA8421C857C4500630365 /* JoinGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinGameViewController.swift; sourceTree = "<group>"; };
 		728BA8441C857C4D00630365 /* LobbyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		728BA8461C857C5400630365 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCellTableViewCell.swift; sourceTree = "<group>"; };
 		72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersCollectionViewCell.xib; sourceTree = "<group>"; };
 		72C7D7D71C88AE1300B26CDD /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -91,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				190443E1485D2FFEF59F3AE5 /* Pods_Mafia.framework in Frameworks */,
+				7F8991A446739C1C6021EDED /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */,
+				4B977045B0454C4E21E7B8C6 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,8 +124,6 @@
 		53F21EF11C8C315E00163802 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */,
-				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 				53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */,
 			);
 			name = Views;
@@ -195,7 +195,7 @@
 				728BA83E1C857C3200630365 /* HomeViewController.swift */,
 				728BA8421C857C4500630365 /* JoinGameViewController.swift */,
 				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
-				53F21EE71C877A3100163802 /* PlayerProfileViewController.swift */,
+				53F21EE71C877A3100163802 /* CreateGameViewController.swift */,
 				53F21EE91C877AE500163802 /* ResultsViewController.swift */,
 			);
 			name = "View Controllers";
@@ -397,7 +397,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mafia/Pods-Mafia-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A97F39DBC62E169ADCF763B1 /* Embed Pods Frameworks */ = {
@@ -412,7 +412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mafia/Pods-Mafia-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -428,7 +428,7 @@
 				72C7D7DC1C88AE3900B26CDD /* Event.swift in Sources */,
 				53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */,
 				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
-				53F21EE81C877A3100163802 /* PlayerProfileViewController.swift in Sources */,
+				53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */,
 				72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */,
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
 				728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */,

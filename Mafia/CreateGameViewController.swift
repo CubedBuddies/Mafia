@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class PlayerProfileViewController: UIViewController {
+class CreateGameViewController: UIViewController {
 
 //    @IBOutlet weak var avatarImageView: UIImageView!
     
@@ -18,10 +18,10 @@ class PlayerProfileViewController: UIViewController {
 
     
     //picture taking for avatar variables
-    let captureSession = AVCaptureSession()
-    var previewLayer : AVCaptureVideoPreviewLayer?
-    // If we find a device we'll store it here for later use
-    var captureDevice : AVCaptureDevice?
+//    let captureSession = AVCaptureSession()
+//    var previewLayer : AVCaptureVideoPreviewLayer?
+//    // If we find a device we'll store it here for later use
+//    var captureDevice : AVCaptureDevice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,18 +83,12 @@ class PlayerProfileViewController: UIViewController {
     
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        MafiaClient.instance.createGame { (game: Game) -> Void in
-            self.currPlayer?.isGameCreator = true
-            
-            self.currPlayer?.name = self.playerNameTextField.text!
-            game.players.append(self.currPlayer!)
-            
-            Game.currentGame = game
-            Player.currentPlayer = self.currPlayer
-        }
+        MafiaClient.instance.createGame()
+//            { (game: Game) -> Void in
+//            Game.currentGame = game
+//        }
         
         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
-        
     }
 
     /*

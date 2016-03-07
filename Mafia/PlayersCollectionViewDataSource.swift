@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AFNetworking
 
 class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -29,7 +28,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         
         if let player = playerStates?[indexPath.row] {
             // TODO: get avatar
-            cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
+//            cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
             cell.nameLabel.text = player.name
             
             cell.voteLabel.text = "\(player.currentVotes)"
