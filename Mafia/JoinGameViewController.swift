@@ -8,19 +8,42 @@
 
 import UIKit
 
-class JoinGameViewController: UIViewController {
+class JoinGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
 //    @IBOutlet weak var avatarImageView: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var gameCodeLabel: UITextField!
+    @IBOutlet weak var avatarImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        nameLabel.becomeFirstResponder()
 
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func onAvatarButtonClick(sender: AnyObject) {
+        let imageFromSource = UIImagePickerController()
+        imageFromSource.delegate = self
+        imageFromSource.allowsEditing = false
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
+        } else {
+            imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }
+        self.presentViewController(imageFromSource, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        avatarImageView.image = temp
+        avatarImageView.layer.cornerRadius = 30
+        avatarImageView.clipsToBounds = true
+        avatarImageView.contentMode = .ScaleAspectFill
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,6 +56,9 @@ class JoinGameViewController: UIViewController {
         }
     }
 
+    @IBAction func onHomeButtonClicked(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

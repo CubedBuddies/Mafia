@@ -21,7 +21,6 @@
 		728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8421C857C4500630365 /* JoinGameViewController.swift */; };
 		728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8441C857C4D00630365 /* LobbyViewController.swift */; };
 		728BA8471C857C5400630365 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8461C857C5400630365 /* GameViewController.swift */; };
-		728BA84A1C857E6600630365 /* PlayerCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */; };
 		72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */; };
 		72B4C5111C8C075D000E8DC9 /* PlayersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */; };
 		72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7D71C88AE1300B26CDD /* Player.swift */; };
@@ -72,7 +71,6 @@
 		728BA8421C857C4500630365 /* JoinGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinGameViewController.swift; sourceTree = "<group>"; };
 		728BA8441C857C4D00630365 /* LobbyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		728BA8461C857C5400630365 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		728BA8491C857E6600630365 /* PlayerCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCellTableViewCell.swift; sourceTree = "<group>"; };
 		72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersCollectionViewCell.xib; sourceTree = "<group>"; };
 		72C7D7D71C88AE1300B26CDD /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -122,8 +120,6 @@
 		53F21EF11C8C315E00163802 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */,
-				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 				53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */,
 			);
 			name = Views;
@@ -309,6 +305,7 @@
 				TargetAttributes = {
 					723AD9141C8568C10072849E = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = Q8HLJ5YRH4;
 					};
 					723AD9281C8568C20072849E = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -579,10 +576,13 @@
 			baseConfigurationReference = 069F015EFBBC401E98FDA902 /* Pods-Mafia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Mafia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CubedBuddies.Mafia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -591,10 +591,13 @@
 			baseConfigurationReference = 1412AB255EFD31CCB9358A65 /* Pods-Mafia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Mafia/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CubedBuddies.Mafia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
