@@ -19,7 +19,6 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return playerStates?.count ?? 0
     }
     
@@ -30,7 +29,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         if let player = playerStates?[indexPath.row] {
             // TODO: get avatar
             //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
-            //cell.nameLabel.text = player.name
+            cell.nameLabel.text = player.name
             /*
             cell.voteLabel.text = "\(player.currentVotes)"
             cell.mafiaLabel.text = "\(player.killVotes)"

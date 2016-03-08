@@ -30,3 +30,6 @@ The following functionality are **stretch**:
 - [ ] Messaging (whisper + all-chat)
 - [ ] Bounties
 - [ ] Voice
+
+The core-flow walkthrough is as shown: <br />
+<img src='coreflow.gif' />

@@ -19,7 +19,14 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
+        tapper.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapper);
+    }
+    
+    func dismissKeyboardOnTap() {
+        playerNameTextField.endEditing(true)
     }
     
     //MARK: Configure Camera
@@ -62,11 +69,11 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
         MafiaClient.instance.createGame { (game: Game) -> Void in
-            Game.currentGame = game
-            MafiaClient.instance.joinGame(game.token, playerName: self.playerNameTextField.text!, avatarType: "asian", completion: { (player: Player) -> Void in
+            MafiaClient.instance.joinGame(game.token, playerName: self.playerNameTextField.text!, avatarType: "asian") { (player: Player) -> Void in
                 Player.currentPlayer = player
                 Player.currentPlayer?.isGameCreator = true
-            })
+                
+            }
         }
         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
         

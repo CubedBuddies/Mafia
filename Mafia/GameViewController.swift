@@ -37,13 +37,15 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
-        playersCollectionView.registerClass(PlayersCollectionViewCell.self, forCellWithReuseIdentifier: "playerCell")
+        playersCollectionView.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
         
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
+        
+        update()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -53,8 +55,10 @@ class GameViewController: UIViewController {
     
     func update() {
         MafiaClient.instance.pollGameStatus { (game: Game) in
-            self.playersDataSource?.playerStates = game.players
-            self.playersCollectionView.reloadData()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.playersDataSource?.playerStates = game.players
+                self.playersCollectionView.reloadData()
+            }
         }
     }
     

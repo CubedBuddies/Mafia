@@ -14,6 +14,34 @@ class MafiaClient: NSObject {
     var token: String?
     var player: Player?
     
+    var _game: Game?
+    var game: Game? {
+        get {
+            if _game == nil {
+                let defaults = NSUserDefaults.standardUserDefaults()
+                let gameData = defaults.objectForKey("currentGameData") as? NSData
+                if let gameData = gameData {
+                let dictionary = try! NSJSONSerialization.JSONObjectWithData(gameData, options: []) as! NSDictionary
+                _game = Game(fromResponse: dictionary)
+                }
+            }
+            return _game
+        }
+        set(game) {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let game = game {
+                let data = try! NSJSONSerialization.dataWithJSONObject((game.dictionary)!, options: [])
+                defaults.setObject(data, forKey: "currentGameData")
+                
+            } else {
+                defaults.setObject(nil, forKey: "currentGameData")
+            }
+            defaults.synchronize()
+            
+            _game = game
+        }
+    }
+    
     static var instance = MafiaClient()
     static var instances: [MafiaClient]?
     
@@ -36,6 +64,8 @@ class MafiaClient: NSObject {
                 data!, options:[]) as? NSDictionary {
                     
                     let newGame = Game(fromResponse: responseDictionary)
+                    self.game = newGame
+                    
                     completion(newGame)
             } else {
                 
@@ -77,7 +107,9 @@ class MafiaClient: NSObject {
                 
                 if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                     data!, options:[]) as? NSDictionary {
-                        completion(Game(fromResponse: responseDictionary))
+                        let newGame = Game(fromResponse: responseDictionary)
+                        self.game = newGame
+                        completion(newGame)
                 }
             }
         } else {
@@ -89,15 +121,12 @@ class MafiaClient: NSObject {
      PATCH /games/:token
      Calls completion with the new game's token.
      */
-    func changeGameStatus(newStatus: String, completion: Game -> Void) {
+    func startGame(completion: () -> Void) {
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)", method: "PATCH", data: nil) {
+            sendRequest(BASE_URL + "/games/\(token)/start", method: "POST", data: nil) {
                 (data, response, error) -> Void in
                 
-                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                    data!, options:[]) as? NSDictionary {
-                        completion(Game(fromResponse: responseDictionary))
-                }
+                completion()
             }
         }
     }
@@ -145,13 +174,13 @@ class MafiaClient: NSObject {
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         if let url = NSURL(string: url) {
-//            NSLog("Sending request to \(url)")
+            NSLog("Sending request to \(url)")
+            
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
             if let data = data {
-                print(try! NSJSONSerialization.JSONObjectWithData(try! NSJSONSerialization.dataWithJSONObject(data, options: []), options: []))
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(data, options: [])
             }
             

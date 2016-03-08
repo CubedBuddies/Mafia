@@ -10,14 +10,11 @@ import UIKit
 
 class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var game: Game?
-
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startGameButton: UIButton!
     
     var refreshTimer = NSTimer()
-    var players: [Player]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +22,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             startGameButton.hidden = true
         }
         
-        codeLabel.text = Game.currentGame?.token
-        
         tableView.delegate = self
         tableView.dataSource = self
-        players = Game.currentGame?.players
         tableView.reloadData()
         
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
@@ -37,12 +31,11 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     @IBAction func onStartGameClick(sender: AnyObject) {
-        MafiaClient.instance.changeGameStatus("Active") { (game: Game) -> Void in
-            self.game = game
+        MafiaClient.instance.startGame { Void in
+            // TODO
             self.refreshTimer.invalidate()
-            
+            self.presentViewController(GameViewController(), animated: true, completion: nil)
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,29 +46,24 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK: Private Methods
     func refreshPlayers() {
         MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
-            self.players = game.players
-            self.tableView.reloadData()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.codeLabel.text = MafiaClient.instance.game?.token
+                self.tableView.reloadData()
+            }
         }
     }
     
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
-        let player = players![indexPath.row]
-        print(player.name)
+        let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (Game.currentGame?.players.count)!
-//        if game?.players == nil {
-//            return 0
-//        } else {
-//            return (game?.players.count)!
-//        }
-        
+        return MafiaClient.instance.game?.players.count ?? 0
     }
     
 
