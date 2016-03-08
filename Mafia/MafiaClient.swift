@@ -146,7 +146,7 @@ class MafiaClient: NSObject {
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         if let url = NSURL(string: url) {
-            NSLog("Sending request to \(url)")
+//            NSLog("Sending request to \(url)")
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             

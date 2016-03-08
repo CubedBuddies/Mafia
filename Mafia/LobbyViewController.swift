@@ -25,8 +25,12 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             startGameButton.hidden = true
         }
         
+        codeLabel.text = Game.currentGame?.token
+        
         tableView.delegate = self
         tableView.dataSource = self
+        players = Game.currentGame?.players
+        tableView.reloadData()
         
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
         
@@ -45,10 +49,12 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     //MARK: Private Methods
     func refreshPlayers() {
         MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
             self.players = game.players
+            print(self.players)
             self.tableView.reloadData()
         }
     }
@@ -63,11 +69,14 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if game?.players == nil {
-            return 0
-        } else {
-            return (game?.players.count)!
-        }
+        
+        print (Game.currentGame?.players.count)
+        return (Game.currentGame?.players.count)!
+//        if game?.players == nil {
+//            return 0
+//        } else {
+//            return (game?.players.count)!
+//        }
         
     }
     
