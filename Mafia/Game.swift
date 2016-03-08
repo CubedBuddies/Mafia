@@ -43,15 +43,14 @@ class Game: NSObject {
     class var currentGame: Game? {
         get {
             if _currentGame == nil {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let gameData = defaults.objectForKey("currentGameData") as? NSData
-            if let gameData = gameData {
-                let dictionary = try! NSJSONSerialization.JSONObjectWithData(gameData, options: []) as! NSDictionary
-                _currentGame = Game(fromResponse: dictionary)
+                let defaults = NSUserDefaults.standardUserDefaults()
+                let gameData = defaults.objectForKey("currentGameData") as? NSData
+                if let gameData = gameData {
+                    let dictionary = try! NSJSONSerialization.JSONObjectWithData(gameData, options: []) as! NSDictionary
+                    _currentGame = Game(fromResponse: dictionary)
+                }
             }
-        }
-        return _currentGame
-        
+            return _currentGame
         }
         set(game) {
             let defaults = NSUserDefaults.standardUserDefaults()
@@ -64,6 +63,7 @@ class Game: NSObject {
             }
             defaults.synchronize()
             
+            _currentGame = game
         }
     }
 

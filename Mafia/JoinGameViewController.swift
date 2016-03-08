@@ -53,9 +53,6 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         MafiaClient.instance.joinGame(gameCodeLabel.text!, playerName: self.nameLabel.text!, avatarType: "asian") { (player: Player) -> Void in
             Player.currentPlayer = player
             Player.currentPlayer?.isGameCreator = false
-            MafiaClient.instance.pollGameStatus({ (game: Game) -> Void in
-                Game.currentGame = game
-            })
         }
     }
 

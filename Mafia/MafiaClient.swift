@@ -12,6 +12,7 @@ class MafiaClient: NSObject {
     let BASE_URL = "https://mafia-backend.herokuapp.com"
     
     var token: String?
+    var game: Game?
     var player: Player?
     
     static var instance = MafiaClient()
@@ -36,6 +37,8 @@ class MafiaClient: NSObject {
                 data!, options:[]) as? NSDictionary {
                     
                     let newGame = Game(fromResponse: responseDictionary)
+                    self.game = newGame
+                    
                     completion(newGame)
             } else {
                 
@@ -89,15 +92,12 @@ class MafiaClient: NSObject {
      PATCH /games/:token
      Calls completion with the new game's token.
      */
-    func changeGameStatus(newStatus: String, completion: Game -> Void) {
+    func startGame(completion: () -> Void) {
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)", method: "PATCH", data: nil) {
+            sendRequest(BASE_URL + "/games/\(token)/start", method: "POST", data: nil) {
                 (data, response, error) -> Void in
                 
-                if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                    data!, options:[]) as? NSDictionary {
-                        completion(Game(fromResponse: responseDictionary))
-                }
+                completion()
             }
         }
     }
@@ -145,7 +145,8 @@ class MafiaClient: NSObject {
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         if let url = NSURL(string: url) {
-//            NSLog("Sending request to \(url)")
+            NSLog("Sending request to \(url)")
+            
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")

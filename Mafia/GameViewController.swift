@@ -53,6 +53,7 @@ class GameViewController: UIViewController {
     
     func update() {
         MafiaClient.instance.pollGameStatus { (game: Game) in
+            print(game)
             self.playersDataSource?.playerStates = game.players
             self.playersCollectionView.reloadData()
         }
