@@ -47,21 +47,16 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func refreshPlayers() {
         MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
             dispatch_async(dispatch_get_main_queue()) {
-                self.loadedGame(game)
+                self.codeLabel.text = MafiaClient.instance.game?.token
                 self.tableView.reloadData()
             }
         }
     }
     
-    func loadedGame(game: Game) {
-        Game.currentGame = game
-        codeLabel.text = Game.currentGame?.token
-    }
-    
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
-        let player = Game.currentGame!.players[indexPath.row]
+        let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
         
         return cell
@@ -69,7 +64,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Game.currentGame?.players.count ?? 0
+        return MafiaClient.instance.game?.players.count ?? 0
     }
     
 

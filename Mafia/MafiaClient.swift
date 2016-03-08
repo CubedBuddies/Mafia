@@ -12,8 +12,35 @@ class MafiaClient: NSObject {
     let BASE_URL = "https://mafia-backend.herokuapp.com"
     
     var token: String?
-    var game: Game?
     var player: Player?
+    
+    var _game: Game?
+    var game: Game? {
+        get {
+            if _game == nil {
+                let defaults = NSUserDefaults.standardUserDefaults()
+                let gameData = defaults.objectForKey("currentGameData") as? NSData
+                if let gameData = gameData {
+                let dictionary = try! NSJSONSerialization.JSONObjectWithData(gameData, options: []) as! NSDictionary
+                _game = Game(fromResponse: dictionary)
+                }
+            }
+            return _game
+        }
+        set(game) {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let game = game {
+                let data = try! NSJSONSerialization.dataWithJSONObject((game.dictionary)!, options: [])
+                defaults.setObject(data, forKey: "currentGameData")
+                
+            } else {
+                defaults.setObject(nil, forKey: "currentGameData")
+            }
+            defaults.synchronize()
+            
+            _game = game
+        }
+    }
     
     static var instance = MafiaClient()
     static var instances: [MafiaClient]?
@@ -80,7 +107,9 @@ class MafiaClient: NSObject {
                 
                 if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                     data!, options:[]) as? NSDictionary {
-                        completion(Game(fromResponse: responseDictionary))
+                        let newGame = Game(fromResponse: responseDictionary)
+                        self.game = newGame
+                        completion(newGame)
                 }
             }
         } else {
