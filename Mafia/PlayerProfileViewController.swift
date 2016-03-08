@@ -16,7 +16,6 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var avatarImageButton: UIButton!
     @IBOutlet weak var playerNameTextField: UITextField!
-    var currPlayer: Player?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,15 +62,13 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
         MafiaClient.instance.createGame { (game: Game) -> Void in
-            self.currPlayer?.isGameCreator = true
-            
-            self.currPlayer?.name = self.playerNameTextField.text!
-            game.players.append(self.currPlayer!)
-            
             Game.currentGame = game
-            Player.currentPlayer = self.currPlayer
+            MafiaClient.instance.joinGame(game.token, completion: { (player: Player) -> Void in
+                Player.currentPlayer = player
+                Player.currentPlayer?.isGameCreator = true
+                
+            })
         }
-        
         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
         
     }
