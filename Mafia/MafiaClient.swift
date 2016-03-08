@@ -35,12 +35,10 @@ class MafiaClient: NSObject {
             if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                 data!, options:[]) as? NSDictionary {
                     
-                    print(responseDictionary)
                     let newGame = Game(fromResponse: responseDictionary)
-                    self.token = newGame.token
                     completion(newGame)
             } else {
-                print("HI")
+                
             }
         }
     }
