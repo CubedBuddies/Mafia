@@ -50,7 +50,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        MafiaClient.instance.joinGame(gameCodeLabel.text!) { (player: Player) -> Void in
+        MafiaClient.instance.joinGame(gameCodeLabel.text!, playerName: self.nameLabel.text!, avatarType: "asian") { (player: Player) -> Void in
             Player.currentPlayer = player
             Player.currentPlayer?.isGameCreator = false
             MafiaClient.instance.pollGameStatus({ (game: Game) -> Void in

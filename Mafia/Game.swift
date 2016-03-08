@@ -28,8 +28,8 @@ class Game: NSObject {
             
             token = game["token"] as! String
             state = game["state"] as! String
-            players = (game["players"] as! NSArray).map { (playerResponse) -> Player in
-                Player(fromResponse: playerResponse)
+            players = (game["players"] as! NSArray).map { (playerData) -> Player in
+                Player(fromDictionary: playerData as! NSDictionary)
             }
             
             createdAt = game["created_at"] as? NSDate

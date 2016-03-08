@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
     var lastEventOffset: Int = 0
     var updateTimer: NSTimer?
     
-    var playerStates: [PlayerState]! {
+    var players: [Player]! {
         didSet {
             // TODO
             /*playerStatesMap = [Int: PlayerState]()
@@ -31,14 +31,15 @@ class GameViewController: UIViewController {
     
     // mapping used to update players by id
     var playerStatesMap: [Int: PlayerState]!
+    var playersDataSource: PlayersCollectionViewDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        updateTimer = NSTimer(timeInterval: 0.5, target: self, selector: "update", userInfo: nil, repeats: true)
+        updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
-        let playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
+        playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
         playersCollectionView.registerClass(PlayersCollectionViewCell.self, forCellWithReuseIdentifier: "playerCell")
         
         playersCollectionView.delegate = playersDataSource
@@ -51,18 +52,9 @@ class GameViewController: UIViewController {
     }
     
     func update() {
-        // TODO: fetch events,
-        MafiaClient.instance.getGameEvents { (events: [Event]) in
-            let sortedEvents = events.sort { (event1: Event, event2: Event) in
-                return event1.id < event2.id
-            }
-            
-            for event in sortedEvents {
-                if self.lastEventOffset <= event.id {
-                    self.lastEventOffset = event.id
-                    self.playEvent(event)
-                }
-            }
+        MafiaClient.instance.pollGameStatus { (game: Game) in
+            self.playersDataSource?.playerStates = game.players
+            self.playersCollectionView.reloadData()
         }
     }
     

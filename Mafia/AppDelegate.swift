@@ -16,6 +16,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // for testing
+        let vc = GameViewController()
+        vc.view.layoutIfNeeded()
+        
+        MafiaClient.instance.createGame { (game) in
+            MafiaClient.instance.joinGame(game.token, playerName: "a4", avatarType: "a") { _ in
+                let mafiaClients = [MafiaClient(), MafiaClient(), MafiaClient()]
+                MafiaClient.instances = mafiaClients
+                
+                mafiaClients[0].joinGame(game.token, playerName: "a1", avatarType: "a") { (_) in
+                    mafiaClients[1].joinGame(game.token, playerName: "a2", avatarType: "a") { (_) in
+                        mafiaClients[2].joinGame(game.token, playerName: "a3", avatarType: "a") { (_) in
+                
+                            dispatch_async(dispatch_get_main_queue(), {
+                                
+                                self.window!.makeKeyAndVisible()
+                                self.window?.rootViewController?.presentViewController(vc, animated: false, completion: nil)
+                            })
+                        }
+                    }
+                }
+            }
+        }
+        
+        // end testing
         return true
     }
 
