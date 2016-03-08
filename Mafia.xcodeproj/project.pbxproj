@@ -11,6 +11,7 @@
 		53F21EE81C877A3100163802 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* PlayerProfileViewController.swift */; };
 		53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE91C877AE500163802 /* ResultsViewController.swift */; };
 		53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */; };
+		720BF8E71C8E8F2100B69DCD /* JoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BF8E61C8E8F2100B69DCD /* JoinRequest.swift */; };
 		723AD9191C8568C10072849E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723AD9181C8568C10072849E /* AppDelegate.swift */; };
 		723AD91E1C8568C10072849E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723AD91C1C8568C10072849E /* Main.storyboard */; };
 		723AD9201C8568C10072849E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 723AD91F1C8568C10072849E /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		53F21EE71C877A3100163802 /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
 		53F21EE91C877AE500163802 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		720BF8E61C8E8F2100B69DCD /* JoinRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinRequest.swift; sourceTree = "<group>"; };
 		723AD9151C8568C10072849E /* Mafia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mafia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		723AD9181C8568C10072849E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		723AD91D1C8568C10072849E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		72C7D7DD1C88AE9600B26CDD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				720BF8E61C8E8F2100B69DCD /* JoinRequest.swift */,
 				72C7D7D71C88AE1300B26CDD /* Player.swift */,
 				72C7D7DB1C88AE3900B26CDD /* Event.swift */,
 				72C7D7D91C88AE2300B26CDD /* Game.swift */,
@@ -424,6 +427,7 @@
 				728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */,
 				72C7D7DC1C88AE3900B26CDD /* Event.swift in Sources */,
 				53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */,
+				720BF8E71C8E8F2100B69DCD /* JoinRequest.swift in Sources */,
 				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
 				53F21EE81C877A3100163802 /* PlayerProfileViewController.swift in Sources */,
 				72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */,

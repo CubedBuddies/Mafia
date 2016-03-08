@@ -11,7 +11,7 @@ import AFNetworking
 
 class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var playerStates: [PlayerState]?
+    var playerStates: [Player]?
     var collectionView: UICollectionView?
     
     init(view: UICollectionView) {
@@ -29,12 +29,12 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         
         if let player = playerStates?[indexPath.row] {
             // TODO: get avatar
-            cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
-            cell.nameLabel.text = player.name
-            
+            //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
+            //cell.nameLabel.text = player.name
+            /*
             cell.voteLabel.text = "\(player.currentVotes)"
             cell.mafiaLabel.text = "\(player.killVotes)"
-            
+            */
             cell.tag = indexPath.row
         }
         

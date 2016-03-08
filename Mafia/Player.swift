@@ -11,8 +11,8 @@ import UIKit
 class Player: NSObject {
     
     var name: String = ""
-    var role: String = ""
-    var state: String = ""
+    var role: String? = ""
+    var state: String? = ""
     var isGameCreator: Bool?
     var avatarType: String = ""
     
@@ -22,20 +22,31 @@ class Player: NSObject {
     var dictionary: NSDictionary?
     
     init(fromResponse response: AnyObject) {
-        let data = response as! NSDictionary
+        super.init()
         
-        self.dictionary = data
+        let data = response as! NSDictionary
+        dictionary = data
         
         if let player = data["player"] as? NSDictionary {
-            name = player["name"] as! String
-            role = player["role"] as! String
-            
-            state = player["state"] as! String
-            avatarType = player["avatar_type"] as! String
-            
-            createdAt = player["created_at"] as? NSDate
-            updatedAt = player["updated_at"] as? NSDate
+            setValues(player)
         }
+    }
+    
+    init(fromDictionary dictionary: NSDictionary) {
+        super.init()
+        setValues(dictionary)
+    }
+    
+    func setValues(dictionary: NSDictionary) {
+        name = dictionary["name"] as! String
+        
+        role = dictionary["role"] as? String
+        state = dictionary["state"] as? String
+        
+        avatarType = dictionary["avatar_type"] as! String
+        
+        createdAt = dictionary["created_at"] as? NSDate
+        updatedAt = dictionary["updated_at"] as? NSDate
     }
     
     static var _currentPlayer: Player?
