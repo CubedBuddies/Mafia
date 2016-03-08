@@ -14,10 +14,7 @@ class Event: NSObject {
     var name: EventType!
     
     var sourceId: Int = 0
-    var sourceType: String = ""
-    
     var targetId: Int = 0
-    var targetType: String = ""
     
     var createdAt: Int = 0
     var updatedAt: Int = 0
@@ -25,15 +22,12 @@ class Event: NSObject {
     init(fromResponse response: AnyObject) {
         
         let data = response as! NSDictionary
-        id = data["id"] as! Int
-        
-        name = EventType.fromRawString(data["id"] as! String)
-        targetId = data["id"] as! Int
-        targetType = data["id"] as! String
-        
-        createdAt = data["id"] as! Int
-        updatedAt = data["id"] as! Int
-        
+        if let event = data["event"] as? NSDictionary {
+            
+            name = EventType.fromRawString(event["name"] as! String)
+            targetId = event["target_player_id"] as! Int
+            sourceId = event["source_player_id"] as! Int
+        }
     }
 }
 

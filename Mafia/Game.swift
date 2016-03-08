@@ -10,9 +10,8 @@ import UIKit
 
 class Game: NSObject {
     
-    var id: Int = 0
     var token: String = ""
-    var status: String = ""
+    var state: String = ""
     var players: [Player] = []
     
     var createdAt: NSDate?
@@ -23,18 +22,21 @@ class Game: NSObject {
     init(fromResponse response: AnyObject) {
         
         let data = response as! NSDictionary
-        
         self.dictionary = data
         
-        id = data["id"] as! Int
-        token = data["token"] as! String
-        status = data["status"] as! String
-        players = (data["player"] as! NSArray).map { (playerResponse) -> Player in
-            Player(fromResponse: playerResponse)
+        if let game = data["game"] as? NSDictionary {
+            
+            token = game["token"] as! String
+            state = game["state"] as! String
+            players = (game["players"] as! NSArray).map { (playerResponse) -> Player in
+                Player(fromResponse: playerResponse)
+            }
+            
+            createdAt = game["created_at"] as? NSDate
+            updatedAt = game["updated_at"] as? NSDate
+        } else {
+            NSLog("Failed to deserialize JSON \(data)")
         }
-        
-        createdAt = data["created_at"] as? NSDate
-        updatedAt = data["updated_at"] as? NSDate
     }
     
     static var _currentGame: Game?

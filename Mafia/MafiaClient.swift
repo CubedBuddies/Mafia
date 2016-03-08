@@ -9,12 +9,13 @@
 import UIKit
 
 class MafiaClient: NSObject {
-    let BASE_URL = "http://eactiv.com/mafia"
+    let BASE_URL = "https://mafia-backend.herokuapp.com"
     
     var token: String?
     var player: Player?
     
     static var instance = MafiaClient()
+    static var instances: [MafiaClient]?
     
     // TODO: handle errors
     // TODO: get rid of force casts
@@ -34,9 +35,12 @@ class MafiaClient: NSObject {
             if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                 data!, options:[]) as? NSDictionary {
                     
+                    print(responseDictionary)
                     let newGame = Game(fromResponse: responseDictionary)
                     self.token = newGame.token
                     completion(newGame)
+            } else {
+                print("HI")
             }
         }
     }
@@ -47,10 +51,10 @@ class MafiaClient: NSObject {
      */
     func joinGame(joinToken: String, completion: Player -> Void) {
         if token != nil {
-            NSLog("Already connected to game \(token), but trying to join a new game.")
+            NSLog("Already connected to game \(joinToken), but trying to join a new game.")
         }
         
-        sendRequest(BASE_URL + "/games/\(token)/users", method: "POST") {
+        sendRequest(BASE_URL + "/games/\(joinToken)/players", method: "POST") {
             (data, response, error) -> Void in
             
             if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
@@ -58,10 +62,11 @@ class MafiaClient: NSObject {
                     
                     self.token = joinToken
                     completion(Player(fromResponse: responseDictionary))
+            } else {
+                NSLog("Failed to join game.")
             }
         }
     }
-    
     
     /**
      GET /games/:token
@@ -141,11 +146,13 @@ class MafiaClient: NSObject {
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         
         if let url = NSURL(string: url) {
+            NSLog("Sending request to \(url)")
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             
-            let session = NSURLSession()
-            session.dataTaskWithRequest(request, completionHandler: requestCompletion)
+            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+            let task = session.dataTaskWithRequest(request, completionHandler: requestCompletion)
+            task.resume()
         }
     }
 }

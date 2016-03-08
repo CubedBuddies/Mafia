@@ -10,11 +10,11 @@ import UIKit
 
 class Player: NSObject {
     
-    var id: Int = 0
     var name: String = ""
     var role: String = ""
+    var state: String = ""
     var isGameCreator: Bool?
-    var avatarType: Int = 0
+    var avatarType: String = ""
     
     var createdAt: NSDate?
     var updatedAt: NSDate?
@@ -26,14 +26,16 @@ class Player: NSObject {
         
         self.dictionary = data
         
-        id = data["id"] as! Int
-        isGameCreator = data["is_game_creator"] as? Bool
-        name = data["name"] as! String
-        role = data["role"] as! String
-        avatarType = data["avatar_type"] as! Int
-        
-        createdAt = data["created_at"] as? NSDate
-        updatedAt = data["updated_at"] as? NSDate
+        if let player = data["player"] as? NSDictionary {
+            name = player["name"] as! String
+            role = player["role"] as! String
+            
+            state = player["state"] as! String
+            avatarType = player["avatar_type"] as! String
+            
+            createdAt = player["created_at"] as? NSDate
+            updatedAt = player["updated_at"] as? NSDate
+        }
     }
     
     static var _currentPlayer: Player?

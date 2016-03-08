@@ -6,7 +6,15 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Mafia" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Mafia" customModuleProvider="target">
+            <connections>
+                <outlet property="avatarImageView" destination="jGq-nr-bmg" id="qm6-pL-i7g"/>
+                <outlet property="nameLabel" destination="F5o-cp-uPa" id="MIE-Ou-Mki"/>
+                <outlet property="playersCollectionView" destination="RSk-aU-yxq" id="zhe-6H-ddI"/>
+                <outlet property="timerLabel" destination="MZv-fO-UYK" id="Ou9-GK-WNM"/>
+                <outlet property="view" destination="iN0-l3-epB" id="VwC-f8-aSL"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

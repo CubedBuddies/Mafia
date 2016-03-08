@@ -21,10 +21,11 @@ class GameViewController: UIViewController {
     
     var playerStates: [PlayerState]! {
         didSet {
-            playerStatesMap = [Int: PlayerState]()
+            // TODO
+            /*playerStatesMap = [Int: PlayerState]()
             for playerState in playerStates {
-                playerStatesMap[playerState.id] = playerState
-            }
+                playerStatesMap[playerState.name] = playerState
+            }*/
         }
     }
     
