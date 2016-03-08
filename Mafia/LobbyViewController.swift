@@ -54,7 +54,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func loadedGame(game: Game) {
-        print(game)
         Game.currentGame = game
         codeLabel.text = Game.currentGame?.token
     }

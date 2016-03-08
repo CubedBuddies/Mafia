@@ -44,6 +44,8 @@ class GameViewController: UIViewController {
         
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
+        
+        update()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -53,9 +55,10 @@ class GameViewController: UIViewController {
     
     func update() {
         MafiaClient.instance.pollGameStatus { (game: Game) in
-            print(game)
-            self.playersDataSource?.playerStates = game.players
-            self.playersCollectionView.reloadData()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.playersDataSource?.playerStates = game.players
+                self.playersCollectionView.reloadData()
+            }
         }
     }
     
