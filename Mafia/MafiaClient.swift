@@ -151,7 +151,6 @@ class MafiaClient: NSObject {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
             if let data = data {
-                print(try! NSJSONSerialization.JSONObjectWithData(try! NSJSONSerialization.dataWithJSONObject(data, options: []), options: []))
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(data, options: [])
             }
             

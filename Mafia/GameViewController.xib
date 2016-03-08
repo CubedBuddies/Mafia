@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Mafia" customModuleProvider="target">
             <connections>
-                <outlet property="avatarImageView" destination="jGq-nr-bmg" id="qm6-pL-i7g"/>
+                <outlet property="avatarImageView" destination="jGq-nr-bmg" id="h4C-WX-cdb"/>
                 <outlet property="nameLabel" destination="F5o-cp-uPa" id="MIE-Ou-Mki"/>
                 <outlet property="playersCollectionView" destination="RSk-aU-yxq" id="zhe-6H-ddI"/>
                 <outlet property="timerLabel" destination="MZv-fO-UYK" id="Ou9-GK-WNM"/>
