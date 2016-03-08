@@ -63,10 +63,9 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     @IBAction func onNextButtonClick(sender: AnyObject) {
         MafiaClient.instance.createGame { (game: Game) -> Void in
             Game.currentGame = game
-            MafiaClient.instance.joinGame(game.token, completion: { (player: Player) -> Void in
+            MafiaClient.instance.joinGame(game.token, playerName: self.playerNameTextField.text!, avatarType: "asian", completion: { (player: Player) -> Void in
                 Player.currentPlayer = player
                 Player.currentPlayer?.isGameCreator = true
-                
             })
         }
         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)

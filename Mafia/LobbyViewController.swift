@@ -54,7 +54,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func refreshPlayers() {
         MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
             self.players = game.players
-            print(self.players)
             self.tableView.reloadData()
         }
     }
@@ -63,14 +62,13 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
         let player = players![indexPath.row]
+        print(player.name)
         cell.playerNameLabel.text = player.name
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        print (Game.currentGame?.players.count)
         return (Game.currentGame?.players.count)!
 //        if game?.players == nil {
 //            return 0
