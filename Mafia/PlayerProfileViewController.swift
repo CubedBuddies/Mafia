@@ -22,6 +22,7 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
         
         let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
         tapper.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapper);
     }
     
     func dismissKeyboardOnTap() {
