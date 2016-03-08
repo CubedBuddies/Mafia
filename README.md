@@ -31,5 +31,5 @@ The following functionality are **stretch**:
 - [ ] Bounties
 - [ ] Voice
 
-The core-flow walkthrough is as shown:
+The core-flow walkthrough is as shown: <br />
 <img src='coreflow.gif' />
