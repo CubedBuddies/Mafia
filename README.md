@@ -1,6 +1,8 @@
 # Mafia
 
-**Mafia** is an iOS implementation of the classic social game 'Mafia.'
+**Mafia** is an iOS implementation of the classic social game 'Mafia.'<br />
+The back-end can be found at:
+</a href="https://github.com/CubedBuddies/Mafia-Backend">https://github.com/CubedBuddies/Mafia-Backend</a>
 
 ## User Stories
 
