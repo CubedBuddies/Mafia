@@ -17,6 +17,8 @@ class Game: NSObject {
     var createdAt: NSDate?
     var updatedAt: NSDate?
     
+    var rounds: [Round]?
+    
     var dictionary: NSDictionary?
     
     init(fromResponse response: AnyObject) {
@@ -32,8 +34,14 @@ class Game: NSObject {
                 Player(fromDictionary: playerData as! NSDictionary)
             }
             
-            createdAt = game["created_at"] as? NSDate
-            updatedAt = game["updated_at"] as? NSDate
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            createdAt = formatter.dateFromString(game["created_at"] as! String)
+            updatedAt = formatter.dateFromString(game["updated_at"] as! String)
+            
+            rounds = (game["rounds"] as! NSArray).map { (round) in
+                return Round(fromDictionary: round as! NSDictionary)
+            }
         } else {
             NSLog("Failed to deserialize JSON \(data)")
         }
