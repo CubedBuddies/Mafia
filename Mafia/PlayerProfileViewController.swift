@@ -69,7 +69,10 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
         MafiaClient.instance.createGame { (game: Game) -> Void in
+            NSLog("Created game, now joining...")
             MafiaClient.instance.joinGame(game.token, playerName: self.playerNameTextField.text!, avatarType: "asian") { (player: Player) -> Void in
+                
+                NSLog("Created game and joined")
                 Player.currentPlayer = player
                 Player.currentPlayer?.isGameCreator = true
                 

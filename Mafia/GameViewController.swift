@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
     var roundIndex = 0
     var time: Int = 0
     var lastEventOffset: Int = 0
-    var updateTimer: NSTimer?
+    var updateTimer: NSTimer = NSTimer()
     
     var players: [Player]! {
         didSet {
@@ -39,7 +39,9 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        updateTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
+        }
         
         time = 5 * 60
         roundIndex = 0
@@ -50,7 +52,6 @@ class GameViewController: UIViewController {
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
         
-        update()
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -58,18 +59,17 @@ class GameViewController: UIViewController {
     }
     
     func endScreen() {
-        if let timer = updateTimer {
-            timer.invalidate()
-            updateTimer = nil
-        }
+        NSLog("Clearing game screen")
+        updateTimer.invalidate()
     }
     
-    func update() {
+    func updateHandler() {
         timerLabel.text = "\(time--)"
         MafiaClient.instance.pollGameStatus { (game: Game) in
             dispatch_async(dispatch_get_main_queue()) {
                 
                 if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
+                    self.roundIndex = game.rounds!.count - 1
                     self.transitionToNewRound()
                 } else {
                     if let rounds = game.rounds {

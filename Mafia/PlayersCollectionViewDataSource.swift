@@ -9,17 +9,50 @@
 import UIKit
 import AFNetworking
 
-class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     //var playerStates: [Player]?
     var game: Game?
-    var round: Round?
+    var round: Round? {
+        didSet {
+            if let round = round {
+                lynchCounts = countVotes(round.lynchVotes)
+                killCounts = countVotes(round.killVotes)
+            }
+        }
+    }
+    
+    // maps player id to number of votes
+    var lynchCounts: [Int: Int]?
+    var killCounts: [Int: Int]?
+    
     var collectionView: UICollectionView?
     
     init(view: UICollectionView) {
         collectionView = view
     }
     
+    func countVotes(votesOrNil: [Int: Int]?) -> [Int: Int] {
+        /**
+         Converts a mapping of player id to vote target,
+         into player id to the number of people voting them.
+         */
+        
+        var count = [Int: Int]()
+        if let votes = votesOrNil {
+            for voter in votes.keys {
+                let votee = votes[voter]!
+                count[votee] = (count[votee] ?? 0) + 1
+            }
+        }
+        return count
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        return CGSize(width: 100, height: 100)
+    }
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return game?.players.count ?? 0
     }
@@ -33,11 +66,16 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
             
             cell.nameLabel.text = player.name
-            cell.voteLabel.text = "\(round?.lynchVotes![player.id])"
-            cell.mafiaLabel.text = "\(round?.killVotes![player.id])"
+            cell.voteLabel.text = "\(lynchCounts?[player.id])"
+            cell.mafiaLabel.text = "\(killCounts?[player.id])"
             cell.tag = indexPath.row
         }
         
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+        indexPath
     }
 }

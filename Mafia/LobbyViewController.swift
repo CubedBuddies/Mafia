@@ -14,7 +14,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startGameButton: UIButton!
     
-    var refreshTimer = NSTimer()
+    var refreshTimer: NSTimer = NSTimer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
