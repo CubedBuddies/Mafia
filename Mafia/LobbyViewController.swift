@@ -9,66 +9,72 @@
 import UIKit
 
 class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startGameButton: UIButton!
-    
+
     var refreshTimer: NSTimer = NSTimer()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if Player.currentPlayer?.isGameCreator == false{
             startGameButton.hidden = true
         }
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
-        
+
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
-        
+
     }
 
     @IBAction func onStartGameClick(sender: AnyObject) {
-        MafiaClient.instance.startGame { Void in
-            self.refreshTimer.invalidate()
-            self.presentViewController(GameViewController(), animated: true, completion: nil)
-        }
+        MafiaClient.instance.startGame(
+            completion: { (_: Game) in
+                self.refreshTimer.invalidate()
+                self.presentViewController(GameViewController(), animated: true, completion: nil)
+            },
+            failure: { NSLog("Failed to start game") }
+        )
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     //MARK: Private Methods
     func refreshPlayers() {
-        MafiaClient.instance.pollGameStatus { (game: Game) -> Void in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.codeLabel.text = MafiaClient.instance.game?.token
-                self.tableView.reloadData()
-                if game.state == "in_progress" {
-                    self.presentViewController(GameViewController(), animated: true, completion: nil)
+        MafiaClient.instance.pollGameStatus(
+            completion: { (game: Game) -> Void in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.codeLabel.text = MafiaClient.instance.game?.token
+                    self.tableView.reloadData()
+                    if game.state == "in_progress" {
+                        self.presentViewController(GameViewController(), animated: true, completion: nil)
+                    }
                 }
-            }
-        }
+            },
+            failure: { NSLog("Failed to poll game status") }
+        )
     }
-    
-    
+
+
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
         let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
-        
+
         return cell
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MafiaClient.instance.game?.players.count ?? 0
     }
-    
+
 
     /*
     // MARK: - Navigation

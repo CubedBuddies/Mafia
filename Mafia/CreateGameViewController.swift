@@ -9,32 +9,29 @@
 import UIKit
 import AVFoundation
 
-class PlayerProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
-
-
-
+class CreateGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var avatarImageButton: UIButton!
     @IBOutlet weak var playerNameTextField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
         tapper.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapper);
     }
-    
+
     func dismissKeyboardOnTap() {
         playerNameTextField.endEditing(true)
     }
-    
+
     //MARK: Configure Camera
     @IBAction func onAvatarButtonClick(sender: AnyObject) {
         let imageFromSource = UIImagePickerController()
         imageFromSource.delegate = self
         imageFromSource.allowsEditing = false
-        
+
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
         } else {
@@ -42,7 +39,7 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
         }
         self.presentViewController(imageFromSource, animated: true, completion: nil)
     }
-    
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         avatarImageView.image = temp
@@ -52,47 +49,41 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    
+
 
     //MARK: Private Methods
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.font = UIFont(name: "Avenir", size: 26)
     }
-    
-    
+
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        MafiaClient.instance.createGame { (game: Game) -> Void in
-            NSLog("Created game, now joining...")
-            MafiaClient.instance.joinGame(game.token, playerName: self.playerNameTextField.text!, avatarType: "asian") { (player: Player) -> Void in
-                
-                NSLog("Created game and joined")
-                Player.currentPlayer = player
-                Player.currentPlayer?.isGameCreator = true
-                
-            }
-        }
+        MafiaClient.instance.createGame(
+            completion: { (game: Game) -> Void in
+                NSLog("Created game, now joining...")
+
+                MafiaClient.instance.joinGame(game.token,
+                    playerName: self.playerNameTextField.text!,
+                    avatarType: "asian",
+                    completion: { (player: Player) in
+                        Player.currentPlayer = player
+                        Player.currentPlayer?.isGameCreator = true
+                    },
+                    failure: { NSLog("Failed to join game") }
+                )
+            },
+            failure: { NSLog("Failed to create game") }
+        )
+
         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
-        
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
