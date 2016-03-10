@@ -11,7 +11,7 @@ import AFNetworking
 
 class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    //var playerStates: [Player]?
+    var delegate: GameViewControllerDelegate?
     var game: Game?
     var round: Round? {
         didSet {
@@ -66,9 +66,9 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
             
             cell.nameLabel.text = player.name
-            cell.voteLabel.text = "\(lynchCounts?[player.id])"
-            cell.mafiaLabel.text = "\(killCounts?[player.id])"
-            cell.tag = indexPath.row
+            cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
+            cell.mafiaLabel.text = "\(killCounts?[player.id] ?? 0)"
+            cell.tag = player.id
         }
         
         return cell
@@ -76,6 +76,8 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.deselectItemAtIndexPath(indexPath, animated: false)
-        indexPath
+        
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)!
+        delegate?.selectPlayer(cell.tag)
     }
 }

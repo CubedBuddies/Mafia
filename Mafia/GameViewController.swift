@@ -8,7 +8,11 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+protocol GameViewControllerDelegate {
+    func selectPlayer(targetPlayerId: Int)
+}
+
+class GameViewController: UIViewController, GameViewControllerDelegate {
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -16,24 +20,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
     
+    var playersDataSource: PlayersCollectionViewDataSource?
+    
     var roundIndex = 0
     var time: Int = 0
     var lastEventOffset: Int = 0
     var updateTimer: NSTimer = NSTimer()
-    
-    var players: [Player]! {
-        didSet {
-            // TODO
-            /*playerStatesMap = [Int: PlayerState]()
-            for playerState in playerStates {
-                playerStatesMap[playerState.name] = playerState
-            }*/
-        }
-    }
-    
-    // mapping used to update players by id
-    var playerStatesMap: [Int: PlayerState]!
-    var playersDataSource: PlayersCollectionViewDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +39,7 @@ class GameViewController: UIViewController {
         roundIndex = 0
         
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
+        playersDataSource!.delegate = self
         playersCollectionView.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
         
         playersCollectionView.delegate = playersDataSource
@@ -91,42 +84,11 @@ class GameViewController: UIViewController {
         presentViewController(vc, animated: true, completion: nil)
     }
     
-    func playEvent(event: Event) {
-        let sourcePlayer = playerStatesMap[event.sourceId]
-        let targetPlayer = playerStatesMap[event.targetId]
-        
-        switch event.name! {
-        case .LYNCH:
-            if let previousPlayer = playerStatesMap[sourcePlayer?.voteTargetId ?? 0] {
-                previousPlayer.currentVotes -= 1
-            }
-            
-            targetPlayer?.currentVotes += 1
-            sourcePlayer?.voteTargetId = event.targetId
-            
-        case .UNLYNCH:
-            assert(sourcePlayer?.voteTargetId != nil)
-            targetPlayer?.currentVotes -= 1
-            sourcePlayer?.voteTargetId = nil
-            
-        case .KILL:
-            if let previousPlayer = playerStatesMap[sourcePlayer?.voteTargetId ?? 0] {
-                previousPlayer.killVotes -= 1
-            }
-            
-            targetPlayer?.killVotes += 1
-            sourcePlayer?.killTargetId = event.targetId
-            
-        case .UNKILL:
-            assert(sourcePlayer?.killTargetId != nil)
-            targetPlayer?.killVotes -= 1
-            sourcePlayer?.killTargetId = nil
-            
-        default:
-            NSLog("Failed to play event.")
+    func selectPlayer(targetPlayerId: Int) {
+        MafiaClient.instance.addGameEvent("vote", targetPlayerId: targetPlayerId) { _ in
+            // TODO: successfully sent event
+            NSLog("Sent vote!")
         }
-        
-        updatePlayerUI()
     }
     
     func updatePlayerUI() {

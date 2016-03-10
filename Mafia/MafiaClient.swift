@@ -155,9 +155,11 @@ class MafiaClient: NSObject {
      POST /games/:token/events
      Calls completion with the new game's token.
      */
-    func addGameEvent(completion: Event -> Void) {
+    func addGameEvent(eventName: String, targetPlayerId: Int, completion: Event -> Void) {
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)/events", method: "POST", data: nil) {
+            // TODO: get player id
+            let eventData = ["event": ["name": eventName, "source_player_id": 0, "target_player_id": targetPlayerId]]
+            sendRequest(BASE_URL + "/games/\(token)/events", method: "POST", data: eventData) {
                 (data, response, error) -> Void in
                 // TODO: return whether joining succeeded
                 
