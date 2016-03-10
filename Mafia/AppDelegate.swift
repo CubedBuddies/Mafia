@@ -16,12 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-
-        // for testing
-        let vc = GameViewController()
-        vc.view.layoutIfNeeded()
-        
-        // end testing
         return true
     }
 

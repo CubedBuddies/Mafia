@@ -10,6 +10,7 @@ import UIKit
 
 class Player: NSObject {
     
+    var id: Int = 0
     var name: String = ""
     var role: String? = ""
     var state: String? = ""
@@ -38,6 +39,7 @@ class Player: NSObject {
     }
     
     func setValues(dictionary: NSDictionary) {
+        id = dictionary["id"] as! Int
         name = dictionary["name"] as! String
         
         role = dictionary["role"] as? String

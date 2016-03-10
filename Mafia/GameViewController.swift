@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
     
+    var roundIndex = 0
+    var time: Int = 0
     var lastEventOffset: Int = 0
     var updateTimer: NSTimer?
     
@@ -39,6 +41,9 @@ class GameViewController: UIViewController {
         // Do any additional setup after loading the view.
         updateTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
+        time = 5 * 60
+        roundIndex = 0
+        
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
         playersCollectionView.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
         
@@ -49,17 +54,41 @@ class GameViewController: UIViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
-        updateTimer?.invalidate()
-        updateTimer = nil
+        endScreen()
+    }
+    
+    func endScreen() {
+        if let timer = updateTimer {
+            timer.invalidate()
+            updateTimer = nil
+        }
     }
     
     func update() {
+        timerLabel.text = "\(time--)"
         MafiaClient.instance.pollGameStatus { (game: Game) in
             dispatch_async(dispatch_get_main_queue()) {
-                self.playersDataSource?.playerStates = game.players
-                self.playersCollectionView.reloadData()
+                
+                if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
+                    self.transitionToNewRound()
+                } else {
+                    if let rounds = game.rounds {
+                        if game.rounds?.count > 0 {
+                            self.playersDataSource?.round = rounds[rounds.count - 1]
+                        }
+                    }
+                    self.playersDataSource?.game = game
+                    self.playersCollectionView.reloadData()
+                }
             }
         }
+    }
+    
+    func transitionToNewRound() {
+        let vc = GameViewController()
+        vc.view.layoutIfNeeded()
+        
+        presentViewController(vc, animated: true, completion: nil)
     }
     
     func playEvent(event: Event) {

@@ -11,9 +11,9 @@ import UIKit
 class Round: NSObject {
     
     var playerIds: [Int]?
-    var lynches: [String: String]?
+    var lynchVotes: [Int: Int]?
     var lynchedPlayerId: Int?
-    var kills: [String: String]?
+    var killVotes: [Int: Int]?
     var killedPlayerId: Int?
     
     var createdAt: NSDate?
@@ -24,10 +24,16 @@ class Round: NSObject {
             return id as! Int
         }
         
-        //lynches = (dictionary["lynches"] as! NSArray)
+        lynchVotes = [Int: Int]()
+        for (key, value) in dictionary["lynch_votes"] as! NSDictionary {
+            lynchVotes![key as! Int] = value as? Int
+        }
         lynchedPlayerId = dictionary["lynched_player_id"] as? Int
         
-        //kills = dictionary["kills"]
+        killVotes = [Int: Int]()
+        for (key, value) in dictionary["kill_votes"] as! NSDictionary {
+            killVotes![key as! Int] = value as? Int
+        }
         killedPlayerId = dictionary["killed_player_id"] as? Int
         
         let formatter = NSDateFormatter()
