@@ -158,7 +158,7 @@ class MafiaClient: NSObject {
     func addGameEvent(eventName: String, targetPlayerId: Int, completion: Event -> Void) {
         if let token = token {
             // TODO: get player id
-            let eventData = ["event": ["name": eventName, "source_player_id": 0, "target_player_id": targetPlayerId]]
+            let eventData = ["event": ["name": eventName, "source_player_id": Player.currentPlayer!.id, "target_player_id": targetPlayerId]]
             sendRequest(BASE_URL + "/games/\(token)/events", method: "POST", data: eventData) {
                 (data, response, error) -> Void in
                 // TODO: return whether joining succeeded

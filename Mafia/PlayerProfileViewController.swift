@@ -62,7 +62,6 @@ class PlayerProfileViewController: UIViewController, UINavigationControllerDeleg
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        print("hello")
         textField.font = UIFont(name: "Avenir", size: 26)
     }
     

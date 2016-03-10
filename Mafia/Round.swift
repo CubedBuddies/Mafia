@@ -26,13 +26,13 @@ class Round: NSObject {
         
         lynchVotes = [Int: Int]()
         for (key, value) in dictionary["lynch_votes"] as! NSDictionary {
-            lynchVotes![key as! Int] = value as? Int
+            lynchVotes![key.integerValue] = value as? Int
         }
         lynchedPlayerId = dictionary["lynched_player_id"] as? Int
         
         killVotes = [Int: Int]()
         for (key, value) in dictionary["kill_votes"] as! NSDictionary {
-            killVotes![key as! Int] = value as? Int
+            killVotes![key.integerValue] = value as? Int
         }
         killedPlayerId = dictionary["killed_player_id"] as? Int
         
