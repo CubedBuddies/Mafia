@@ -32,7 +32,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBAction func onStartGameClick(sender: AnyObject) {
         MafiaClient.instance.startGame { Void in
-            // TODO
             self.refreshTimer.invalidate()
             self.presentViewController(GameViewController(), animated: true, completion: nil)
         }
@@ -49,9 +48,13 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             dispatch_async(dispatch_get_main_queue()) {
                 self.codeLabel.text = MafiaClient.instance.game?.token
                 self.tableView.reloadData()
+                if game.state == "in_progress" {
+                    self.presentViewController(GameViewController(), animated: true, completion: nil)
+                }
             }
         }
     }
+    
     
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
