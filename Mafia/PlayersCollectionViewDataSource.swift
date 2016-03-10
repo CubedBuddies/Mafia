@@ -11,7 +11,9 @@ import AFNetworking
 
 class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var playerStates: [Player]?
+    //var playerStates: [Player]?
+    var game: Game?
+    var round: Round?
     var collectionView: UICollectionView?
     
     init(view: UICollectionView) {
@@ -19,29 +21,23 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return playerStates?.count ?? 0
+        return game?.players.count ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("playerCell", forIndexPath: indexPath) as! PlayersCollectionViewCell
         
-        if let player = playerStates?[indexPath.row] {
+        if let player = game?.players[indexPath.row] {
             // TODO: get avatar
             //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
+            
             cell.nameLabel.text = player.name
-            /*
-            cell.voteLabel.text = "\(player.currentVotes)"
-            cell.mafiaLabel.text = "\(player.killVotes)"
-            */
+            cell.voteLabel.text = "\(round?.lynchVotes![player.id])"
+            cell.mafiaLabel.text = "\(round?.killVotes![player.id])"
             cell.tag = indexPath.row
         }
         
         return cell
-    }
-    
-    func updatePlayerState(index: Int, playerState: PlayerState) {
-        let indexPath = NSIndexPath.init(forRow: index, inSection: 0)
-        collectionView?.reloadItemsAtIndexPaths([indexPath])
     }
 }
