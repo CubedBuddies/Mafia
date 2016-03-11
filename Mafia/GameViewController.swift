@@ -63,7 +63,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 dispatch_async(dispatch_get_main_queue()) {
 
                     if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
-                        self.roundIndex = game.rounds!.count - 1
                         self.transitionToNewRound()
                     } else {
                         if let rounds = game.rounds {
@@ -81,9 +80,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func transitionToNewRound() {
+        NSLog("Transitioning to new round")
+        
         let vc = GameViewController()
-        vc.view.layoutIfNeeded()
-
+        vc.roundIndex = roundIndex + 1
+        
         presentViewController(vc, animated: true, completion: nil)
     }
 

@@ -65,7 +65,12 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             // TODO: get avatar
             //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
             
-            cell.nameLabel.text = player.name
+            if player.state == .DEAD {
+                cell.nameLabel.text = "DEAD"
+            } else {
+                cell.nameLabel.text = player.name
+            }
+            
             cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
             cell.mafiaLabel.text = "\(killCounts?[player.id] ?? 0)"
             cell.tag = player.id

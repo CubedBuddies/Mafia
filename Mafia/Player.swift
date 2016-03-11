@@ -8,12 +8,26 @@
 
 import UIKit
 
+enum PlayerState {
+    case DEAD, ALIVE
+    static func fromString(str: String?) -> PlayerState {
+        switch (str ?? "alive") {
+        case "dead":
+            return .DEAD
+        case "alive":
+            return .ALIVE
+        default:
+            NSLog("Received invalid player state \(str)")
+            return .DEAD
+        }
+    }
+}
 class Player: NSObject {
     
     var id: Int = 0
     var name: String = ""
     var role: String? = ""
-    var state: String? = ""
+    var state: PlayerState? = .ALIVE
     var isGameCreator: Bool?
     var avatarType: String = ""
     
@@ -43,7 +57,7 @@ class Player: NSObject {
         name = dictionary["name"] as! String
         
         role = dictionary["role"] as? String
-        state = dictionary["state"] as? String
+        state = PlayerState.fromString(dictionary["state"] as? String)
         
         avatarType = dictionary["avatar_type"] as! String
         
