@@ -24,28 +24,14 @@ class Event: NSObject {
         let data = response as! NSDictionary
         if let event = data["event"] as? NSDictionary {
             
-            name = EventType.fromRawString(event["name"] as! String)
+            name = EventType(rawValue: event["name"] as! String)
             targetId = event["target_player_id"] as! Int
             sourceId = event["source_player_id"] as! Int
         }
     }
 }
 
-enum EventType {
-    case LYNCH, UNLYNCH, KILL, UNKILL, VOTE, UNVOTE
-    
-    static func fromRawString(rawString: String) -> EventType? {
-        switch rawString {
-        case "LYNCH":
-            return .LYNCH
-        case "UNLYNCH":
-            return .UNLYNCH
-        case "KILL":
-            return .KILL
-        case "UNKILL":
-            return .UNKILL
-        default:
-            return nil
-        }
-    }
+enum EventType: String {
+    case LYNCH = "lynch"
+    case KILL = "kill"
 }

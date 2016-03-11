@@ -21,12 +21,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     @IBOutlet weak var playersCollectionView: UICollectionView!
 
     var playersDataSource: PlayersCollectionViewDataSource?
+    var updateTimer: NSTimer = NSTimer()
 
     var roundIndex = 0
     var time: Int = 0
-    var lastEventOffset: Int = 0
-    var updateTimer: NSTimer = NSTimer()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
