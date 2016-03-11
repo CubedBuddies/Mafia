@@ -37,8 +37,8 @@ class Round: NSObject {
         killedPlayerId = dictionary["killed_player_id"] as? Int
         
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        createdAt = formatter.dateFromString(dictionary["created_at"] as! String)
-        expiresAt = formatter.dateFromString(dictionary["expires_at"] as! String)
+        formatter.dateFormat = "'\"'yyyy-MM-dd'T'HH:mm:ss.SSSZ'\"'"
+        createdAt = formatter.dateFromString(dictionary["created_at"] as! String)!
+        expiresAt = formatter.dateFromString(dictionary["expires_at"] as! String)!
     }
 }

@@ -35,7 +35,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         }
 
         time = 5 * 60
-        roundIndex = 0
 
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
         playersDataSource!.delegate = self
@@ -56,11 +55,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func updateHandler() {
-        timerLabel.text = "\(time--)"
         MafiaClient.instance.pollGameStatus(
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
 
+                    let round = game.rounds![self.roundIndex]
+                    let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
+                    self.timerLabel.text = "\(secondsLeft)"
+                    
                     if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
                         self.transitionToNewRound()
                     } else {
@@ -79,7 +81,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func transitionToNewRound() {
-        NSLog("Transitioning to new round")
+        NSLog("Transitioning to new round, from round \(roundIndex)")
         
         let vc = GameViewController()
         vc.roundIndex = roundIndex + 1
