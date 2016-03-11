@@ -18,7 +18,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Player.currentPlayer?.isGameCreator == false{
+        if MafiaClient.instance.player?.isGameCreator == false{
             startGameButton.hidden = true
         }
 

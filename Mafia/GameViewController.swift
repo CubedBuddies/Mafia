@@ -88,10 +88,12 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func selectPlayer(targetPlayerId: Int) {
-        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId) { _ in
+        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId, completion: { _ in
             // TODO: successfully sent event
             NSLog("Sent vote!")
-        }
+        }, failure: { _ in
+            NSLog("Failed to select player")
+        })
     }
 
     func updatePlayerUI() {

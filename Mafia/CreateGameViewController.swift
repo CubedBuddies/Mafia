@@ -71,8 +71,8 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     playerName: self.playerNameTextField.text!,
                     avatarType: "asian",
                     completion: { (player: Player) in
-                        Player.currentPlayer = player
-                        Player.currentPlayer?.isGameCreator = true
+                        player.isGameCreator = true
+                        MafiaClient.instance.player = player
                     },
                     failure: { NSLog("Failed to join game") }
                 )

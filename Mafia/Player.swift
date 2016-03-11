@@ -50,32 +50,4 @@ class Player: NSObject {
         createdAt = dictionary["created_at"] as? NSDate
         updatedAt = dictionary["updated_at"] as? NSDate
     }
-    
-    static var _currentPlayer: Player?
-    class var currentPlayer: Player? {
-        get {
-            if _currentPlayer == nil {
-                let defaults = NSUserDefaults.standardUserDefaults()
-                let playerData = defaults.objectForKey("currentPlayerData") as? NSData
-                if let playerData = playerData {
-                    let dictionary = try! NSJSONSerialization.JSONObjectWithData(playerData, options: []) as! NSDictionary
-                    _currentPlayer = Player(fromResponse: dictionary)
-                }
-            }
-            return _currentPlayer
-        
-        }
-        set(player) {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if let player = player {
-                let data = try! NSJSONSerialization.dataWithJSONObject((player.dictionary)!, options: [])
-                defaults.setObject(data, forKey: "currentPlayerData")
-  
-            } else {
-                defaults.setObject(nil, forKey: "currentPlayerData")
-            }
-            defaults.synchronize()
-            
-        }
-    }
 }

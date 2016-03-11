@@ -12,7 +12,33 @@ class MafiaClient: NSObject {
     let BASE_URL = "https://mafia-backend.herokuapp.com"
 
     var token: String?
-    var player: Player?
+    var _player: Player?
+    var player: Player? {
+        get {
+            if _player == nil {
+                let defaults = NSUserDefaults.standardUserDefaults()
+                let playerData = defaults.objectForKey("currentPlayerData") as? NSData
+                if let playerData = playerData {
+                    let dictionary = try! NSJSONSerialization.JSONObjectWithData(playerData, options: []) as! NSDictionary
+                    _player = Player(fromResponse: dictionary)
+                }
+            }
+            return _player
+        
+        }
+        set(player) {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let player = player {
+                let data = try! NSJSONSerialization.dataWithJSONObject((player.dictionary)!, options: [])
+                defaults.setObject(data, forKey: "currentPlayerData")
+                
+            } else {
+                defaults.setObject(nil, forKey: "currentPlayerData")
+            }
+            defaults.synchronize()
+            
+        }
+    }
 
     var _game: Game?
     var game: Game? {
@@ -148,10 +174,10 @@ class MafiaClient: NSObject {
      POST /games/:token/events
      Calls completion with the new game's token.
      */
-    func addGameEvent(eventName: String, targetPlayerId: Int, completion completion: Game -> Void, failure: () -> Void) {
+    func addGameEvent(eventName: String, targetPlayerId: Int, completion: Game -> Void, failure: () -> Void) {
         if let token = token {
             // TODO: get player id
-            let eventData = ["event": ["name": eventName, "source_player_id": Player.currentPlayer!.id, "target_player_id": targetPlayerId]]
+            let eventData = ["event": ["name": eventName, "source_player_id": MafiaClient.instance.player!.id, "target_player_id": targetPlayerId]]
             sendRequest(BASE_URL + "/games/\(token)/events", method: "POST", data: eventData) {
                 (data, response, error) -> Void in
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
