@@ -17,6 +17,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var actionLabel: UILabel!
+    
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
 
@@ -25,6 +26,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
 
     var roundIndex = 0
     var time: Int = 0
+    
+    var roleMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,16 +45,32 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
-
+        
+        showPlayerStats()
     }
-
-    override func viewWillDisappear(animated: Bool) {
-        endScreen()
+    
+    @IBAction func onAvatarTap(sender: AnyObject) {
+        roleMode = !roleMode
+        dispatch_async(dispatch_get_main_queue()) {
+            self.showPlayerStats()
+        }
     }
-
-    func endScreen() {
-        NSLog("Clearing game screen")
-        updateTimer.invalidate()
+    
+    func showPlayerStats() {
+        if roleMode {
+            if let role = MafiaClient.instance.player!.role {
+                nameLabel.text = role.rawValue
+                switch role {
+                case .TOWNSPERSON:
+                    actionLabel.text = ""
+                case .MAFIA:
+                    actionLabel.text = "TAP TO KILL"
+                }
+            }
+        } else {
+            nameLabel.text = MafiaClient.instance.player!.name
+            actionLabel.text = "Tap to Vote"
+        }
     }
 
     func updateHandler() {
@@ -66,6 +85,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                     if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
                         self.transitionToNewRound()
                     } else {
+                        for player in game.players {
+                            let other = MafiaClient.instance.player
+                            if player.id == MafiaClient.instance.player!.id {
+                                MafiaClient.instance.player = player
+                                break
+                            }
+                        }
+                        
                         if let rounds = game.rounds {
                             if game.rounds?.count > 0 {
                                 self.playersDataSource?.round = rounds[rounds.count - 1]
@@ -90,7 +117,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func selectPlayer(targetPlayerId: Int) {
-        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId, completion: { _ in
+        MafiaClient.instance.addGameEvent(.LYNCH, targetPlayerId: targetPlayerId, completion: { _ in
             // TODO: successfully sent event
             NSLog("Sent vote!")
         }, failure: { _ in
@@ -101,6 +128,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     func updatePlayerUI() {
         // TODO: make this update single players at a time
         playersCollectionView.reloadData()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        endScreen()
+    }
+    
+    func endScreen() {
+        NSLog("Clearing game screen")
+        updateTimer.invalidate()
     }
 
     override func didReceiveMemoryWarning() {

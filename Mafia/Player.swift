@@ -12,8 +12,8 @@ class Player: NSObject {
     
     var id: Int = 0
     var name: String = ""
-    var role: String? = ""
-    var state: PlayerState? = .ALIVE
+    var role: PlayerRole?
+    var state: PlayerState = .ALIVE
     var isGameCreator: Bool?
     var avatarType: String = ""
     
@@ -42,14 +42,19 @@ class Player: NSObject {
         id = dictionary["id"] as! Int
         name = dictionary["name"] as! String
         
-        role = dictionary["role"] as? String
-        state = PlayerState(rawValue: dictionary["state"] as? String ?? PlayerState.ALIVE.rawValue)
+        role = PlayerRole(rawValue: dictionary["role"] as? String ?? "")
+        state = PlayerState(rawValue: dictionary["state"] as? String ?? PlayerState.ALIVE.rawValue)!
         
         avatarType = dictionary["avatar_type"] as! String
         
         createdAt = dictionary["created_at"] as? NSDate
         updatedAt = dictionary["updated_at"] as? NSDate
     }
+}
+
+enum PlayerRole: String {
+    case TOWNSPERSON = "townsperson"
+    case MAFIA = "mafia"
 }
 
 enum PlayerState: String {

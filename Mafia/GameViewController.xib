@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Mafia" customModuleProvider="target">
             <connections>
+                <outlet property="actionLabel" destination="yKT-B7-O6V" id="Zlh-SY-eiq"/>
                 <outlet property="avatarImageView" destination="jGq-nr-bmg" id="h4C-WX-cdb"/>
                 <outlet property="nameLabel" destination="F5o-cp-uPa" id="MIE-Ou-Mki"/>
                 <outlet property="playersCollectionView" destination="RSk-aU-yxq" id="zhe-6H-ddI"/>
@@ -26,12 +27,18 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-nr-bmg">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_Girl1" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-nr-bmg">
                     <rect key="frame" x="110" y="28" width="100" height="100"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="1" green="0.01026766514" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="CE7-Eh-WfH"/>
                         <constraint firstAttribute="width" secondItem="jGq-nr-bmg" secondAttribute="height" multiplier="1:1" id="jfv-2N-BSs"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="j7Z-sm-bk1" appends="YES" id="DBe-7y-IgM"/>
+                    </connections>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MZv-fO-UYK">
                     <rect key="frame" x="279" y="8" width="33" height="16"/>
@@ -82,5 +89,13 @@
             </constraints>
             <point key="canvasLocation" x="187" y="427"/>
         </view>
+        <tapGestureRecognizer id="j7Z-sm-bk1">
+            <connections>
+                <action selector="onAvatarTap:" destination="-1" id="vbI-m3-2ul"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
+    <resources>
+        <image name="Character_Girl1" width="100" height="100"/>
+    </resources>
 </document>
