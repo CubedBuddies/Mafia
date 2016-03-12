@@ -117,7 +117,7 @@
                                             <constraint firstAttribute="height" constant="55" id="9rW-2Y-b6S"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="26"/>
-                                        <state key="normal" title="Next"/>
+                                        <state key="normal" title="Join game"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -125,7 +125,6 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onNextButtonClick:" destination="sjf-3R-iPJ" eventType="touchUpInside" id="GZn-8w-IDy"/>
-                                            <segue destination="gAK-6C-nrw" kind="push" id="SfQ-zQ-Xsk"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Player Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Ac-LY-8jn">
@@ -152,24 +151,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Game Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jml-qo-SHo">
-                                        <rect key="frame" x="34" y="331" width="253" height="55"/>
-                                        <color key="backgroundColor" red="0.18152225380000001" green="0.18152225380000001" blue="0.18152225380000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="tdl-Ji-PlZ"/>
-                                        </constraints>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                                <color key="value" red="0.43137254901960786" green="0.43137254901960786" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_mystery" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-BR-9ah">
                                         <rect key="frame" x="99" y="100" width="122" height="122"/>
                                         <userDefinedRuntimeAttributes>
@@ -189,6 +170,24 @@
                                             <action selector="onAvatarButtonClick:" destination="sjf-3R-iPJ" eventType="touchUpInside" id="lKI-j2-Brx"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Game Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jml-qo-SHo">
+                                        <rect key="frame" x="34" y="331" width="253" height="55"/>
+                                        <color key="backgroundColor" red="0.18152225380000001" green="0.18152225380000001" blue="0.18152225380000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="tdl-Ji-PlZ"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                                <color key="value" red="0.43137254901960786" green="0.43137254901960786" blue="0.43137254901960786" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -235,7 +234,9 @@
                     <connections>
                         <outlet property="avatarImageView" destination="Cw3-BR-9ah" id="VrJ-b9-qCv"/>
                         <outlet property="gameCodeLabel" destination="jml-qo-SHo" id="Bgt-4n-7Ct"/>
+                        <outlet property="joinButton" destination="sNW-5s-R96" id="3Gv-hW-3se"/>
                         <outlet property="nameLabel" destination="4Ac-LY-8jn" id="Jv9-en-0GC"/>
+                        <segue destination="gAK-6C-nrw" kind="push" identifier="joinGameSegue" id="5cn-4W-MGZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qS-0E-0qf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -586,6 +587,6 @@
         <image name="whiteFrame" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JDi-UX-A4B"/>
+        <segue reference="5cn-4W-MGZ"/>
     </inferredMetricsTieBreakers>
 </document>

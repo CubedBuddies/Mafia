@@ -10,18 +10,29 @@ import UIKit
 
 class JoinGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
-//    @IBOutlet weak var avatarImageView: NSLayoutConstraint!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var gameCodeLabel: UITextField!
-    @IBOutlet weak var avatarImageView: UIImageView!
+    
+    @IBOutlet weak var joinButton: UIButton!
+    var originalJoinButtonText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        nameLabel.becomeFirstResponder()
+        
+        let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
+        tapper.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapper);
 
         // Do any additional setup after loading the view.
     }
-
+    
+    func dismissKeyboardOnTap() {
+        nameLabel.endEditing(true)
+        gameCodeLabel.endEditing(true)
+    }
+    
     @IBAction func onAvatarButtonClick(sender: AnyObject) {
         let imageFromSource = UIImagePickerController()
         imageFromSource.delegate = self
@@ -37,6 +48,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
         avatarImageView.image = temp
         avatarImageView.layer.cornerRadius = 30
         avatarImageView.clipsToBounds = true
@@ -50,15 +62,42 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.nameLabel.enabled = false
+            self.gameCodeLabel.enabled = false
+            self.joinButton.enabled = false
+            
+            self.originalJoinButtonText = self.joinButton.titleLabel!.text
+            self.joinButton.titleLabel!.text = "Joining game..."
+        }
+        
         MafiaClient.instance.joinGame(gameCodeLabel.text!,
-            playerName: self.nameLabel.text!,
+            playerName: nameLabel.text!,
             avatarType: MafiaClient.randomAvatarType(),
             completion: { (player: Player) -> Void in
                 player.isGameCreator = false
-                MafiaClient.instance.player = player
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.reenableUI()
+                    self.performSegueWithIdentifier("joinGameSegue", sender: self)
+                }
             },
-            failure: { NSLog("Failed to join game") }
+            failure: {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.reenableUI()
+                }
+                
+                NSLog("Failed to join game")
+            }
         )
+    }
+    
+    func reenableUI() {
+        nameLabel.enabled = true
+        gameCodeLabel.enabled = true
+        joinButton.enabled = true
+        joinButton.titleLabel!.text = self.originalJoinButtonText
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {

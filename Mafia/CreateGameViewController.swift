@@ -67,8 +67,6 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-
-
     //MARK: Private Methods
 
     override func didReceiveMemoryWarning() {
