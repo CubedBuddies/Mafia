@@ -36,6 +36,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     // whether they're viewing their role or not
     var roleMode = false
     
+    // used to cache the player vote (for responsiveness)
+    var pendingVote = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -172,19 +175,35 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 }
             }
             
-            if game.rounds.count > 0 {
-                self.playersDataSource?.round = game.rounds[game.rounds.count - 1]
-            }
-            
-            self.playersDataSource?.game = game
-            self.playersCollectionView.reloadData()
+            updatePlayerView(game)
         }
+    }
+    
+    func updatePlayerView(game: Game) {
+        self.playersDataSource?.round = game.rounds[game.rounds.count - 1]
+        self.playersDataSource?.game = game
+        
+        self.playersCollectionView.reloadData()
     }
 
     func selectPlayer(targetPlayerId: Int) {
         let eventType: EventType = (roleMode && MafiaClient.instance.player?.role == .MAFIA) ? .KILL : .LYNCH
+        if let round = MafiaClient.instance.game?.rounds[self.roundIndex] {
+            switch eventType {
+            case .KILL:
+                round.killVotes![MafiaClient.instance.player!.id] = targetPlayerId
+            case .LYNCH:
+                round.lynchVotes![MafiaClient.instance.player!.id] = targetPlayerId
+            }
+            
+            pendingVote = true
+        }
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.updatePlayerView(MafiaClient.instance.game!)
+        }
+        
         MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
-            // TODO: successfully sent event
             NSLog("Sent vote!")
         }, failure: { _ in
             NSLog("Failed to select player")

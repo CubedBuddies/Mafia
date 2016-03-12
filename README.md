@@ -35,3 +35,14 @@ The following functionality are **stretch**:
 
 The core-flow walkthrough is as shown: <br />
 <img src='coreflow.gif' />
+
+Style hierarchy
+- Fonts
+  - Title: Avenir 20 Heavy
+    - Body: Avenir 15 Light
+- Buttons
+  - Height = 55
+  - Title
+- Textfield
+  - Height = 40
+  - Body
