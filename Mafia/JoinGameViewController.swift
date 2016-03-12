@@ -71,14 +71,18 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
             self.joinButton.titleLabel!.text = "Joining game..."
         }
         
+        let avatar = MafiaClient.randomAvatarType()
         MafiaClient.instance.joinGame(gameCodeLabel.text!,
             playerName: nameLabel.text!,
-            avatarType: MafiaClient.randomAvatarType(),
+            avatarType: avatar,
             completion: { (player: Player) -> Void in
                 player.isGameCreator = false
                 
+                let game = Game(gameToken: self.gameCodeLabel.text!)
+                MafiaClient.instance.game = game
+                game.players.append(Player(playerName: self.nameLabel.text!, avatar: avatar))
+                
                 dispatch_async(dispatch_get_main_queue()) {
-                    
                     self.reenableUI()
                     self.performSegueWithIdentifier("joinGameSegue", sender: self)
                 }

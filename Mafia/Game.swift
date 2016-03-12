@@ -19,13 +19,21 @@ class Game: NSObject {
     var createdAt: NSDate?
     var updatedAt: NSDate?
     
-    var rounds: [Round]
+    var rounds: [Round] = []
     
     var dictionary: NSDictionary?
     
+    init(gameToken: String) {
+        super.init()
+        token = gameToken
+    }
+    
     init(fromResponse response: AnyObject) {
-        
-        let data = response as! NSDictionary
+        super.init()
+        setValues(response as! NSDictionary)
+    }
+    
+    func setValues(data: NSDictionary) {
         self.dictionary = data
         
         let game = data["game"] as! NSDictionary

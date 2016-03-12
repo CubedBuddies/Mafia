@@ -72,7 +72,12 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             }
             
             cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
-            cell.mafiaLabel.text = "\(killCounts?[player.id] ?? 0)"
+            if MafiaClient.instance.player?.role == .MAFIA {
+                cell.mafiaLabel.text = "\(killCounts?[player.id] ?? 0)"
+                cell.mafiaLabel.hidden = false
+            } else {
+                cell.mafiaLabel.hidden = true
+            }
             cell.tag = player.id
         }
         
