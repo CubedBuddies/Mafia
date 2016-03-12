@@ -107,14 +107,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 endRoundContinueButton.titleLabel?.text = "Exit game"
             } else {
                 endTitleLabel.text = "Night sets..."
-                let lastRound = game.rounds[game.rounds.count - 1]
+                let currentRound = game.rounds[roundIndex]
                 
                 var descriptionSegments = [String]()
-                if let lynchedPlayerId = lastRound.lynchedPlayerId {
-                    descriptionSegments.append("\(playerNames[lynchedPlayerId]) was lynched!")
+                if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                    descriptionSegments.append("\(playerNames[lynchedPlayerId]!) was lynched!")
                 }
-                if let killedPlayerId = lastRound.killedPlayerId {
-                    descriptionSegments.append("\(playerNames[killedPlayerId]) was killed by the mafia!")
+                if let killedPlayerId = currentRound.killedPlayerId {
+                    descriptionSegments.append("\(playerNames[killedPlayerId]!) was killed by the mafia!")
                 }
                 endDescriptionLabel.text = descriptionSegments.joinWithSeparator("\n")
             }
