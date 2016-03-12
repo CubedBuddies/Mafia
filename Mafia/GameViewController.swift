@@ -57,24 +57,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         playersCollectionView.dataSource = playersDataSource
     }
     
-    func showRoundEndView() {
-        roundEndView.hidden = false
-        if let game = MafiaClient.instance.game {
-            if game.state == .FINISHED {
-                switch game.winner! {
-                case .MAFIA:
-                    endTitleLabel.text = "Mafia wins!"
-                case .TOWNSPERSON:
-                    endTitleLabel.text = "Town wins!"
-                }
-                
-                endRoundContinueButton.titleLabel?.text = "Exit game"
-            } else {
-                endTitleLabel.text = "Night sets..."
-            }
-        }
-    }
-    
     @IBAction func onAvatarTap(sender: AnyObject) {
         roleMode = !roleMode
         dispatch_async(dispatch_get_main_queue()) {
@@ -103,9 +85,52 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
             }
         }
     }
+    
+    func showRoundEndView() {
+        roundEndView.hidden = false
+        endScreen()
+        
+        if let game = MafiaClient.instance.game {
+            var playerNames = [Int: String]()
+            for player in game.players {
+                playerNames[player.id] = player.name
+            }
+            
+            if game.state == .FINISHED {
+                switch game.winner! {
+                case .MAFIA:
+                    endTitleLabel.text = "Mafia wins!"
+                case .TOWNSPERSON:
+                    endTitleLabel.text = "Town wins!"
+                }
+                
+                endRoundContinueButton.titleLabel?.text = "Exit game"
+            } else {
+                endTitleLabel.text = "Night sets..."
+                let lastRound = game.rounds[game.rounds.count - 1]
+                
+                var descriptionSegments = [String]()
+                if let lynchedPlayerId = lastRound.lynchedPlayerId {
+                    descriptionSegments.append("\(playerNames[lynchedPlayerId]) was lynched!")
+                }
+                if let killedPlayerId = lastRound.killedPlayerId {
+                    descriptionSegments.append("\(playerNames[killedPlayerId]) was killed by the mafia!")
+                }
+                endDescriptionLabel.text = descriptionSegments.joinWithSeparator("\n")
+            }
+        }
+        
+    }
 
     @IBAction func onContinueToNextRound(sender: AnyObject) {
+        NSLog("Transitioning to new round, from round \(roundIndex)")
         
+        let vc = GameViewController()
+        vc.roundIndex = roundIndex + 1
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
     }
     
     func updateHandler() {
@@ -114,44 +139,39 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 dispatch_async(dispatch_get_main_queue()) {
                     if game.state == .FINISHED {
                         self.showRoundEndView()
-                    }
-                    
-                    let round = game.rounds![self.roundIndex]
-                    let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
-                    self.timerLabel.text = "\(secondsLeft)"
-                    
-                    if self.roundIndex < (game.rounds?.count ?? 1) - 1 {
-                        self.transitionToNewRound()
                     } else {
-                        for player in game.players {
-                            if player.id == MafiaClient.instance.player!.id {
-                                MafiaClient.instance.player = player
-                                self.showPlayerStats()
-                                break
-                            }
-                        }
-                        
-                        if let rounds = game.rounds {
-                            if game.rounds?.count > 0 {
-                                self.playersDataSource?.round = rounds[rounds.count - 1]
-                            }
-                        }
-                        self.playersDataSource?.game = game
-                        self.playersCollectionView.reloadData()
+                        self.loadRoundData(game)
                     }
                 }
             },
             failure: { NSLog("Failed to poll game status") }
         )
     }
-
-    func transitionToNewRound() {
-        NSLog("Transitioning to new round, from round \(roundIndex)")
-        
-        let vc = GameViewController()
-        vc.roundIndex = roundIndex + 1
-        
-        presentViewController(vc, animated: true, completion: nil)
+    
+    func loadRoundData(game: Game) {
+        if self.roundIndex < (game.rounds.count ?? 1) - 1 {
+            // round is over, no point pulling data
+            showRoundEndView()
+        } else {
+            let round = game.rounds[self.roundIndex]
+            let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
+            self.timerLabel.text = "\(secondsLeft)"
+            
+            for player in game.players {
+                if player.id == MafiaClient.instance.player!.id {
+                    MafiaClient.instance.player = player
+                    self.showPlayerStats()
+                    break
+                }
+            }
+            
+            if game.rounds.count > 0 {
+                self.playersDataSource?.round = game.rounds[game.rounds.count - 1]
+            }
+            
+            self.playersDataSource?.game = game
+            self.playersCollectionView.reloadData()
+        }
     }
 
     func selectPlayer(targetPlayerId: Int) {
@@ -162,15 +182,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         }, failure: { _ in
             NSLog("Failed to select player")
         })
-    }
-
-    func updatePlayerUI() {
-        // TODO: make this update single players at a time
-        playersCollectionView.reloadData()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        endScreen()
     }
     
     func endScreen() {

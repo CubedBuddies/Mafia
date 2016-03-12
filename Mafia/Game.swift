@@ -19,7 +19,7 @@ class Game: NSObject {
     var createdAt: NSDate?
     var updatedAt: NSDate?
     
-    var rounds: [Round]?
+    var rounds: [Round]
     
     var dictionary: NSDictionary?
     
