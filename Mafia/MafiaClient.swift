@@ -120,7 +120,10 @@ class MafiaClient: NSObject {
                     data!, options:[]) as! NSDictionary
 
                 self.token = joinToken
-                completion(Player(fromResponse: responseDictionary))
+                
+                let player = Player(fromResponse: responseDictionary)
+                MafiaClient.instance.player = player
+                completion(player)
             } else {
                 failure()
             }

@@ -101,7 +101,6 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                 avatarType: MafiaClient.randomAvatarType(),
                 completion: { (player: Player) in
                     player.isGameCreator = true
-                    MafiaClient.instance.player = player
                     
                     // manually insert player data, so they show up before the next network request finishes
                     let playerData = [
