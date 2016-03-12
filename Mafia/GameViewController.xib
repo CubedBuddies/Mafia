@@ -75,14 +75,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZO-ml-4I1">
-                    <rect key="frame" x="8" y="8" width="304" height="186.5"/>
+                    <rect key="frame" x="8" y="8" width="304" height="186"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEATH SCENE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mqz-jZ-gGJ">
-                            <rect key="frame" x="96" y="68" width="112.5" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mafia wins!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkN-2H-Lfw">
                             <rect key="frame" x="109" y="8" width="86" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -96,24 +90,31 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4I-dO-mjv">
-                            <rect key="frame" x="74" y="152.5" width="157" height="30"/>
+                            <rect key="frame" x="74" y="152" width="157" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Continue to next round"/>
                             <connections>
                                 <action selector="onContinueToNextRound:" destination="-1" eventType="touchUpInside" id="ZRl-fh-BxT"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="night_scene_widescreen_by_norif" translatesAutoresizingMaskIntoConstraints="NO" id="6Hi-F4-0Rh">
+                            <rect key="frame" x="64" y="30" width="176" height="99"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="6Hi-F4-0Rh" secondAttribute="height" multiplier="16:9" id="oeo-5H-FJx"/>
+                                <constraint firstAttribute="height" constant="99" id="sNq-LW-NnK"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Q4I-dO-mjv" secondAttribute="bottom" constant="4" id="1SV-df-AhV"/>
-                        <constraint firstItem="HxZ-zw-hVU" firstAttribute="top" secondItem="Mqz-jZ-gGJ" secondAttribute="bottom" constant="43" id="56E-FE-ODh"/>
                         <constraint firstItem="ZkN-2H-Lfw" firstAttribute="centerX" secondItem="MZO-ml-4I1" secondAttribute="centerX" id="6LG-H1-h2e"/>
-                        <constraint firstItem="Mqz-jZ-gGJ" firstAttribute="top" secondItem="ZkN-2H-Lfw" secondAttribute="bottom" constant="40" id="G9X-cv-FPg"/>
+                        <constraint firstItem="HxZ-zw-hVU" firstAttribute="top" secondItem="6Hi-F4-0Rh" secondAttribute="bottom" constant="3" id="Mvu-yu-282"/>
                         <constraint firstItem="Q4I-dO-mjv" firstAttribute="centerX" secondItem="MZO-ml-4I1" secondAttribute="centerX" id="NLY-Dr-7O8"/>
                         <constraint firstItem="HxZ-zw-hVU" firstAttribute="centerX" secondItem="MZO-ml-4I1" secondAttribute="centerX" id="XCb-sN-QJS"/>
                         <constraint firstItem="ZkN-2H-Lfw" firstAttribute="top" secondItem="MZO-ml-4I1" secondAttribute="top" constant="8" id="bvM-Ud-6bD"/>
-                        <constraint firstItem="Mqz-jZ-gGJ" firstAttribute="centerX" secondItem="MZO-ml-4I1" secondAttribute="centerX" id="q2x-Fn-KH3"/>
+                        <constraint firstItem="6Hi-F4-0Rh" firstAttribute="centerX" secondItem="MZO-ml-4I1" secondAttribute="centerX" id="hnv-yh-gIO"/>
+                        <constraint firstItem="6Hi-F4-0Rh" firstAttribute="top" secondItem="ZkN-2H-Lfw" secondAttribute="bottom" constant="1.5" id="nYP-eF-5cd"/>
                         <constraint firstItem="Q4I-dO-mjv" firstAttribute="top" secondItem="HxZ-zw-hVU" secondAttribute="bottom" id="xxl-73-3eF"/>
                     </constraints>
                 </view>
@@ -148,5 +149,6 @@
     </objects>
     <resources>
         <image name="Character_Girl1" width="100" height="100"/>
+        <image name="night_scene_widescreen_by_norif" width="800" height="500"/>
     </resources>
 </document>
