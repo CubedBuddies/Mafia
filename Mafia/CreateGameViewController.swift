@@ -69,7 +69,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
 
                 MafiaClient.instance.joinGame(game.token,
                     playerName: self.playerNameTextField.text!,
-                    avatarType: "asian",
+                    avatarType: MafiaClient.randomAvatarType(),
                     completion: { (player: Player) in
                         player.isGameCreator = true
                         MafiaClient.instance.player = player

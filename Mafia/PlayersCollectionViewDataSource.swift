@@ -63,7 +63,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         
         if let player = game?.players[indexPath.row] {
             // TODO: get avatar
-            //cell.avatarImageView.setImageWithURL(NSURL(string: "")!)
+            cell.avatarImageView.image = UIImage(named: player.avatarType)
             
             if player.state == .DEAD {
                 cell.nameLabel.text = "DEAD"

@@ -215,4 +215,10 @@ class MafiaClient: NSObject {
             task.resume()
         }
     }
+    
+    class func randomAvatarType() -> String {
+        let array = ["boy1", "boy2", "girl1", "girl2"]
+        let randomIndex = Int(arc4random_uniform(UInt32(array.count)))
+        return array[randomIndex]
+    }
 }

@@ -21,12 +21,19 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
 
+    // round end screen
+    @IBOutlet weak var roundEndView: UIView!
+    @IBOutlet weak var endTitleLabel: UILabel!
+    @IBOutlet weak var endDescriptionLabel: UILabel!
+    @IBOutlet weak var endRoundContinueButton: UIButton!
+    
     var playersDataSource: PlayersCollectionViewDataSource?
     var updateTimer: NSTimer = NSTimer()
 
     var roundIndex = 0
     var time: Int = 0
     
+    // whether they're viewing their role or not
     var roleMode = false
     
     override func viewDidLoad() {
@@ -35,6 +42,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
+            
+            self.showPlayerStats()
+            self.roundEndView.hidden = true
         }
 
         time = 5 * 60
@@ -45,8 +55,24 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
-        
-        showPlayerStats()
+    }
+    
+    func showRoundEndView() {
+        roundEndView.hidden = false
+        if let game = MafiaClient.instance.game {
+            if game.state == .FINISHED {
+                switch game.winner! {
+                case .MAFIA:
+                    endTitleLabel.text = "Mafia wins!"
+                case .TOWNSPERSON:
+                    endTitleLabel.text = "Town wins!"
+                }
+                
+                endRoundContinueButton.titleLabel?.text = "Exit game"
+            } else {
+                endTitleLabel.text = "Night sets..."
+            }
+        }
     }
     
     @IBAction func onAvatarTap(sender: AnyObject) {
@@ -57,27 +83,39 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
     
     func showPlayerStats() {
-        if roleMode {
-            if let role = MafiaClient.instance.player!.role {
-                nameLabel.text = role.rawValue
-                switch role {
-                case .TOWNSPERSON:
-                    actionLabel.text = ""
-                case .MAFIA:
-                    actionLabel.text = "TAP TO KILL"
+        if let player = MafiaClient.instance.player {
+            if roleMode {
+                if let role = player.role {
+                    nameLabel.text = role.rawValue
+                    switch role {
+                    case .TOWNSPERSON:
+                        avatarImageView.image = UIImage(named: player.avatarType)
+                        actionLabel.text = ""
+                    case .MAFIA:
+                        avatarImageView.image = UIImage(named: "mafia")
+                        actionLabel.text = "TAP TO KILL"
+                    }
                 }
+            } else {
+                avatarImageView.image = UIImage(named: player.avatarType)
+                nameLabel.text = player.name
+                actionLabel.text = "Tap to Vote"
             }
-        } else {
-            nameLabel.text = MafiaClient.instance.player!.name
-            actionLabel.text = "Tap to Vote"
         }
     }
 
+    @IBAction func onContinueToNextRound(sender: AnyObject) {
+        
+    }
+    
     func updateHandler() {
         MafiaClient.instance.pollGameStatus(
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
-
+                    if game.state == .FINISHED {
+                        self.showRoundEndView()
+                    }
+                    
                     let round = game.rounds![self.roundIndex]
                     let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
                     self.timerLabel.text = "\(secondsLeft)"
@@ -86,9 +124,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                         self.transitionToNewRound()
                     } else {
                         for player in game.players {
-                            let other = MafiaClient.instance.player
                             if player.id == MafiaClient.instance.player!.id {
                                 MafiaClient.instance.player = player
+                                self.showPlayerStats()
                                 break
                             }
                         }
@@ -117,7 +155,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func selectPlayer(targetPlayerId: Int) {
-        MafiaClient.instance.addGameEvent(.LYNCH, targetPlayerId: targetPlayerId, completion: { _ in
+        let eventType: EventType = (roleMode && MafiaClient.instance.player?.role == .MAFIA) ? .KILL : .LYNCH
+        MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
             // TODO: successfully sent event
             NSLog("Sent vote!")
         }, failure: { _ in

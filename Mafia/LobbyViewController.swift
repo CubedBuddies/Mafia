@@ -52,7 +52,9 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 dispatch_async(dispatch_get_main_queue()) {
                     self.codeLabel.text = MafiaClient.instance.game?.token
                     self.tableView.reloadData()
-                    if game.state == "in_progress" {
+                    
+                    // check if game was already started
+                    if game.state == .IN_PROGRESS {
                         self.presentViewController(GameViewController(), animated: true, completion: nil)
                     }
                 }
