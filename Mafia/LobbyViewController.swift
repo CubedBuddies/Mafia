@@ -27,7 +27,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.reloadData()
 
         refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
-
+        
+        codeLabel.text = MafiaClient.instance.game?.token
     }
 
     @IBAction func onStartGameClick(sender: AnyObject) {

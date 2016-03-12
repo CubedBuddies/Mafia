@@ -105,6 +105,14 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     player.isGameCreator = true
                     MafiaClient.instance.player = player
                     
+                    // manually insert player data, so they show up before the next network request finishes
+                    let playerData = [
+                        // arbitrary id, will be reset on next load
+                        "id": 0,
+                        "name": self.playerNameTextField.text!,
+                        "avatar_type": MafiaClient.randomAvatarType()]
+                    MafiaClient.instance.game!.players.append(Player(fromDictionary: NSDictionary(dictionary: playerData)))
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         self.playerNameTextField.enabled = true
                         self.joinButton.enabled = true
