@@ -282,7 +282,7 @@
                                             <constraint firstAttribute="height" constant="55" id="sLn-tN-Drv"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="26"/>
-                                        <state key="normal" title="Next"/>
+                                        <state key="normal" title="Create game"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -357,6 +357,7 @@
                     <connections>
                         <outlet property="avatarImageButton" destination="heP-fC-pIT" id="z2f-oz-w6R"/>
                         <outlet property="avatarImageView" destination="jd4-Ot-zN1" id="e3w-cc-ia9"/>
+                        <outlet property="joinButton" destination="pVH-9M-xpR" id="jET-Om-BE4"/>
                         <outlet property="playerNameTextField" destination="VGX-1Y-TIP" id="GjH-Ej-Hd3"/>
                         <segue destination="gAK-6C-nrw" kind="push" identifier="newGame2LobbySegue" id="JDi-UX-A4B"/>
                     </connections>

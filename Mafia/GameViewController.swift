@@ -91,9 +91,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         endScreen()
         
         if let game = MafiaClient.instance.game {
-            var playerNames = [Int: String]()
+            var playerNames = [Int: Player]()
             for player in game.players {
-                playerNames[player.id] = player.name
+                playerNames[player.id] = player
             }
             
             if game.state == .FINISHED {
@@ -104,6 +104,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                     endTitleLabel.text = "Town wins!"
                 }
                 
+                endDescriptionLabel.hidden = true
                 endRoundContinueButton.titleLabel?.text = "Exit game"
             } else {
                 endTitleLabel.text = "Night sets..."
@@ -111,10 +112,12 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 
                 var descriptionSegments = [String]()
                 if let lynchedPlayerId = currentRound.lynchedPlayerId {
-                    descriptionSegments.append("\(playerNames[lynchedPlayerId]!) was lynched!")
+                    let player = playerNames[lynchedPlayerId]!
+                    descriptionSegments.append("\(player.name) was lynched! They were: \(player.role!)")
                 }
                 if let killedPlayerId = currentRound.killedPlayerId {
-                    descriptionSegments.append("\(playerNames[killedPlayerId]!) was killed by the mafia!")
+                    let player = playerNames[killedPlayerId]!
+                    descriptionSegments.append("\(player.name) was killed by the mafia! They were: \(player.role!)")
                 }
                 endDescriptionLabel.text = descriptionSegments.joinWithSeparator("\n")
             }
@@ -125,11 +128,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     @IBAction func onContinueToNextRound(sender: AnyObject) {
         NSLog("Transitioning to new round, from round \(roundIndex)")
         
-        let vc = GameViewController()
-        vc.roundIndex = roundIndex + 1
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(vc, animated: true, completion: nil)
+        if MafiaClient.instance.game?.state == .FINISHED {
+            // TODO: go back to main menu
+        } else {
+            let vc = GameViewController()
+            vc.roundIndex = roundIndex + 1
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.presentViewController(vc, animated: true, completion: nil)
+            }
         }
     }
     

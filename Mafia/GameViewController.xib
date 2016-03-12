@@ -97,6 +97,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4I-dO-mjv">
                             <rect key="frame" x="74" y="152.5" width="157" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Continue to next round"/>
                             <connections>
                                 <action selector="onContinueToNextRound:" destination="-1" eventType="touchUpInside" id="ZRl-fh-BxT"/>

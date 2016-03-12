@@ -12,14 +12,32 @@ import AVFoundation
 class CreateGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var avatarImageButton: UIButton!
+    
     @IBOutlet weak var playerNameTextField: UITextField!
+    @IBOutlet weak var joinButton: UIButton!
 
+    var gameCreated = false
+    var bufferedJoin = false
+
+    var originalJoinButtonText: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
         tapper.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapper);
+        
+        MafiaClient.instance.createGame(
+            completion: { (game: Game) -> Void in
+                self.gameCreated = true
+                if self.bufferedJoin {
+                    NSLog("Join was waiting for create, now joining...")
+                    self.joinGame()
+                }
+            },
+            failure: { NSLog("Failed to create game") }
+        )
     }
 
     func dismissKeyboardOnTap() {
@@ -63,27 +81,42 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
 
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        MafiaClient.instance.createGame(
-            completion: { (game: Game) -> Void in
-                NSLog("Created game, now joining...")
-
-                MafiaClient.instance.joinGame(game.token,
-                    playerName: self.playerNameTextField.text!,
-                    avatarType: MafiaClient.randomAvatarType(),
-                    completion: { (player: Player) in
-                        player.isGameCreator = true
-                        MafiaClient.instance.player = player
-                    },
-                    failure: { NSLog("Failed to join game") }
-                )
-            },
-            failure: { NSLog("Failed to create game") }
-        )
-
-        self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
+        joinGame()
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func joinGame() {
+        playerNameTextField.enabled = false
+        joinButton.enabled = false
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.originalJoinButtonText = self.joinButton.titleLabel!.text
+            self.joinButton.titleLabel!.text = "Creating game..."
+        }
+        
+        if gameCreated {
+            MafiaClient.instance.joinGame(MafiaClient.instance.game!.token,
+                playerName: self.playerNameTextField.text!,
+                avatarType: MafiaClient.randomAvatarType(),
+                completion: { (player: Player) in
+                    player.isGameCreator = true
+                    MafiaClient.instance.player = player
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.playerNameTextField.enabled = true
+                        self.joinButton.enabled = true
+                        self.joinButton.titleLabel!.text = self.originalJoinButtonText
+                        
+                        self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
+                    }
+                },
+                failure: { NSLog("Failed to join game") }
+            )
+        } else {
+            bufferedJoin = true
+        }
     }
 }
