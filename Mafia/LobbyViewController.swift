@@ -17,11 +17,15 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var refreshTimer: NSTimer = NSTimer()
 
     override func viewDidLoad() {
+        navigationController?.navigationItem.hidesBackButton = true
+        
         super.viewDidLoad()
         if Player.currentPlayer?.isGameCreator == false{
             startGameButton.hidden = true
         }
-
+        
+        codeLabel.text = MafiaClient.instance.game?.token
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
@@ -67,7 +71,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
         let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
-
         return cell
     }
 

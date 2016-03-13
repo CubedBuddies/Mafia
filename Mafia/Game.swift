@@ -46,4 +46,14 @@ class Game: NSObject {
             NSLog("Failed to deserialize JSON \(data)")
         }
     }
+    
+    func clearGameState() {
+        self.dictionary = nil
+        self.token = ""
+        self.state = ""
+        self.players = []
+        self.createdAt = nil
+        self.updatedAt = nil
+        self.rounds = nil
+    }
 }

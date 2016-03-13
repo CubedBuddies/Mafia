@@ -63,6 +63,8 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
 
     @IBAction func onNextButtonClick(sender: AnyObject) {
+        MafiaClient.instance.game?.clearGameState()
+        print(MafiaClient.instance.game?.token)
         MafiaClient.instance.createGame(
             completion: { (game: Game) -> Void in
                 NSLog("Created game, now joining...")

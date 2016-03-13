@@ -88,11 +88,18 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
 
     func selectPlayer(targetPlayerId: Int) {
-        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId) { _ in
-            // TODO: successfully sent event
-            NSLog("Sent vote!")
+        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId, completion: { (game: Game) -> Void in
+            print("Sent Vote!")
+            }) { () -> Void in
+                print("Failed sending vote")
         }
     }
+//    func selectPlayer(targetPlayerId: Int) {
+//        MafiaClient.instance.addGameEvent("lynch", targetPlayerId: targetPlayerId) { _ in
+//            // TODO: successfully sent event
+//            NSLog("Sent vote!")
+//        }
+//    }
 
     func updatePlayerUI() {
         // TODO: make this update single players at a time

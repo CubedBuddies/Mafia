@@ -55,7 +55,6 @@ class MafiaClient: NSObject {
         if token != nil {
             NSLog("Already connected to game \(token), but trying to create a new game.")
         }
-
         sendRequest(BASE_URL + "/games", method: "POST", data: nil) {
             (data, response, error) -> Void in
             let statusCode = (response as! NSHTTPURLResponse).statusCode
