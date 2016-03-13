@@ -77,6 +77,10 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.font = UIFont(name: "Avenir", size: 26)
     }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        resignFirstResponder()
+    }
 
     @IBAction func onNextButtonClick(sender: AnyObject) {
         joinGame()
