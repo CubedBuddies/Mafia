@@ -20,8 +20,16 @@ class RoleRevealViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let role = MafiaClient.instance.player?.role {
+            switch role {
+            case .TOWNSPERSON:
+                self.front = UIImageView(image: UIImage(named: (MafiaClient.instance.player?.avatarType)!))
+            case .MAFIA:
+                self.front = UIImageView(image: UIImage(named: "mafia"))
+            }
+        }
         
-        self.front = UIImageView(image: UIImage(named: "boy1"))
+        
         self.back = UIImageView(image: UIImage(named: "Character_mystery"))
         
         roleView.addSubview(back)
