@@ -33,16 +33,7 @@ The following functionality are **stretch**:
 - [ ] Bounties
 - [ ] Voice
 
-The core-flow walkthrough is as shown: <br />
-<img src='coreflow.gif' />
+The core-functionality is below: <br />
+<img src='functionality-prenight.gif' />
+<img src='functionality-postnight.gif' />
 
-Style hierarchy
-- Fonts
-  - Title: Avenir 20 Heavy
-    - Body: Avenir 15 Light
-- Buttons
-  - Height = 55
-  - Title
-- Textfield
-  - Height = 40
-  - Body

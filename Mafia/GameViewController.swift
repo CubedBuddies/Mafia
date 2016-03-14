@@ -37,7 +37,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     var roleMode = false
     
     // used to cache the player vote (for responsiveness)
-    var pendingVote = false
+    var pendingEventType: EventType?
+    var pendingVote: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,12 +145,19 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
     }
     
     func updateHandler() {
+        if pendingVote != nil {
+            pendingEventType = nil
+            pendingVote = nil
+        }
         MafiaClient.instance.pollGameStatus(
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if game.state == .FINISHED {
                         self.showRoundEndView()
                     } else {
+                        if self.pendingVote != nil {
+                            self.fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
+                        }
                         self.loadRoundData(game)
                     }
                 }
@@ -185,9 +193,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         
         self.playersCollectionView.reloadData()
     }
-
-    func selectPlayer(targetPlayerId: Int) {
-        let eventType: EventType = (roleMode && MafiaClient.instance.player?.role == .MAFIA) ? .KILL : .LYNCH
+    
+    func fakeVote(eventType: EventType, targetPlayerId: Int) {
         if let round = MafiaClient.instance.game?.rounds[self.roundIndex] {
             switch eventType {
             case .KILL:
@@ -196,8 +203,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 round.lynchVotes![MafiaClient.instance.player!.id] = targetPlayerId
             }
             
-            pendingVote = true
+            pendingEventType = eventType
+            pendingVote = targetPlayerId
         }
+    }
+
+    func selectPlayer(targetPlayerId: Int) {
+        let eventType: EventType = (roleMode && MafiaClient.instance.player?.role == .MAFIA) ? .KILL : .LYNCH
+        fakeVote(eventType, targetPlayerId: targetPlayerId)
         
         dispatch_async(dispatch_get_main_queue()) {
             self.updatePlayerView(MafiaClient.instance.game!)
