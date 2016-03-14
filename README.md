@@ -8,17 +8,17 @@ The back-end can be found at:
 
 The following functionality are **required**:
 
-- [ ] Home screen
-  - [ ] Creating a new game
-  - [ ] Joining an existing game
-- [ ] Lobby screen
-  - [ ] Starting the game
-- [ ] Game screen
-  - [ ] Voting
-  - [ ] Roles
-  - [ ] Countdown timer
-- [ ] Summary screen
-  - [ ] Processes actions for what happens in a stage of the game
+- [x] Home screen
+  - [x] Creating a new game
+  - [x] Joining an existing game
+- [x] Lobby screen
+  - [x] Starting the game
+- [x] Game screen
+  - [x] Voting
+  - [x] Roles
+  - [x] Countdown timer
+- [x] Summary screen
+  - [x] Processes actions for what happens in a stage of the game
 
 The following functionality are **stretch**:
 
