@@ -197,13 +197,38 @@ class MafiaClient: NSObject {
             }
         }
     }
+    
+    /**
+     DELETE /games/:token/players/:player_id
+     Calls completion with removed player's id.
+     */
+    func deletePlayer(playerId: Int, completion: Game -> Void, failure: () -> Void){
+        if let token = token {
+            sendRequest(BASE_URL + "/games/\(token)/players/\(playerId)", method: "DELETE", data: nil) {
+                (data, response, error) -> Void in
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                
+                if statusCode < 400 {
+                    let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                        data!, options:[]) as! NSDictionary
+                    completion(Game(fromResponse: responseDictionary))
+                    let newGame = Game(fromResponse: responseDictionary)
+                    self.game = newGame
+                    completion(newGame)
+                } else {
+                    failure()
+                }
+            }
+        }
+    }
+
 
     private func sendRequest(
         url: String, method: String, data: NSDictionary?,
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
 
         if let url = NSURL(string: url) {
-            NSLog("Sending request to \(url)")
+//            NSLog("Sending request to \(url)")
 
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method

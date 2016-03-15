@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PlayerCellDelegate {
 
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -32,7 +32,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
                 self.refreshTimer.invalidate()
-                self.presentViewController(GameViewController(), animated: true, completion: nil)
             },
             failure: { NSLog("Failed to start game") }
         )
@@ -53,7 +52,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     // check if game was already started
                     if game.state == .IN_PROGRESS {
-                        self.presentViewController(GameViewController(), animated: true, completion: nil)
+                        self.performSegueWithIdentifier("lobby2roleRevealSegue", sender: self)
+//                        self.presentViewController(RoleRevealViewController(), animated: true, completion: nil)
                     }
                 }
             },
@@ -65,16 +65,64 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PlayerTableViewCell", forIndexPath: indexPath) as! PlayerTableViewCell
+
         let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
+        print(MafiaClient.instance.player?.id)
+        if(player.name != MafiaClient.instance.player?.name) {
+            cell.leaveButton.hidden = true
+        }
+        
+        cell.delegate = self
 
         return cell
     }
+    
+    
+    
+//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+//        let deleteButton = UITableViewRowAction(style: .Normal, title: "Delete") { (action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
+//            let currPlayer = MafiaClient.instance.game?.players[indexPath.row]
+//            MafiaClient.instance.deletePlayer((currPlayer?.id)!,
+//                completion: { (game: Game) -> Void in
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        MafiaClient.instance.game?.players.removeAtIndex(indexPath.row)
+//                        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+////                        print(game.players.count)
+//                    }
+//                }, failure: { NSLog("Failed to delete player")}
+//            )
+//        }
+//        deleteButton.backgroundColor = UIColor(red: 0.686, green: 0.0039, blue: 0.0, alpha: 1.0)
+//        
+//        return [deleteButton]
+//    }
+//    
+//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        // you need to implement this method too or you can't swipe to display the actions
+//    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MafiaClient.instance.game?.players.count ?? 0
     }
 
+    
+    func playerCell(playerCell: PlayerTableViewCell, leaveButtonPressed value: Bool) {
+        MafiaClient.instance.deletePlayer((MafiaClient.instance.player?.id)!,
+            completion: { (game: Game) -> Void in
+                dispatch_async(dispatch_get_main_queue()) {
+                    let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                    let homeView: HomeViewController = storyboard.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
+                    UIApplication.sharedApplication().keyWindow?.rootViewController = homeView
+                }
+            }) { () -> Void in
+                print("failed to remove player from game")
+        }
+    }
 
     /*
     // MARK: - Navigation

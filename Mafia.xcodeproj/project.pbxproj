@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		190443E1485D2FFEF59F3AE5 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */; };
+		533EF9651C961EF0009F3D94 /* RoleRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */; };
 		53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* CreateGameViewController.swift */; };
 		53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE91C877AE500163802 /* ResultsViewController.swift */; };
 		53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		069F015EFBBC401E98FDA902 /* Pods-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
 		1412AB255EFD31CCB9358A65 /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
+		533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleRevealViewController.swift; sourceTree = "<group>"; };
 		53F21EE71C877A3100163802 /* CreateGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameViewController.swift; sourceTree = "<group>"; };
 		53F21EE91C877AE500163802 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				728BA8441C857C4D00630365 /* LobbyViewController.swift */,
 				53F21EE71C877A3100163802 /* CreateGameViewController.swift */,
 				53F21EE91C877AE500163802 /* ResultsViewController.swift */,
+				533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */,
 				72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */,
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
+				533EF9651C961EF0009F3D94 /* RoleRevealViewController.swift in Sources */,
 				728BA83F1C857C3200630365 /* HomeViewController.swift in Sources */,
 				72C7D7E01C88B93200B26CDD /* MafiaClient.swift in Sources */,
 				72F37DCF1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift in Sources */,

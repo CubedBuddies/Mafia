@@ -15,6 +15,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     
     @IBOutlet weak var playerNameTextField: UITextField!
     @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
 
     var gameCreated = false
     var bufferedJoin = false
@@ -88,7 +89,12 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
 
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        joinGame()
+        if playerNameTextField.text == "" {
+            errorLabel.hidden = false
+        } else {
+            joinGame()
+        }
+
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
@@ -106,7 +112,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         
         dispatch_async(dispatch_get_main_queue()) {
             self.originalJoinButtonText = self.joinButton.titleLabel!.text
-            self.joinButton.setTitle("Creating game...", forState: .Normal)
+//            self.joinButton.titleLabel!.text = "Creating game..."
         }
         
         if gameCreated {
