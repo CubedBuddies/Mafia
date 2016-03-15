@@ -51,8 +51,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
             self.roundEndView.hidden = true
         }
 
-        time = 5 * 60
-
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
         playersDataSource!.delegate = self
         playersCollectionView.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
