@@ -75,8 +75,10 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             }
             
             if delegate!.getRoleMode() && (MafiaClient.instance.player?.role == .MAFIA) {
+                cell.voteBubble.backgroundColor = UIColor.redColor()
                 cell.voteLabel.text = "\(killCounts?[player.id] ?? 0)"
             } else {
+                cell.voteBubble.backgroundColor = UIColor.blueColor()
                 cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
             }
             cell.tag = player.id

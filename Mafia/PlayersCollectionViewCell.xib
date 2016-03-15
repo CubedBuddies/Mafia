@@ -26,7 +26,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-xp-JAz">
-                    <rect key="frame" x="8" y="8" width="30" height="30"/>
+                    <rect key="frame" x="13" y="13" width="30" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ox-YX-lCa">
                             <rect key="frame" x="10" y="5" width="10.5" height="20.5"/>
@@ -53,6 +53,7 @@
             <connections>
                 <outlet property="avatarImageView" destination="55j-wt-TVc" id="CvL-aU-Ep0"/>
                 <outlet property="nameLabel" destination="2Uw-dV-7qJ" id="p9e-7Q-Tg3"/>
+                <outlet property="voteBubble" destination="myZ-xp-JAz" id="i3r-1Z-OqO"/>
                 <outlet property="voteLabel" destination="5ox-YX-lCa" id="SPN-9b-JTo"/>
             </connections>
             <point key="canvasLocation" x="303" y="221"/>

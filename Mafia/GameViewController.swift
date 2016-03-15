@@ -80,10 +80,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                     switch role {
                     case .TOWNSPERSON:
                         avatarImageView.image = UIImage(named: player.avatarType)
-                        actionLabel.text = ""
+                        actionLabel.text = "Tap to Vote"
                     case .MAFIA:
                         avatarImageView.image = UIImage(named: "mafia")
-                        actionLabel.text = "TAP TO KILL"
+                        actionLabel.text = "Tap to Kill"
                     }
                 }
             } else {
@@ -177,7 +177,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
-            self.timerLabel.text = "\(secondsLeft)"
+            self.timerLabel.text = "00:\(secondsLeft)"
             
             for player in game.players {
                 if player.id == MafiaClient.instance.player!.id {
