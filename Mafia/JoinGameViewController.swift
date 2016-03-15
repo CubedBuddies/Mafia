@@ -69,7 +69,14 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         }
         if gameCodeLabel.text == "" {
             codeErrorLabel.hidden = false
-        } else {
+        }
+        if nameLabel.text != "" {
+            nameErrorLabel.hidden = true
+        }
+        if gameCodeLabel.text != "" {
+            codeErrorLabel.hidden = false
+        }
+        else {
             dispatch_async(dispatch_get_main_queue()) {
                 self.nameLabel.enabled = false
                 self.gameCodeLabel.enabled = false

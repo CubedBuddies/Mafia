@@ -35,8 +35,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
                 self.refreshTimer.invalidate()
-//                self.performSegueWithIdentifier("lobby2roleRevealSegue", sender: self)
-//                self.presentViewController(RoleRevealViewController(), animated: true, completion: nil)
             },
             failure: { NSLog("Failed to start game") }
         )

@@ -184,7 +184,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNW-5s-R96">
-                                        <rect key="frame" x="46" y="460" width="229" height="55"/>
+                                        <rect key="frame" x="46" y="463" width="229" height="55"/>
                                         <color key="backgroundColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="pOp-km-09e"/>
@@ -204,6 +204,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="RIH-DD-AJI" firstAttribute="leading" secondItem="4Ac-LY-8jn" secondAttribute="leading" id="1FC-2D-mDf"/>
+                                    <constraint firstAttribute="bottom" secondItem="sNW-5s-R96" secondAttribute="bottom" constant="50" id="24c-UV-4tD"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="centerX" secondItem="Cw3-BR-9ah" secondAttribute="centerX" id="B9e-Ql-hON"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="width" secondItem="Cw3-BR-9ah" secondAttribute="width" id="CwI-c7-zxC"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="leading" secondItem="YNM-Gg-FLC" secondAttribute="leading" constant="99" id="Fc0-jZ-VbY"/>
@@ -211,7 +212,6 @@
                                     <constraint firstAttribute="trailing" secondItem="jml-qo-SHo" secondAttribute="trailing" constant="33" id="KmQ-JV-8f3"/>
                                     <constraint firstItem="Wua-n8-LQ7" firstAttribute="centerX" secondItem="jml-qo-SHo" secondAttribute="centerX" id="OfN-Uv-582"/>
                                     <constraint firstItem="Wua-n8-LQ7" firstAttribute="top" secondItem="jml-qo-SHo" secondAttribute="bottom" constant="7" id="RKt-a0-lVm"/>
-                                    <constraint firstItem="sNW-5s-R96" firstAttribute="top" secondItem="Wua-n8-LQ7" secondAttribute="bottom" constant="30" id="XVa-Yr-InG"/>
                                     <constraint firstItem="WP5-RO-lJe" firstAttribute="top" secondItem="e9g-wh-rKr" secondAttribute="bottom" constant="24" id="Z0T-dN-KTN"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="height" secondItem="Cw3-BR-9ah" secondAttribute="height" id="aAa-PS-T6r"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="centerY" secondItem="Cw3-BR-9ah" secondAttribute="centerY" id="f6I-CK-Jzp"/>
@@ -406,31 +406,28 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oNP-Ee-z9b">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cebe5a3cafa1d052f5bc0a99d07dc1ed_large" translatesAutoresizingMaskIntoConstraints="NO" id="e9P-CX-mNt">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                    </imageView>
-                                    <tableView clipsSubviews="YES" alpha="0.84999999999999998" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MAZ-bR-K58">
+                                    <tableView clipsSubviews="YES" alpha="0.84999999999999998" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MAZ-bR-K58">
                                         <rect key="frame" x="22" y="157" width="276" height="300"/>
                                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="separatorInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                                         <color key="sectionIndexBackgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayerTableViewCell" rowHeight="72" id="4uR-M8-7CW" customClass="PlayerTableViewCell" customModule="Mafia" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="276" height="72"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlayerTableViewCell" rowHeight="45" id="4uR-M8-7CW" customClass="PlayerTableViewCell" customModule="Mafia" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="276" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4uR-M8-7CW" id="Tlh-Yb-zY0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="276" height="71"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="276" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rick Song" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZC8-NZ-nCe">
-                                                            <rect key="frame" x="15" y="23" width="85" height="26"/>
+                                                            <rect key="frame" x="15" y="9" width="85" height="26"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3l-Mb-tDz">
-                                                            <rect key="frame" x="196" y="10" width="70" height="51"/>
+                                                            <rect key="frame" x="196" y="10" width="70" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="xzQ-0l-dcj"/>
                                                             </constraints>
@@ -569,12 +566,15 @@
                                         <state key="normal" title="I know my role">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onNextButtonClicked:" destination="Xet-3W-nPF" eventType="touchUpInside" id="MpO-tY-B7y"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpD-CM-1C7">
                                         <rect key="frame" x="35" y="98" width="250" height="250"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="BBf-l5-HfH"/>
+                                            <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -660,7 +660,6 @@
         <image name="Character_mystery" width="250" height="250"/>
         <image name="MafiaHomeIcon" width="293" height="631"/>
         <image name="MafiaLogo" width="556" height="212"/>
-        <image name="cebe5a3cafa1d052f5bc0a99d07dc1ed_large" width="1000" height="1000"/>
         <image name="home" width="25" height="25"/>
         <image name="whiteFrame" width="250" height="250"/>
     </resources>

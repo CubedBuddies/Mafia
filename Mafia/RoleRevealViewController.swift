@@ -20,17 +20,21 @@ class RoleRevealViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let role = MafiaClient.instance.player?.role {
-            switch role {
-            case .TOWNSPERSON:
-                self.front = UIImageView(image: UIImage(named: (MafiaClient.instance.player?.avatarType)!))
-            case .MAFIA:
-                self.front = UIImageView(image: UIImage(named: "mafia"))
-            }
-        }
-        
-        
+//        let player = MafiaClient.instance.player
+//        if let role = player!.role {
+//            switch role {
+//            case .TOWNSPERSON:
+//                self.front = UIImageView(image: UIImage(named: (MafiaClient.instance.player?.avatarType)!))
+//            case .MAFIA:
+//                self.front = UIImageView(image: UIImage(named: "mafia"))
+//            }
+//        }
+        let player = MafiaClient.instance.player
+        self.front = UIImageView(image: UIImage(named: player!.avatarType))
+
         self.back = UIImageView(image: UIImage(named: "Character_mystery"))
+        back.center = CGPointMake(roleView.center.x, roleView.center.y-40)
+        front.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         
         roleView.addSubview(back)
         
@@ -59,6 +63,9 @@ class RoleRevealViewController: UIViewController {
         }
     }
 
+    @IBAction func onNextButtonClicked(sender: AnyObject) {
+        self.presentViewController(GameViewController(), animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
