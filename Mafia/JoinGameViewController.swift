@@ -62,13 +62,22 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
+        if nameLabel.text == "" {
+            showAlert("Please enter your name") {}
+            return
+        }
+        if gameCodeLabel.text == "" {
+            showAlert("Please enter a game code") {}
+            return
+        }
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.nameLabel.enabled = false
             self.gameCodeLabel.enabled = false
             self.joinButton.enabled = false
             
             self.originalJoinButtonText = self.joinButton.titleLabel!.text
-            self.joinButton.titleLabel!.text = "Joining game..."
+            self.joinButton.setTitle("Joining game...", forState: .Normal)
         }
         
         let avatar = MafiaClient.randomAvatarType()
@@ -88,6 +97,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
                 }
             },
             failure: {
+                self.showAlert("Please try again.") {}
                 dispatch_async(dispatch_get_main_queue()) {
                     self.reenableUI()
                 }
@@ -101,20 +111,20 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         nameLabel.enabled = true
         gameCodeLabel.enabled = true
         joinButton.enabled = true
-        joinButton.titleLabel!.text = self.originalJoinButtonText
+        joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func showAlert(message: String, completion: () -> Void) {
+        let alertController = UIAlertController(title: "Can't join game", message:
+            message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { _ in
+            completion()
+        }))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
-    */
-
 }

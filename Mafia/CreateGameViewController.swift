@@ -36,7 +36,12 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     self.joinGame()
                 }
             },
-            failure: { NSLog("Failed to create game") }
+            failure: {
+                NSLog("Failed to create game")
+                self.showAlert("Please try again.") {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
         )
     }
 
@@ -91,12 +96,17 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func joinGame() {
+        if playerNameTextField.text == "" {
+            showAlert("Please enter a name.") {}
+            return
+        }
+        
         playerNameTextField.enabled = false
         joinButton.enabled = false
         
         dispatch_async(dispatch_get_main_queue()) {
             self.originalJoinButtonText = self.joinButton.titleLabel!.text
-            self.joinButton.titleLabel!.text = "Creating game..."
+            self.joinButton.setTitle("Creating game...", forState: .Normal)
         }
         
         if gameCreated {
@@ -118,10 +128,22 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
                     }
                 },
-                failure: { NSLog("Failed to join game") }
+                failure: {
+                    self.showAlert("Please try again.") {}
+                }
             )
         } else {
             bufferedJoin = true
         }
+    }
+    
+    func showAlert(message: String, completion: () -> Void) {
+        let alertController = UIAlertController(title: "Can't create game", message:
+            message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { _ in
+            completion()
+        }))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
