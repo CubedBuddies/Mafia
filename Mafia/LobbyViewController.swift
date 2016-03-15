@@ -61,7 +61,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     // check if game was already started
                     if game.state == .IN_PROGRESS {
                         self.performSegueWithIdentifier("lobby2roleRevealSegue", sender: self)
-//                        self.presentViewController(RoleRevealViewController(), animated: true, completion: nil)
                     }
                 }
             },

@@ -52,6 +52,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.showPlayerStats()
             self.roundEndView.hidden = true
         }
+        
+        loadRoundData(MafiaClient.instance.game!)
 
         time = 5 * 60
         
@@ -183,7 +185,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
-            self.timerLabel.text = "00:\(secondsLeft)"
+            self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
             
             showPlayerStats()
             updatePlayerView(game)
