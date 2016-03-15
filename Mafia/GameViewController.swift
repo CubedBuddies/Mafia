@@ -9,11 +9,12 @@
 import UIKit
 
 protocol GameViewControllerDelegate {
+    func getRoleMode() -> Bool
+    
     func selectPlayer(targetPlayerId: Int)
 }
 
 class GameViewController: UIViewController, GameViewControllerDelegate {
-
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var actionLabel: UILabel!
@@ -63,7 +64,12 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         roleMode = !roleMode
         dispatch_async(dispatch_get_main_queue()) {
             self.showPlayerStats()
+            self.playersDataSource!.showPlayerStats()
         }
+    }
+    
+    func getRoleMode() -> Bool {
+        return roleMode
     }
     
     func showPlayerStats() {

@@ -49,8 +49,11 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+
+        let cellWidth = (collectionView.window!.frame.size.width / 3) - 1
+        let cellHeight = cellWidth
         
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,12 +74,10 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
                 cell.nameLabel.text = player.name
             }
             
-            cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
-            if MafiaClient.instance.player?.role == .MAFIA {
-                cell.mafiaLabel.text = "\(killCounts?[player.id] ?? 0)"
-                cell.mafiaLabel.hidden = false
+            if delegate!.getRoleMode() && (MafiaClient.instance.player?.role == .MAFIA) {
+                cell.voteLabel.text = "\(killCounts?[player.id] ?? 0)"
             } else {
-                cell.mafiaLabel.hidden = true
+                cell.voteLabel.text = "\(lynchCounts?[player.id] ?? 0)"
             }
             cell.tag = player.id
         }
@@ -89,5 +90,9 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath)!
         delegate?.selectPlayer(cell.tag)
+    }
+    
+    func showPlayerStats() {
+        collectionView?.reloadData()
     }
 }

@@ -12,6 +12,5 @@ class PlayersCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var mafiaLabel: UILabel!
     @IBOutlet weak var voteLabel: UILabel!
 }
