@@ -64,52 +64,50 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
-        if nameLabel.text == "" {
-            nameErrorLabel.hidden = false
+        nameErrorLabel.hidden = nameLabel.text != ""
+        codeErrorLabel.hidden = gameCodeLabel.text != ""
+        if !nameErrorLabel.hidden || !codeErrorLabel.hidden {
+            return
         }
-        if gameCodeLabel.text == "" {
-            codeErrorLabel.hidden = false
+    
+        dispatch_async(dispatch_get_main_queue()) {
+            self.nameLabel.enabled = false
+            self.gameCodeLabel.enabled = false
+            self.joinButton.enabled = false
+            self.originalJoinButtonText = self.joinButton.titleLabel!.text
+            self.joinButton.setTitle("Joining game...", forState: .Normal)
         }
-        if nameLabel.text != "" {
-            nameErrorLabel.hidden = true
-        }
-        if gameCodeLabel.text != "" {
-            codeErrorLabel.hidden = false
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.nameLabel.enabled = false
-                self.gameCodeLabel.enabled = false
-                self.joinButton.enabled = false
-                self.originalJoinButtonText = self.joinButton.titleLabel!.text
-                //            self.joinButton.titleLabel!.text = "Joining game..."
-            }
-            
-            let avatar = MafiaClient.randomAvatarType()
-            MafiaClient.instance.joinGame(gameCodeLabel.text!,
-                playerName: nameLabel.text!,
-                avatarType: avatar,
-                completion: { (player: Player) -> Void in
-                    player.isGameCreator = false
-                    
-                    let game = Game(gameToken: self.gameCodeLabel.text!)
-                    MafiaClient.instance.game = game
-                    game.players.append(Player(playerName: self.nameLabel.text!, avatar: avatar))
+        
+        let avatar = MafiaClient.randomAvatarType()
+        MafiaClient.instance.joinGame(gameCodeLabel.text!,
+            playerName: nameLabel.text!,
+            avatarType: avatar,
+            completion: { (player: Player) -> Void in
+                player.isGameCreator = false
+                
+                MafiaClient.instance.pollGameStatus(completion: { (game) -> Void in
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         self.reenableUI()
                         self.performSegueWithIdentifier("joinGameSegue", sender: self)
                     }
-                },
-                failure: {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.reenableUI()
-                    }
                     
-                    NSLog("Failed to join game")
+                    }) { () -> Void in
+                        // join anyways, it just won't have lobby data
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.reenableUI()
+                            self.performSegueWithIdentifier("joinGameSegue", sender: self)
+                        }
                 }
-            )
-        }
+            },
+            failure: {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.reenableUI()
+                }
+                
+                NSLog("Failed to join game")
+            }
+        )
 
     }
     
