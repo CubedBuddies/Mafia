@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class CreateGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
+    
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var avatarImageButton: UIButton!
     
@@ -144,7 +145,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func showAlert(message: String, completion: () -> Void) {
-        let alertController = UIAlertController(title: "Can't create game", message:
+        let alertController = UIAlertController(title: "Failed to create game", message:
             message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { _ in
             completion()

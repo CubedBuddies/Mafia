@@ -125,7 +125,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     }
     
     func showAlert(message: String, completion: () -> Void) {
-        let alertController = UIAlertController(title: "Can't join game", message:
+        let alertController = UIAlertController(title: "Failed to join game", message:
             message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { _ in
             completion()

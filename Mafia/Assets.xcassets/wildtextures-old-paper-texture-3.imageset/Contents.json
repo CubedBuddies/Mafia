@@ -2,12 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "board_black_line_texture_background_wood_55220_2560x1600.jpg",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "filename" : "mafia.png",
+      "filename" : "wildtextures-old-paper-texture-3.jpg",
       "scale" : "1x"
     },
     {

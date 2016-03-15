@@ -33,7 +33,15 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             completion: { (_: Game) in
                 self.refreshTimer.invalidate()
             },
-            failure: { NSLog("Failed to start game") }
+            failure: {
+                let alertController = UIAlertController(title: "Failed to start game", message:
+                    "Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                NSLog("Failed to start game")
+            }
         )
     }
 
@@ -60,7 +68,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
             failure: { NSLog("Failed to poll game status") }
         )
     }
-
 
     //MARK: Table View Methods
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -14,7 +14,8 @@ protocol GameViewControllerDelegate {
     func selectPlayer(targetPlayerId: Int)
 }
 
-class GameViewController: UIViewController, GameViewControllerDelegate {
+class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var actionLabel: UILabel!
@@ -51,6 +52,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
             self.showPlayerStats()
             self.roundEndView.hidden = true
         }
+
+        time = 5 * 60
+        
+        modalPresentationStyle = UIModalPresentationStyle.Custom
+        transitioningDelegate = self
 
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
         playersDataSource!.delegate = self
@@ -113,7 +119,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 }
                 
                 endDescriptionLabel.hidden = true
-                endRoundContinueButton.titleLabel?.text = "Exit game"
+                endRoundContinueButton.setTitle("Exit game", forState: .Normal)
             } else {
                 endTitleLabel.text = "Night sets..."
                 let currentRound = game.rounds[roundIndex]
@@ -158,7 +164,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
                 dispatch_async(dispatch_get_main_queue()) {
                     if game.state == .FINISHED {
                         self.showRoundEndView()
-                    } else {
+                    } else {self
                         if self.pendingVote != nil {
                             self.fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
                         }
@@ -179,14 +185,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
             self.timerLabel.text = "00:\(secondsLeft)"
             
-            for player in game.players {
-                if player.id == MafiaClient.instance.player!.id {
-                    MafiaClient.instance.player = player
-                    self.showPlayerStats()
-                    break
-                }
-            }
-            
+            showPlayerStats()
             updatePlayerView(game)
         }
     }
@@ -231,9 +230,45 @@ class GameViewController: UIViewController, GameViewControllerDelegate {
         NSLog("Clearing game screen")
         updateTimer.invalidate()
     }
-
+    
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        
+        let containerView = transitionContext.containerView()!
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        
+        containerView.addSubview(toViewController.view)
+        
+        let destRect = fromViewController.view.frame
+        toViewController.view.frame = CGRectOffset(destRect, destRect.size.width, 0)
+        
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            toViewController.view.frame = destRect
+        }) { (finished: Bool) -> Void in
+        }
+        
+        UIView.animateWithDuration(0.4, animations: { () -> Void in
+            fromViewController.view.alpha = 0
+            }) { (finished: Bool) -> Void in
+                transitionContext.completeTransition(true)
+                fromViewController.view.removeFromSuperview()
+        }
+    }
+    
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+        return 0.5
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
+    }
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
     }
 }

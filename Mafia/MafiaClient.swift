@@ -146,6 +146,14 @@ class MafiaClient: NSObject {
 
                     let newGame = Game(fromResponse: responseDictionary)
                     self.game = newGame
+                    
+                    for player in newGame.players {
+                        if player.id == self.player!.id {
+                            self.player = player
+                            break
+                        }
+                    }
+                    
                     completion(newGame)
                 } else {
                     failure()
@@ -167,7 +175,10 @@ class MafiaClient: NSObject {
                 if statusCode < 400 {
                     let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data!, options:[]) as! NSDictionary
-                    completion(Game(fromResponse: responseDictionary))
+                    
+                    let newGame = Game(fromResponse: responseDictionary)
+                    self.game = newGame
+                    completion(newGame)
                 } else {
                     failure()
                 }
