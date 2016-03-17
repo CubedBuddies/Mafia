@@ -78,10 +78,9 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
             self.joinButton.setTitle("Joining game...", forState: .Normal)
         }
         
-        let avatar = MafiaClient.randomCivilianImage()
         MafiaClient.instance.joinGame(gameCodeLabel.text!,
             playerName: nameLabel.text!,
-            avatarType: avatar,
+            avatarImageView: avatarImageView,
             completion: { (player: Player) -> Void in
                 player.isGameCreator = false
                 

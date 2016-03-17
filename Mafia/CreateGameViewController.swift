@@ -120,7 +120,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
             let avatar = MafiaClient.randomCivilianImage() //NOTE THIS WILL NEED TO BE EDITED
             MafiaClient.instance.joinGame(MafiaClient.instance.game!.token,
                 playerName: self.playerNameTextField.text!,
-                avatarType: avatar,
+                avatarImageView: avatarImageView,
                 completion: { (player: Player) in
                     player.isGameCreator = true
                     

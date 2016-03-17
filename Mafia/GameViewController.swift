@@ -38,6 +38,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     // whether they're viewing their role or not
     var roleMode = false
     
+    var isNight = true
+    
     // used to cache the player vote (for responsiveness)
     var pendingEventType: EventType?
     var pendingVote: Int?

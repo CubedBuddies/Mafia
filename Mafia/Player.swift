@@ -49,8 +49,6 @@ class Player: NSObject {
         
         role = PlayerRole(rawValue: dictionary["role"] as? String ?? "")
         state = PlayerState(rawValue: dictionary["state"] as? String ?? PlayerState.ALIVE.rawValue)!
-
-        avatarType = dictionary["avatar_type"] as! String
         
         createdAt = dictionary["created_at"] as? NSDate
         updatedAt = dictionary["updated_at"] as? NSDate
