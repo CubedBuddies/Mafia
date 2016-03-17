@@ -42,6 +42,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     var pendingEventType: EventType?
     var pendingVote: Int?
     
+    var isPresenting: Bool = true
+    var interactiveTransition: UIPercentDrivenInteractiveTransition!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,6 +71,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         playersCollectionView.dataSource = playersDataSource
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if MafiaClient.instance.game!.state == .FINISHED {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
+        }
+    }
+    
     @IBAction func onAvatarTap(sender: AnyObject) {
         roleMode = !roleMode
         dispatch_async(dispatch_get_main_queue()) {
@@ -82,22 +93,26 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func showPlayerStats() {
         if let player = MafiaClient.instance.player {
-            if roleMode {
-                if let role = player.role {
-                    nameLabel.text = role.rawValue
-                    switch role {
-                    case .TOWNSPERSON:
-                        avatarImageView.image = UIImage(named: player.avatarType)
-                        actionLabel.text = "Tap to Vote"
-                    case .MAFIA:
-                        avatarImageView.image = UIImage(named: "mafia")
-                        actionLabel.text = "Tap to Kill"
-                    }
-                }
+            if player.state == .DEAD {
+                actionLabel.text = "You are dead :("
             } else {
-                avatarImageView.image = UIImage(named: player.avatarType)
-                nameLabel.text = player.name
-                actionLabel.text = "Tap to Vote"
+                if roleMode {
+                    if let role = player.role {
+                        nameLabel.text = role.rawValue
+                        switch role {
+                        case .TOWNSPERSON:
+                            avatarImageView.image = UIImage(named: player.avatarType)
+                            actionLabel.text = "Tap to Vote"
+                        case .MAFIA:
+                            avatarImageView.image = UIImage(named: "mafia")
+                            actionLabel.text = "Tap to Kill"
+                        }
+                    }
+                } else {
+                    avatarImageView.image = UIImage(named: player.avatarType)
+                    nameLabel.text = player.name
+                    actionLabel.text = "Tap to Vote"
+                }
             }
         }
     }
@@ -145,7 +160,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         NSLog("Transitioning to new round, from round \(roundIndex)")
         
         if MafiaClient.instance.game?.state == .FINISHED {
-            // TODO: go back to main menu
+            dispatch_async(dispatch_get_main_queue()) {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         } else {
             let vc = GameViewController()
             vc.roundIndex = roundIndex + 1
@@ -214,18 +231,24 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
 
     func selectPlayer(targetPlayerId: Int) {
-        let eventType: EventType = (roleMode && MafiaClient.instance.player?.role == .MAFIA) ? .KILL : .LYNCH
-        fakeVote(eventType, targetPlayerId: targetPlayerId)
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.updatePlayerView(MafiaClient.instance.game!)
+        if let player = MafiaClient.instance.player {
+            if player.state == .DEAD {
+                return
+            }
+            
+            let eventType: EventType = (roleMode && player.role == .MAFIA) ? .KILL : .LYNCH
+            fakeVote(eventType, targetPlayerId: targetPlayerId)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.updatePlayerView(MafiaClient.instance.game!)
+            }
+            
+            MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
+                NSLog("Sent vote!")
+            }, failure: { _ in
+                NSLog("Failed to select player")
+            })
         }
-        
-        MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
-            NSLog("Sent vote!")
-        }, failure: { _ in
-            NSLog("Failed to select player")
-        })
     }
     
     func endScreen() {
@@ -273,4 +296,29 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
+    /*
+    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        
+        interactiveTransition = UIPercentDrivenInteractiveTransition()
+        //Setting the completion speed gets rid of a weird bounce effect bug when transitions complete
+        interactiveTransition.completionSpeed = 0.99
+        return interactiveTransition
+    }
+    
+    @IBAction func onPan(sender: UIPanGestureRecognizer) {
+        let translation = sender.translationInView(view)
+        let dx = translation.x
+        if (sender.state == UIGestureRecognizerState.Began){
+            dismissViewControllerAnimated(true, completion: nil)
+        } else if (sender.state == UIGestureRecognizerState.Changed){
+            interactiveTransition.updateInteractiveTransition(dx / view.frame.width)
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            let velocity = sender.velocityInView(view).x
+            if velocity > 0 {
+                interactiveTransition.finishInteractiveTransition()
+            } else {
+                interactiveTransition.cancelInteractiveTransition()
+            }
+        }
+    }*/
 }

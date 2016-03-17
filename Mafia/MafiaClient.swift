@@ -72,9 +72,6 @@ class MafiaClient: NSObject {
 
     static var instance = MafiaClient()
 
-    // TODO: handle errors
-    // TODO: get rid of force casts
-
     /**
       POST /games
       Calls completion with the new game's token.

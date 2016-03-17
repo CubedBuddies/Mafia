@@ -524,7 +524,6 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="onStartGameClick:" destination="gAK-6C-nrw" eventType="touchUpInside" id="YnY-91-aSr"/>
-                                            <segue destination="Xet-3W-nPF" kind="modal" identifier="lobby2roleRevealSegue" modalTransitionStyle="crossDissolve" id="NCX-f8-9TZ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Lobby" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N08-NG-9rV">
@@ -569,6 +568,7 @@
                         <outlet property="codeLabel" destination="t7u-Cz-wGe" id="O70-WR-Z18"/>
                         <outlet property="startGameButton" destination="gUF-mZ-5gb" id="K0h-2c-8Q2"/>
                         <outlet property="tableView" destination="MAZ-bR-K58" id="1su-ct-5az"/>
+                        <segue destination="Xet-3W-nPF" kind="modal" identifier="startGameSegue" id="83y-qn-cKc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69V-p4-Ijf" userLabel="First Responder" sceneMemberID="firstResponder"/>
