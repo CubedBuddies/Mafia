@@ -161,7 +161,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         
         if MafiaClient.instance.game?.state == .FINISHED {
             dispatch_async(dispatch_get_main_queue()) {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController()
+                self.presentViewController(vc!, animated: true, completion: nil)
             }
         } else {
             let vc = GameViewController()

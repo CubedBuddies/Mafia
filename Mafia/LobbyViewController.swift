@@ -26,9 +26,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         dispatch_async(dispatch_get_main_queue()) {
             self.createRefreshTimer()
+            self.codeLabel.text = MafiaClient.instance.game?.token
         }
-        
-        codeLabel.text = MafiaClient.instance.game?.token
     }
 
     func pendingState(disable: Bool) {
@@ -42,6 +41,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func onStartGameClick(sender: AnyObject) {
+        
         pendingState(true)
         self.refreshTimer.invalidate()
         

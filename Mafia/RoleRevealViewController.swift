@@ -64,7 +64,9 @@ class RoleRevealViewController: UIViewController {
     }
 
     @IBAction func onNextButtonClicked(sender: AnyObject) {
-        self.presentViewController(GameViewController(), animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(GameViewController(), animated: true, completion: nil)
+        }
     }
     /*
     // MARK: - Navigation
