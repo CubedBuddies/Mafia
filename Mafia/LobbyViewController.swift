@@ -15,6 +15,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var startGameButton: UIButton!
 
     var refreshTimer: NSTimer = NSTimer()
+    var originalStartButtonText: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,25 +23,50 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
-
-        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
         
-        codeLabel.text = MafiaClient.instance.game?.token
+        dispatch_async(dispatch_get_main_queue()) {
+            self.createRefreshTimer()
+            self.codeLabel.text = MafiaClient.instance.game?.token
+        }
     }
 
+    func pendingState(disable: Bool) {
+        startGameButton.enabled = !disable
+        originalStartButtonText = startGameButton.titleLabel!.text!
+        startGameButton.setTitle(disable ? "Starting game..." : originalStartButtonText, forState: .Normal)
+    }
+    
+    func createRefreshTimer() {
+        self.refreshTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("refreshPlayers"), userInfo: nil, repeats: true)
+    }
+    
     @IBAction func onStartGameClick(sender: AnyObject) {
+        
+        pendingState(true)
+        self.refreshTimer.invalidate()
+        
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
-                self.refreshTimer.invalidate()
+                NSLog("Started game!")
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.pendingState(false)
+                    self.performSegueWithIdentifier("startGameSegue", sender: self)
+                }
             },
             failure: {
-                let alertController = UIAlertController(title: "Failed to start game", message:
-                    "Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
                 NSLog("Failed to start game")
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.createRefreshTimer()
+                
+                    self.pendingState(false)
+                    let alertController = UIAlertController(title: "Failed to start game", message:
+                        "Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
             }
         )
     }
@@ -60,7 +86,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     // check if game was already started
                     if game.state == .IN_PROGRESS {
-                        self.performSegueWithIdentifier("lobby2roleRevealSegue", sender: self)
+                        self.performSegueWithIdentifier("startGameSegue", sender: self)
                     }
                 }
             },
@@ -115,7 +141,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MafiaClient.instance.game?.players.count ?? 0
     }
-
     
     func playerCell(playerCell: PlayerTableViewCell, leaveButtonPressed value: Bool) {
         MafiaClient.instance.deletePlayer((MafiaClient.instance.player?.id)!,

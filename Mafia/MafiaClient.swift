@@ -72,9 +72,6 @@ class MafiaClient: NSObject {
 
     static var instance = MafiaClient()
 
-    // TODO: handle errors
-    // TODO: get rid of force casts
-
     /**
       POST /games
       Calls completion with the new game's token.
@@ -106,12 +103,16 @@ class MafiaClient: NSObject {
      POST /games
      Calls completion with the new game's token.
      */
-    func joinGame(joinToken: String, playerName: String, avatarType: String, completion: Player -> Void, failure: () -> Void) {
+    func joinGame(joinToken: String, playerName: String, avatarImageView: UIImageView, completion: Player -> Void, failure: () -> Void) {
         if token != nil {
             NSLog("Already connected to game \(joinToken), but trying to join a new game.")
         }
-
-        sendRequest(BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_type": avatarType]]) {
+        
+        // TODO: Resize and CROP
+        let imageData = UIImagePNGRepresentation(avatarImageView.image!)
+        let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) // encode the image
+        
+        sendRequest(BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_file_name": "avatar.png", "avatar_file_data": base64String]]) {
             (data, response, error) -> Void in
             let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -129,7 +130,7 @@ class MafiaClient: NSObject {
             }
         }
     }
-
+    
     /**
      GET /games/:token
      Calls completion with the new game's token.
@@ -232,37 +233,10 @@ class MafiaClient: NSObject {
             }
         }
     }
-    
-    func addAvatarForPlayer(playerId: Int, imageName: String, completion: Player -> Void, failure: () -> Void) {
-        var image = UIImage()
-        if imageName == "" {
-            image = UIImage(named: "Character_mystery_black")!
-        } else {
-            image = UIImage(named: imageName)!
-        }
-        let imageData: NSData = UIImagePNGRepresentation(image)!
-        let imagePostLength: String = String(format: "%d", arguments: [imageData.length])
-        
-        sendRequest(BASE_URL + "/games/\(token)/players", method: "POST", data: ["player": ["avatar_image": imageName]], isAddingImage: true, postLength: imagePostLength) {
-            (data, response, error) -> Void in
-            let statusCode = (response as! NSHTTPURLResponse).statusCode
-            
-            if statusCode < 400 {
-                let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                    data!, options:[]) as! NSDictionary
-                let player = Player(fromResponse: responseDictionary)
-                MafiaClient.instance.player = player
-                completion(player)
-            } else {
-                failure()
-            }
-        }
-    }
 
     
     private func sendRequest(
-        url: String, method: String, data: NSDictionary?, isAddingImage: Bool = false, postLength: String = "",
-        requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+        url: String, method: String, data: NSDictionary?, isAddingImage: Bool = false, requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
 
         if let url = NSURL(string: url) {
 //            NSLog("Sending request to \(url)")
@@ -270,16 +244,20 @@ class MafiaClient: NSObject {
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             if isAddingImage {
-                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-                request.addValue(postLength, forHTTPHeaderField: "Content-Length")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                do {
+                    request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(data!, options: NSJSONWritingOptions(rawValue: 0))
+                } catch {
+                    print ("error in serializing data")
+                }
+                
             } else {
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                if let data = data {
+                    request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(data, options: [])
+                }
             }
-            
-            if let data = data {
-                request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(data, options: [])
-            }
-
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
             let task = session.dataTaskWithRequest(request, completionHandler: requestCompletion)
             task.resume()
