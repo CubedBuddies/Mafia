@@ -129,7 +129,6 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         setPendingState(true)
         
         if gameCreated {
-            let avatar = MafiaClient.randomCivilianImage() //NOTE THIS WILL NEED TO BE EDITED
             MafiaClient.instance.joinGame(MafiaClient.instance.game!.token,
                 playerName: self.playerNameTextField.text!,
                 avatarImageView: avatarImageView,
@@ -137,7 +136,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     player.isGameCreator = true
                     
                     // manually insert player data, so they show up before the next network request finishes
-                    MafiaClient.instance.game!.players.append(Player(playerName: self.playerNameTextField.text!, avatar: avatar))
+                    MafiaClient.instance.game!.players.append(Player(playerName: self.playerNameTextField.text!))
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)

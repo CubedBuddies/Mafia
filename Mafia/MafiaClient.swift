@@ -110,7 +110,7 @@ class MafiaClient: NSObject {
         
         // TODO: Resize and CROP
         let imageData = UIImagePNGRepresentation(avatarImageView.image!)
-        let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) // encode the image
+        let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         NSLog("Joining game \(joinToken)")
         sendRequest(MafiaClient.BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_file_name": "avatar.png", "avatar_file_data": base64String]]) {

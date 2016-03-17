@@ -22,9 +22,8 @@ class Player: NSObject {
     
     var dictionary: NSDictionary?
     
-    init(playerName: String, avatar: String) {
+    init(playerName: String) {
         name = playerName
-        avatarUrl = avatar
     }
     
     init(fromResponse response: AnyObject) {
