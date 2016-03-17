@@ -41,7 +41,9 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
             failure: {
                 NSLog("Failed to create game")
                 self.showAlert("Please try again.") {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
                 }
             }
         )
@@ -99,22 +101,32 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     }
 
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    func setPendingState(isPending: Bool) {
+        playerNameTextField.enabled = !isPending
+        joinButton.enabled = !isPending
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            if isPending {
+                self.originalJoinButtonText = self.joinButton.titleLabel!.text
+                self.joinButton.setTitle("Creating game...", forState: .Normal)
+            } else {
+                self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
+            }
+        }
     }
     
     func joinGame() {
-        if playerNameTextField.text == "" {
-            errorLabel.hidden = false
+        errorLabel.hidden = playerNameTextField.text != ""
+        if !errorLabel.hidden {
             return
         }
         
-        playerNameTextField.enabled = false
-        joinButton.enabled = false
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.originalJoinButtonText = self.joinButton.titleLabel!.text
-            self.joinButton.setTitle("Creating game...", forState: .Normal)
-        }
+        setPendingState(true)
         
         if gameCreated {
             let avatar = MafiaClient.randomCivilianImage() //NOTE THIS WILL NEED TO BE EDITED
@@ -128,14 +140,11 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     MafiaClient.instance.game!.players.append(Player(playerName: self.playerNameTextField.text!, avatar: avatar))
                     
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.playerNameTextField.enabled = true
-                        self.joinButton.enabled = true
-                        self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
-                        
                         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
                     }
                 },
                 failure: {
+                    self.setPendingState(false)
                     self.showAlert("Please try again.") {}
                 }
             )
@@ -151,6 +160,8 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
             completion()
         }))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
 }
