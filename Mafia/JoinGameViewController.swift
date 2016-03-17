@@ -63,19 +63,26 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
+    func setPendingState(isPending: Bool) {
+        self.nameLabel.enabled = false
+        self.gameCodeLabel.enabled = false
+        self.joinButton.enabled = false
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            if isPending {
+                self.originalJoinButtonText = self.joinButton.titleLabel!.text
+                self.joinButton.setTitle("Joining game...", forState: .Normal)
+            } else {
+                self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
+            }
+        }
+    }
+    
     @IBAction func onNextButtonClick(sender: AnyObject) {
         nameErrorLabel.hidden = nameLabel.text != ""
         codeErrorLabel.hidden = gameCodeLabel.text != ""
         if !nameErrorLabel.hidden || !codeErrorLabel.hidden {
             return
-        }
-    
-        dispatch_async(dispatch_get_main_queue()) {
-            self.nameLabel.enabled = false
-            self.gameCodeLabel.enabled = false
-            self.joinButton.enabled = false
-            self.originalJoinButtonText = self.joinButton.titleLabel!.text
-            self.joinButton.setTitle("Joining game...", forState: .Normal)
         }
         
         MafiaClient.instance.joinGame(gameCodeLabel.text!,
@@ -86,37 +93,27 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
                 
                 MafiaClient.instance.pollGameStatus(completion: { (game) -> Void in
                     
+                    self.setPendingState(false)
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.reenableUI()
                         self.performSegueWithIdentifier("joinGameSegue", sender: self)
                     }
                     
                     }) { () -> Void in
                         // join anyways, it just won't have lobby data
+                        self.setPendingState(false)
                         dispatch_async(dispatch_get_main_queue()) {
-                            self.reenableUI()
                             self.performSegueWithIdentifier("joinGameSegue", sender: self)
                         }
                 }
             },
             failure: {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.reenableUI()
-                }
-                
+                self.setPendingState(false)
                 NSLog("Failed to join game")
             }
         )
 
     }
     
-    func reenableUI() {
-        nameLabel.enabled = true
-        gameCodeLabel.enabled = true
-        joinButton.enabled = true
-        joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
-    }
-
     @IBAction func onHomeButtonClicked(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }

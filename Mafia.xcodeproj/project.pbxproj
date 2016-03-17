@@ -125,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */,
+				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -154,9 +155,8 @@
 		723AD9171C8568C10072849E /* Mafia */ = {
 			isa = PBXGroup;
 			children = (
+				727297781C9A65B9004D3E54 /* View Helpers */,
 				72B4C5121C8C096F000E8DC9 /* Nibs */,
-				72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */,
-				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 				53F21EF11C8C315E00163802 /* Views */,
 				72C7D7DE1C88B91500B26CDD /* API */,
 				72C7D7DD1C88AE9600B26CDD /* Models */,
@@ -186,6 +186,14 @@
 				723AD93A1C8568C20072849E /* Info.plist */,
 			);
 			path = MafiaUITests;
+			sourceTree = "<group>";
+		};
+		727297781C9A65B9004D3E54 /* View Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				72F37DCE1C8AAE9700DF2B78 /* PlayersCollectionViewDataSource.swift */,
+			);
+			name = "View Helpers";
 			sourceTree = "<group>";
 		};
 		728BA8481C857E0400630365 /* View Controllers */ = {
