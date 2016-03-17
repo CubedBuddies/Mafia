@@ -7,36 +7,41 @@
 //
 
 import UIKit
+import AFNetworking
 
 class RoleRevealViewController: UIViewController {
 
 
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roleView: UIView!
-    var back: UIImageView!
-    var front: UIImageView!
+    var roleImageView: UIImageView!
+    var avatarImageView: UIImageView!
     var isBackShowing = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let player = MafiaClient.instance.player
-        if let role = player!.role {
-            switch role {
-            case .TOWNSPERSON:
-                self.front = UIImageView(image: UIImage(named: (MafiaClient.instance.player?.avatarType)!))
-            case .MAFIA:
-                self.front = UIImageView(image: UIImage(named: "mafia"))
-            }
-        } else {
-            self.front = UIImageView(image: UIImage(named: player!.avatarType))
+        if let player = MafiaClient.instance.player {
+            self.avatarImageView = UIImageView(image: player.getPlaceholderAvatar())
+            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: nil, success: { (request, response, image) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.avatarImageView.image = image
+                    self.avatarImageView.frame = self.roleImageView.frame
+                }
+                }, failure: { (request, response, error) -> Void in
+                    
+                    print(error)
+                })
+            
+            print(player.getAvatarUrl())
+            self.roleImageView = UIImageView(image: player.getRoleImage())
         }
-        self.back = UIImageView(image: UIImage(named: "Character_mystery_white"))
         
-        back.center = CGPointMake(roleView.center.x, roleView.center.y-40)
-        front.center = CGPointMake(roleView.center.x, roleView.center.y-40)
+        avatarImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
+        roleImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         
-        roleView.addSubview(back)
+        roleView.addSubview(avatarImageView)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         singleTap.numberOfTapsRequired = 1
@@ -53,12 +58,12 @@ class RoleRevealViewController: UIViewController {
     }
     
     func tapped() {
-        if isBackShowing == true {
-            UIView.transitionFromView(back, toView: front, duration: 1.0, options: .TransitionFlipFromRight, completion: nil)
+        if isBackShowing {
+            UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: .TransitionFlipFromRight, completion: nil)
             isBackShowing = false
             nextButton.hidden = false
         } else {
-            UIView.transitionFromView(front, toView: back, duration: 1.0, options: .TransitionFlipFromLeft, completion: nil)
+            UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: .TransitionFlipFromLeft, completion: nil)
             isBackShowing = true
         }
     }

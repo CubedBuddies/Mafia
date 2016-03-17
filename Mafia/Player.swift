@@ -15,7 +15,7 @@ class Player: NSObject {
     var role: PlayerRole?
     var state: PlayerState = .ALIVE
     var isGameCreator: Bool?
-    var avatarType: String = ""
+    var avatarUrl: String = ""
     
     var createdAt: NSDate?
     var updatedAt: NSDate?
@@ -24,7 +24,7 @@ class Player: NSObject {
     
     init(playerName: String, avatar: String) {
         name = playerName
-        avatarType = avatar
+        avatarUrl = avatar
     }
     
     init(fromResponse response: AnyObject) {
@@ -50,10 +50,33 @@ class Player: NSObject {
         role = PlayerRole(rawValue: dictionary["role"] as? String ?? "")
         state = PlayerState(rawValue: dictionary["state"] as? String ?? PlayerState.ALIVE.rawValue)!
 
-        avatarType = dictionary["avatar_url"] as! String
+        avatarUrl = dictionary["avatar_url"] as! String
         
         createdAt = dictionary["created_at"] as? NSDate
         updatedAt = dictionary["updated_at"] as? NSDate
+    }
+    
+    func getAvatarUrl() -> NSURL {
+        return NSURL(string: MafiaClient.BASE_URL + avatarUrl)!
+    }
+    
+    func getRoleImage() -> UIImage {
+        if let role = role {
+            switch role {
+            case .MAFIA:
+                return UIImage(named: "mafia")!
+            case .TOWNSPERSON:
+                // arbitrary hashing function
+                let icons = ["boy1", "boy2", "girl1", "girl2"]
+                return UIImage(named: icons[(id * 7) % 4])!
+            }
+        } else {
+            return getPlaceholderAvatar()
+        }
+    }
+    
+    func getPlaceholderAvatar() -> UIImage {
+        return UIImage(named: "Character_mystery_white")!
     }
 }
 

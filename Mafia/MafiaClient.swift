@@ -9,7 +9,7 @@
 import UIKit
 
 class MafiaClient: NSObject {
-    let BASE_URL = "https://mafia-backend.herokuapp.com"
+    static let BASE_URL = "https://mafia-backend.herokuapp.com"
 
     var token: String?
     var _player: Player?
@@ -81,7 +81,7 @@ class MafiaClient: NSObject {
             NSLog("Already connected to game \(token), but trying to create a new game.")
         }
 
-        sendRequest(BASE_URL + "/games", method: "POST", data: nil) {
+        sendRequest(MafiaClient.BASE_URL + "/games", method: "POST", data: nil) {
             (data, response, error) -> Void in
             let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -90,7 +90,7 @@ class MafiaClient: NSObject {
                     data!, options:[]) as! NSDictionary
 
                 let newGame = Game(fromResponse: responseDictionary)
-                self.game = newGame
+                self.cacheGame(newGame)
 
                 completion(newGame)
             } else {
@@ -112,7 +112,8 @@ class MafiaClient: NSObject {
         let imageData = UIImagePNGRepresentation(avatarImageView.image!)
         let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) // encode the image
         
-        sendRequest(BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_file_name": "avatar.png", "avatar_file_data": base64String]]) {
+        NSLog("Joining game \(joinToken)")
+        sendRequest(MafiaClient.BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_file_name": "avatar.png", "avatar_file_data": base64String]]) {
             (data, response, error) -> Void in
             let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -122,9 +123,9 @@ class MafiaClient: NSObject {
 
                 self.token = joinToken
                 
-                let player = Player(fromResponse: responseDictionary)
-                MafiaClient.instance.player = player
-                completion(player)
+                let newPlayer = Player(fromResponse: responseDictionary)
+                self.player = newPlayer
+                completion(newPlayer)
             } else {
                 failure()
             }
@@ -137,7 +138,7 @@ class MafiaClient: NSObject {
      */
     func pollGameStatus(completion completion: Game -> Void, failure: () -> Void) {
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)", method: "GET", data: nil) {
+            sendRequest(MafiaClient.BASE_URL + "/games/\(token)", method: "GET", data: nil) {
                 (data, response, error) -> Void in
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -146,14 +147,7 @@ class MafiaClient: NSObject {
                         data!, options:[]) as! NSDictionary
 
                     let newGame = Game(fromResponse: responseDictionary)
-                    self.game = newGame
-                    
-                    for player in newGame.players {
-                        if player.id == self.player!.id {
-                            self.player = player
-                            break
-                        }
-                    }
+                    self.cacheGame(newGame)
                     
                     completion(newGame)
                 } else {
@@ -169,7 +163,7 @@ class MafiaClient: NSObject {
      */
     func startGame(completion completion: Game -> Void, failure: () -> Void) {
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)/start", method: "POST", data: nil) {
+            sendRequest(MafiaClient.BASE_URL + "/games/\(token)/start", method: "POST", data: nil) {
                 (data, response, error) -> Void in
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -178,7 +172,7 @@ class MafiaClient: NSObject {
                         data!, options:[]) as! NSDictionary
                     
                     let newGame = Game(fromResponse: responseDictionary)
-                    self.game = newGame
+                    self.cacheGame(newGame)
                     completion(newGame)
                 } else {
                     failure()
@@ -193,9 +187,10 @@ class MafiaClient: NSObject {
      */
     func addGameEvent(eventName: EventType, targetPlayerId: Int, completion: Game -> Void, failure: () -> Void) {
         if let token = token {
-            // TODO: get player id
+            
             let eventData = ["event": ["name": eventName.rawValue, "source_player_id": MafiaClient.instance.player!.id, "target_player_id": targetPlayerId]]
-            sendRequest(BASE_URL + "/games/\(token)/events", method: "POST", data: eventData) {
+            
+            sendRequest(MafiaClient.BASE_URL + "/games/\(token)/events", method: "POST", data: eventData) {
                 (data, response, error) -> Void in
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
 
@@ -216,8 +211,10 @@ class MafiaClient: NSObject {
      */
     func deletePlayer(playerId: Int, completion: Game -> Void, failure: () -> Void){
         if let token = token {
-            sendRequest(BASE_URL + "/games/\(token)/players/\(playerId)", method: "DELETE", data: nil) {
+            
+            sendRequest(MafiaClient.BASE_URL + "/games/\(token)/players/\(playerId)", method: "DELETE", data: nil) {
                 (data, response, error) -> Void in
+                
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
                 
                 if statusCode < 400 {
@@ -225,7 +222,7 @@ class MafiaClient: NSObject {
                         data!, options:[]) as! NSDictionary
                     completion(Game(fromResponse: responseDictionary))
                     let newGame = Game(fromResponse: responseDictionary)
-                    self.game = newGame
+                    self.cacheGame(newGame)
                     completion(newGame)
                 } else {
                     failure()
@@ -239,8 +236,6 @@ class MafiaClient: NSObject {
         url: String, method: String, data: NSDictionary?, isAddingImage: Bool = false, requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
 
         if let url = NSURL(string: url) {
-//            NSLog("Sending request to \(url)")
-
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
             if isAddingImage {
@@ -268,5 +263,17 @@ class MafiaClient: NSObject {
         let array = ["boy1", "boy2", "girl1", "girl2"]
         let randomIndex = Int(arc4random_uniform(UInt32(array.count)))
         return array[randomIndex]
+    }
+    
+    private func cacheGame(newGame: Game) -> Void {
+        game = newGame
+        if let cachedPlayer = player {
+            for newPlayer in newGame.players {
+                if cachedPlayer.id == newPlayer.id {
+                    player = newPlayer
+                    break
+                }
+            }
+        }
     }
 }

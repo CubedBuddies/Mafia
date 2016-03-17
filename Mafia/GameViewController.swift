@@ -57,8 +57,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.showPlayerStats()
             self.roundEndView.hidden = true
         }
-        
-        loadRoundData(MafiaClient.instance.game!)
 
         time = 5 * 60
         
@@ -71,6 +69,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
+        
+        loadRoundData(MafiaClient.instance.game!)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,19 +99,18 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 actionLabel.text = "You are dead :("
             } else {
                 if roleMode {
+                    avatarImageView.image = player.getRoleImage()
                     if let role = player.role {
                         nameLabel.text = role.rawValue
                         switch role {
                         case .TOWNSPERSON:
-                            avatarImageView.image = UIImage(named: player.avatarType)
                             actionLabel.text = "Tap to Vote"
                         case .MAFIA:
-                            avatarImageView.image = UIImage(named: "mafia")
                             actionLabel.text = "Tap to Kill"
                         }
                     }
                 } else {
-                    avatarImageView.image = UIImage(named: player.avatarType)
+                    avatarImageView.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
                     nameLabel.text = player.name
                     actionLabel.text = "Tap to Vote"
                 }

@@ -65,8 +65,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("playerCell", forIndexPath: indexPath) as! PlayersCollectionViewCell
         
         if let player = game?.players[indexPath.row] {
-            // TODO: get avatar
-            cell.avatarImageView.image = UIImage(named: player.avatarType)
+            cell.avatarImageView.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
             
             if player.state == .DEAD {
                 cell.nameLabel.text = "DEAD"
