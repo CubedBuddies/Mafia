@@ -28,11 +28,11 @@ class RoleRevealViewController: UIViewController {
             case .MAFIA:
                 self.front = UIImageView(image: UIImage(named: "mafia"))
             }
+        } else {
+            self.front = UIImageView(image: UIImage(named: player!.avatarType))
         }
-//        let player = MafiaClient.instance.player
-//        self.front = UIImageView(image: UIImage(named: player!.avatarType))
-
         self.back = UIImageView(image: UIImage(named: "Character_mystery_white"))
+        
         back.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         front.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         

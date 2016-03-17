@@ -113,7 +113,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         
         dispatch_async(dispatch_get_main_queue()) {
             self.originalJoinButtonText = self.joinButton.titleLabel!.text
-//            self.joinButton.titleLabel!.text = "Creating game..."
+            self.joinButton.setTitle("Creating game...", forState: .Normal)
         }
         
         if gameCreated {
@@ -130,7 +130,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     dispatch_async(dispatch_get_main_queue()) {
                         self.playerNameTextField.enabled = true
                         self.joinButton.enabled = true
-                        self.joinButton.titleLabel!.text = self.originalJoinButtonText
+                        self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
                         
                         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
                     }

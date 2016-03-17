@@ -15,6 +15,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var startGameButton: UIButton!
 
     var refreshTimer: NSTimer = NSTimer()
+    var originalStartButtonText: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +29,21 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         codeLabel.text = MafiaClient.instance.game?.token
     }
 
+    func pendingState(disable: Bool) {
+        startGameButton.enabled = !disable
+        originalStartButtonText = startGameButton.titleLabel!.text!
+        startGameButton.setTitle(disable ? "Starting game..." : originalStartButtonText, forState: .Normal)
+    }
+    
     @IBAction func onStartGameClick(sender: AnyObject) {
+        pendingState(true)
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
+                self.pendingState(false)
                 self.refreshTimer.invalidate()
             },
             failure: {
+                self.pendingState(false)
                 let alertController = UIAlertController(title: "Failed to start game", message:
                     "Please try again.", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
@@ -115,7 +125,6 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MafiaClient.instance.game?.players.count ?? 0
     }
-
     
     func playerCell(playerCell: PlayerTableViewCell, leaveButtonPressed value: Bool) {
         MafiaClient.instance.deletePlayer((MafiaClient.instance.player?.id)!,
