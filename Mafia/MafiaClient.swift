@@ -232,10 +232,36 @@ class MafiaClient: NSObject {
             }
         }
     }
+    
+    func addAvatarForPlayer(playerId: Int, imageName: String, completion: Player -> Void, failure: () -> Void) {
+        var image = UIImage()
+        if imageName == "" {
+            image = UIImage(named: "Character_mystery_black")!
+        } else {
+            image = UIImage(named: imageName)!
+        }
+        let imageData: NSData = UIImagePNGRepresentation(image)!
+        let imagePostLength: String = String(format: "%d", arguments: [imageData.length])
+        
+        sendRequest(BASE_URL + "/games/\(token)/players", method: "POST", data: ["player": ["avatar_image": imageName]], isAddingImage: true, postLength: imagePostLength) {
+            (data, response, error) -> Void in
+            let statusCode = (response as! NSHTTPURLResponse).statusCode
+            
+            if statusCode < 400 {
+                let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                    data!, options:[]) as! NSDictionary
+                let player = Player(fromResponse: responseDictionary)
+                MafiaClient.instance.player = player
+                completion(player)
+            } else {
+                failure()
+            }
+        }
+    }
 
-
+    
     private func sendRequest(
-        url: String, method: String, data: NSDictionary?,
+        url: String, method: String, data: NSDictionary?, isAddingImage: Bool = false, postLength: String = "",
         requestCompletion: (NSData?, NSURLResponse?, NSError?) -> Void) {
 
         if let url = NSURL(string: url) {
@@ -243,8 +269,13 @@ class MafiaClient: NSObject {
 
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = method
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
+            if isAddingImage {
+                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                request.addValue(postLength, forHTTPHeaderField: "Content-Length")
+            } else {
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            }
+            
             if let data = data {
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(data, options: [])
             }
@@ -255,7 +286,7 @@ class MafiaClient: NSObject {
         }
     }
     
-    class func randomAvatarType() -> String {
+    class func randomCivilianImage() -> String {
         let array = ["boy1", "boy2", "girl1", "girl2"]
         let randomIndex = Int(arc4random_uniform(UInt32(array.count)))
         return array[randomIndex]

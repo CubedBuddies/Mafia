@@ -104,7 +104,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     
     func joinGame() {
         if playerNameTextField.text == "" {
-            showAlert("Please enter a name.") {}
+            errorLabel.hidden = false
             return
         }
         
@@ -117,7 +117,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         }
         
         if gameCreated {
-            let avatar = MafiaClient.randomAvatarType()
+            let avatar = MafiaClient.randomCivilianImage() //NOTE THIS WILL NEED TO BE EDITED
             MafiaClient.instance.joinGame(MafiaClient.instance.game!.token,
                 playerName: self.playerNameTextField.text!,
                 avatarType: avatar,
