@@ -108,9 +108,18 @@ class MafiaClient: NSObject {
             NSLog("Already connected to game \(joinToken), but trying to join a new game.")
         }
         
-        // TODO: Resize and CROP
-        let imageData = UIImagePNGRepresentation(avatarImageView.image!)
-        let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        // resize to 300x300
+        let actualWidth = 300.0
+        let actualHeight = 300.0
+        
+        let rect: CGRect = CGRectMake(0.0, 0.0, CGFloat(actualWidth), CGFloat(actualHeight));
+        UIGraphicsBeginImageContext(rect.size);
+        avatarImageView.image?.drawInRect(rect)
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        let resizedImageData = UIImagePNGRepresentation(resizedImage);
+        UIGraphicsEndImageContext();
+        
+        let base64String = resizedImageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         NSLog("Joining game \(joinToken)")
         sendRequest(MafiaClient.BASE_URL + "/games/\(joinToken)/players", method: "POST", data: ["player": ["name": playerName, "avatar_file_name": "avatar.png", "avatar_file_data": base64String]]) {
