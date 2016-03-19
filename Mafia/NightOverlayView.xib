@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NightOverlayView" customModule="Mafia" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="v26-wA-ngS">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night has fallen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNT-Og-cKQ">
+                    <rect key="frame" x="49" y="263" width="223" height="41"/>
+                    <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-Zg-R7y">
+                    <rect key="frame" x="161" y="33" width="132" height="25"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4J-DX-98w">
+                    <rect key="frame" x="46" y="449" width="229" height="55"/>
+                    <color key="backgroundColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="jbR-ID-cYO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                    <state key="normal" title="Vote">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="v26-wA-ngS" secondAttribute="bottom" id="9hF-4R-jbF"/>
+                <constraint firstItem="L4J-DX-98w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="46" id="D93-iQ-VoG"/>
+                <constraint firstItem="VNT-Og-cKQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="49" id="Es1-zF-xWT"/>
+                <constraint firstItem="v26-wA-ngS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ll2-14-4wN"/>
+                <constraint firstAttribute="trailing" secondItem="v26-wA-ngS" secondAttribute="trailing" id="PIW-Vi-vzG"/>
+                <constraint firstItem="VNT-Og-cKQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TQJ-PM-FXh"/>
+                <constraint firstItem="VNT-Og-cKQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aU6-VL-OtE"/>
+                <constraint firstItem="v26-wA-ngS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jed-1N-N7U"/>
+                <constraint firstAttribute="trailing" secondItem="VNT-Og-cKQ" secondAttribute="trailing" constant="48" id="lNc-ir-HPD"/>
+                <constraint firstAttribute="trailing" secondItem="L4J-DX-98w" secondAttribute="trailing" constant="45" id="rob-f7-ht4"/>
+                <constraint firstAttribute="bottom" secondItem="L4J-DX-98w" secondAttribute="bottom" constant="64" id="xRL-JC-IDf"/>
+            </constraints>
+            <connections>
+                <outlet property="dialogueLabel" destination="VNT-Og-cKQ" id="1j2-Lw-Otv"/>
+                <outlet property="imageView" destination="v26-wA-ngS" id="FeT-7o-Hjp"/>
+                <outlet property="timeLabel" destination="xGD-Zg-R7y" id="0Hg-o3-Z5G"/>
+                <outlet property="voteButton" destination="L4J-DX-98w" id="X46-Uq-Ctb"/>
+            </connections>
+            <point key="canvasLocation" x="391" y="432"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="stars" width="5000" height="3750"/>
+    </resources>
+</document>

@@ -33,12 +33,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     var updateTimer: NSTimer = NSTimer()
 
     var roundIndex = 0
-    var time: Int = 0
+    var nightView: NightOverlayView?
     
     // whether they're viewing their role or not
     var roleMode = false
-    
-    var isNight = true
     
     // used to cache the player vote (for responsiveness)
     var pendingEventType: EventType?
@@ -49,16 +47,19 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(MafiaClient.instance.game?.createdAt)
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
-            
-            self.showPlayerStats()
-            self.roundEndView.hidden = true
+            if MafiaClient.instance.isNight == true{
+                self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
+                self.nightView = NightOverlayView.instanceFromNib() 
+                self.view.addSubview(self.nightView!)
+            } else {
+                self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
+                self.showPlayerStats()
+                self.roundEndView.hidden = true
+            }
         }
-
-        time = 5 * 60
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
@@ -198,6 +199,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         )
     }
     
+    func updateNightEvents() {
+        loadRoundData(MafiaClient.instance.game!)
+    }
+    
     func loadRoundData(game: Game) {
         if self.roundIndex < (game.rounds.count ?? 1) - 1 {
             // round is over, no point pulling data
@@ -205,10 +210,28 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
-            self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
-            
-            showPlayerStats()
-            updatePlayerView(game)
+            if MafiaClient.instance.isNight == true {
+                nightView?.timeLabel.text = "00:\(String(format: "%02d", secondsLeft))"
+                if secondsLeft > 20 {
+                    nightView?.dialogueLabel.text = "Everyone Go To Sleep...Wait for Phone Vibration to Wake Up"
+                    nightView?.dialogueLabel.sizeToFit()
+                } else if secondsLeft > 3 && secondsLeft < 20 {
+                    nightView?.dialogueLabel.text = "Mafia Wake Up"
+                    nightView?.dialogueLabel.sizeToFit()
+                } else if secondsLeft > 0 && secondsLeft < 5 {
+                    nightView?.dialogueLabel.text = "Everyone Wake Up"
+                    nightView?.dialogueLabel.sizeToFit()
+                    nightView?.imageView.image = UIImage(named: "sunrise")
+                } else if secondsLeft <= 0 {
+                    nightView?.dialogueLabel.text = "Discuss!"
+                    nightView?.voteButton.hidden = false
+                    MafiaClient.instance.isNight = false
+                }
+            } else {
+                self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
+                showPlayerStats()
+                updatePlayerView(game)
+            }
         }
     }
     

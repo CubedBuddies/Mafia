@@ -16,6 +16,8 @@ class Game: NSObject {
     var winner: Winner?
     var players: [Player] = []
     
+//    var isNight: Bool?
+    
     var createdAt: NSDate?
     var updatedAt: NSDate?
     
@@ -35,7 +37,7 @@ class Game: NSObject {
     
     func setValues(data: NSDictionary) {
         self.dictionary = data
-        
+//        isNight = true
         let game = data["game"] as! NSDictionary
         
         token = game["token"] as! String
