@@ -61,7 +61,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MafiaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="5u9-MZ-NOO">
-                                        <rect key="frame" x="30" y="149.5" width="260" height="101"/>
+                                        <rect key="frame" x="30" y="149" width="260" height="101"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="5u9-MZ-NOO" secondAttribute="height" multiplier="280:109" id="JmR-tx-Lv3"/>
                                         </constraints>
@@ -148,7 +148,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9g-wh-rKr">
-                                        <rect key="frame" x="34.5" y="70" width="251" height="251"/>
+                                        <rect key="frame" x="35" y="70" width="251" height="251"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="e9g-wh-rKr" secondAttribute="height" multiplier="1:1" id="Mwe-Ke-HyV"/>
                                         </constraints>
@@ -176,7 +176,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name required to join game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP5-RO-lJe">
-                                        <rect key="frame" x="43" y="389" width="234.5" height="20.5"/>
+                                        <rect key="frame" x="43" y="389" width="235" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -213,7 +213,7 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Game code required to join game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIH-DD-AJI">
-                                        <rect key="frame" x="45" y="454" width="230" height="20.5"/>
+                                        <rect key="frame" x="45" y="454" width="230" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -336,7 +336,7 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name required to create game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqC-Fo-aMK">
-                                        <rect key="frame" x="34.5" y="260" width="252.5" height="20.5"/>
+                                        <rect key="frame" x="34" y="260" width="253" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -601,7 +601,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your role" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObQ-0W-ebe">
-                                        <rect key="frame" x="111" y="30" width="97.5" height="31.5"/>
+                                        <rect key="frame" x="111" y="30" width="98" height="32"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -620,24 +620,11 @@
                                             <action selector="onNextButtonClicked:" destination="Xet-3W-nPF" eventType="touchUpInside" id="MpO-tY-B7y"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpD-CM-1C7">
-                                        <rect key="frame" x="61" y="97" width="198" height="198"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
-                                        </constraints>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ra-bp-k8X">
-                                        <rect key="frame" x="30" y="422" width="260" height="41"/>
+                                        <rect key="frame" x="30" y="416" width="260" height="47"/>
                                         <string key="text">Kill someone each night
 with your fellow mafia</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to reveal, keep it secret!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
-                                        <rect key="frame" x="52" y="62" width="215.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -664,13 +651,29 @@ with your fellow mafia</string>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpD-CM-1C7">
+                                        <rect key="frame" x="64" y="110" width="192" height="192"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to reveal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
+                                                <rect key="frame" x="44" y="163" width="105" height="24"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
+                                                <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
+                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="centerX" secondItem="MpD-CM-1C7" secondAttribute="centerX" id="Jyx-Ch-7Ls"/>
+                                            <constraint firstAttribute="bottom" secondItem="Phl-Pn-rcW" secondAttribute="bottom" constant="5" id="N2h-Rw-DmQ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Phl-Pn-rcW" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="DIB-La-2Mq"/>
                                     <constraint firstItem="E2z-9O-IyG" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="40" id="JbX-Ey-4SB"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="35" id="Lgg-1m-eJO"/>
-                                    <constraint firstItem="MpD-CM-1C7" firstAttribute="top" secondItem="ObQ-0W-ebe" secondAttribute="bottom" constant="36" id="NFe-W8-B8A"/>
+                                    <constraint firstItem="MpD-CM-1C7" firstAttribute="top" secondItem="ObQ-0W-ebe" secondAttribute="bottom" constant="48" id="NFe-W8-B8A"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="centerY" secondItem="qtN-sk-vFN" secondAttribute="centerY" id="NSB-vS-N5c"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="Qbd-In-i8O"/>
                                     <constraint firstItem="7fG-1B-4dX" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="46" id="Rsb-Gq-u6c"/>
@@ -683,11 +686,10 @@ with your fellow mafia</string>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MpD-CM-1C7" secondAttribute="trailing" constant="35" id="Z1v-8x-OW1"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="width" secondItem="qtN-sk-vFN" secondAttribute="width" id="aJ0-p0-4Cq"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="fSx-Ky-r1s"/>
-                                    <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="ObQ-0W-ebe" secondAttribute="bottom" constant="0.5" id="gqX-cn-kWj"/>
                                     <constraint firstAttribute="trailing" secondItem="5ra-bp-k8X" secondAttribute="trailing" constant="30" id="j7b-mj-Nf5"/>
                                     <constraint firstItem="ObQ-0W-ebe" firstAttribute="top" secondItem="qtN-sk-vFN" secondAttribute="top" constant="30" id="m1E-yv-ECX"/>
                                     <constraint firstAttribute="trailing" secondItem="E2z-9O-IyG" secondAttribute="trailing" constant="40" id="oGh-SO-JtB"/>
-                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="bottom" constant="33" id="wDf-2i-Ncs"/>
+                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="bottom" constant="26" id="wDf-2i-Ncs"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="height" secondItem="qtN-sk-vFN" secondAttribute="height" id="yzY-vu-daD"/>
                                 </constraints>
                             </view>
@@ -704,6 +706,7 @@ with your fellow mafia</string>
                         <outlet property="nextButton" destination="7fG-1B-4dX" id="bLf-KA-M92"/>
                         <outlet property="roleDescriptionLabel" destination="5ra-bp-k8X" id="Q6g-WW-cJz"/>
                         <outlet property="roleView" destination="MpD-CM-1C7" id="vLI-Xc-MNT"/>
+                        <outlet property="tapNotificationLabel" destination="Phl-Pn-rcW" id="QL4-Tt-NmV"/>
                         <outlet property="teamCollectionView" destination="E2z-9O-IyG" id="6q0-5l-gh7"/>
                     </connections>
                 </viewController>
@@ -767,6 +770,6 @@ with your fellow mafia</string>
         <image name="whiteFrame" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IP9-q3-hWE"/>
+        <segue reference="Mjp-3s-ZiI"/>
     </inferredMetricsTieBreakers>
 </document>

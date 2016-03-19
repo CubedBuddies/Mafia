@@ -12,6 +12,7 @@ import AFNetworking
 class RoleRevealViewController: UIViewController {
 
 
+    @IBOutlet weak var tapNotificationLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roleView: UIView!
     @IBOutlet weak var roleDescriptionLabel: UILabel!
@@ -33,18 +34,27 @@ class RoleRevealViewController: UIViewController {
                     self.avatarImageView.image = image
                     self.avatarImageView.frame = self.roleImageView.frame
                 }
-                }, failure: { (request, response, error) -> Void in
-                    
-                    print(error)
-                })
+            }, failure: { (request, response, error) -> Void in
+                print(error)
+            })
             
             self.roleImageView = UIImageView(image: player.getRoleImage())
         }
-
+        
+        roleView.layoutIfNeeded()
+        let viewHeight = roleView.frame.height
+        let viewWidth = roleView.frame.width
+        
+        avatarImageView.frame = CGRectMake(0, 0, viewHeight, viewWidth)
+        roleImageView.frame = CGRectMake(0, 0, viewHeight, viewWidth)
         avatarImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
         roleImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
-        
         roleView.addSubview(avatarImageView)
+//        avatarImageView.frame = (avatarImageView.superview?.bounds)!
+//        roleImageView.frame = (roleImageView.superview?.bounds)!
+
+//        tapNotificationLabel.bringSubviewToFront(roleView)
+        roleView.bringSubviewToFront(tapNotificationLabel)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         singleTap.numberOfTapsRequired = 1
@@ -73,6 +83,7 @@ class RoleRevealViewController: UIViewController {
     func tapped() {
         if isBackShowing {
             UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: .TransitionFlipFromRight, completion: nil)
+            tapNotificationLabel.hidden = true
             isBackShowing = false
             switch MafiaClient.instance.player!.role! {
             case .TOWNSPERSON:
@@ -85,11 +96,12 @@ class RoleRevealViewController: UIViewController {
                     self.teamCollectionView.reloadData()
                 }
             }
-            
+            tapNotificationLabel.hidden = false
             roleDescriptionLabel.hidden = false
             nextButton.hidden = false
         } else {
             UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: .TransitionFlipFromLeft, completion: nil)
+            tapNotificationLabel.hidden = true
             isBackShowing = true
         }
     }
