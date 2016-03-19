@@ -45,6 +45,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         pendingState(true)
         self.refreshTimer.invalidate()
         
+        self.performSegueWithIdentifier("startGameSegue", sender: self)
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
                 NSLog("Started game!")

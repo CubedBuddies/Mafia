@@ -40,10 +40,9 @@ class RoleRevealViewController: UIViewController {
             
             self.roleImageView = UIImageView(image: player.getRoleImage())
         }
-        
-        // TODO: convert this to auto layout
-        avatarImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
-        roleImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
+
+        avatarImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
+        roleImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
         
         roleView.addSubview(avatarImageView)
         
