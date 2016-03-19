@@ -63,9 +63,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
 
-        playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView)
+        playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView, showVotes: true, playerFilter: nil)
         playersDataSource!.delegate = self
-        playersCollectionView.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
+        
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource

@@ -14,9 +14,13 @@ class RoleRevealViewController: UIViewController {
 
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roleView: UIView!
+    @IBOutlet weak var roleDescriptionLabel: UILabel!
+    @IBOutlet weak var teamCollectionView: UICollectionView!
+    
     var roleImageView: UIImageView!
     var avatarImageView: UIImageView!
     var isBackShowing = true
+    var mafiaCollectionViewDelegate: PlayersCollectionViewDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +38,10 @@ class RoleRevealViewController: UIViewController {
                     print(error)
                 })
             
-            print(player.getAvatarUrl())
             self.roleImageView = UIImageView(image: player.getRoleImage())
         }
         
+        // TODO: convert this to auto layout
         avatarImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         roleImageView.center = CGPointMake(roleView.center.x, roleView.center.y-40)
         
@@ -46,10 +50,20 @@ class RoleRevealViewController: UIViewController {
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         singleTap.numberOfTapsRequired = 1
         
+        roleDescriptionLabel.hidden = true
         roleView.addGestureRecognizer(singleTap)
         
         nextButton.hidden = true
-        // Do any additional setup after loading the view.
+        
+        // show fellow mafia mates
+        teamCollectionView.hidden = true
+        mafiaCollectionViewDelegate = PlayersCollectionViewDataSource(view: teamCollectionView, showVotes: false) { (player: Player) -> Bool in
+            
+            return player.role == .MAFIA
+        }
+        teamCollectionView.delegate = mafiaCollectionViewDelegate
+        teamCollectionView.dataSource = mafiaCollectionViewDelegate
+        mafiaCollectionViewDelegate!.game = MafiaClient.instance.game
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +75,19 @@ class RoleRevealViewController: UIViewController {
         if isBackShowing {
             UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: .TransitionFlipFromRight, completion: nil)
             isBackShowing = false
+            switch MafiaClient.instance.player!.role! {
+            case .TOWNSPERSON:
+                roleDescriptionLabel.text = "Figure out who the mafia is and lynch them during the day."
+                
+            case .MAFIA:
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.roleDescriptionLabel.text = "Kill someone each night with your fellow mafia."
+                    self.teamCollectionView.hidden = false
+                    self.teamCollectionView.reloadData()
+                }
+            }
+            
+            roleDescriptionLabel.hidden = false
             nextButton.hidden = false
         } else {
             UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: .TransitionFlipFromLeft, completion: nil)
