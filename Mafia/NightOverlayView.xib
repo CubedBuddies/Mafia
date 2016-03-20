@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,9 +12,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="v26-wA-ngS">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNT-Og-cKQ">
                     <rect key="frame" x="160" y="284" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="30"/>
@@ -21,13 +19,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-Zg-R7y">
-                    <rect key="frame" x="161" y="33" width="132" height="25"/>
+                    <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4J-DX-98w">
-                    <rect key="frame" x="46" y="449" width="229" height="55"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4J-DX-98w">
+                    <rect key="frame" x="46" y="471" width="229" height="55"/>
                     <color key="backgroundColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="jbR-ID-cYO"/>
@@ -37,6 +35,16 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBW-sh-ApH">
+                    <rect key="frame" x="38" y="78" width="245" height="357"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eBW-sh-ApH" secondAttribute="height" multiplier="320:465" id="TQj-ge-1rP"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="v26-wA-ngS">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -45,16 +53,21 @@
                 <constraint firstItem="VNT-Og-cKQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="49" id="Es1-zF-xWT"/>
                 <constraint firstItem="v26-wA-ngS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ll2-14-4wN"/>
                 <constraint firstAttribute="trailing" secondItem="v26-wA-ngS" secondAttribute="trailing" id="PIW-Vi-vzG"/>
+                <constraint firstItem="eBW-sh-ApH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="78" id="R3p-l2-vf2"/>
                 <constraint firstItem="VNT-Og-cKQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TQJ-PM-FXh"/>
                 <constraint firstItem="VNT-Og-cKQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aU6-VL-OtE"/>
+                <constraint firstItem="L4J-DX-98w" firstAttribute="top" secondItem="eBW-sh-ApH" secondAttribute="bottom" constant="36" id="bSY-me-FfE"/>
+                <constraint firstItem="eBW-sh-ApH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="esv-1Z-F1j"/>
                 <constraint firstItem="v26-wA-ngS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jed-1N-N7U"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VNT-Og-cKQ" secondAttribute="trailing" constant="48" id="lNc-ir-HPD"/>
                 <constraint firstAttribute="trailing" secondItem="L4J-DX-98w" secondAttribute="trailing" constant="45" id="rob-f7-ht4"/>
-                <constraint firstAttribute="bottom" secondItem="L4J-DX-98w" secondAttribute="bottom" constant="64" id="xRL-JC-IDf"/>
+                <constraint firstAttribute="bottom" secondItem="L4J-DX-98w" secondAttribute="bottom" constant="42" id="xRL-JC-IDf"/>
             </constraints>
             <connections>
+                <outlet property="centerYconstraint" destination="TQJ-PM-FXh" id="oa1-po-oW0"/>
                 <outlet property="dialogueLabel" destination="VNT-Og-cKQ" id="1j2-Lw-Otv"/>
                 <outlet property="imageView" destination="v26-wA-ngS" id="FeT-7o-Hjp"/>
+                <outlet property="resultsView" destination="eBW-sh-ApH" id="JEb-MS-F2c"/>
                 <outlet property="timeLabel" destination="xGD-Zg-R7y" id="0Hg-o3-Z5G"/>
                 <outlet property="voteButton" destination="L4J-DX-98w" id="X46-Uq-Ctb"/>
             </connections>

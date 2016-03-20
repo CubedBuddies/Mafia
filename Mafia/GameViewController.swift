@@ -23,18 +23,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
-
-    // round end screen
-    @IBOutlet weak var roundEndView: UIView!
-    @IBOutlet weak var endTitleLabel: UILabel!
-    @IBOutlet weak var endDescriptionLabel: UILabel!
-    @IBOutlet weak var endRoundContinueButton: UIButton!
     
+    @IBOutlet weak var gameEndView: UIView! //RoundEndView that shows up in the GameViewController, not night mode
+
     var playersDataSource: PlayersCollectionViewDataSource?
     var updateTimer: NSTimer = NSTimer()
 
     var roundIndex = 0
     var nightView: NightOverlayView?
+    var roundEndView: RoundEndView?
     
     // whether they're viewing their role or not
     var roleMode = false
@@ -62,8 +59,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 self.showPlayerStats()
             }
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
-            self.roundEndView.hidden = true
+//            self.roundEndView.hidden = true
         }
+        
+        
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
@@ -126,8 +125,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func showRoundEndView() {
-        roundEndView.hidden = false
+//        roundEndView.hidden = false
         endScreen()
+        self.roundEndView = RoundEndView.instanceFromNib()
+        if MafiaClient.instance.isNight {
+            nightView?.resultsView.addSubview(self.roundEndView!)
+        } else {
+            self.gameEndView.addSubview(self.roundEndView!)
+        }
+        self.roundEndView!.frame = (self.roundEndView?.superview?.bounds)!
         
         if let game = MafiaClient.instance.game {
             var playerNames = [Int: Player]()
@@ -138,29 +144,31 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             if game.state == .FINISHED {
                 switch game.winner! {
                 case .MAFIA:
-                    endTitleLabel.text = "Mafia wins!"
+                    roundEndView?.endTitleLabel.text = "Mafia wins!"
                 case .TOWNSPERSON:
-                    endTitleLabel.text = "Town wins!"
+                    roundEndView?.endTitleLabel.text = "Town wins!"
                 }
                 
-                endDescriptionLabel.hidden = true
-                endRoundContinueButton.setTitle("Exit game", forState: .Normal)
+                roundEndView?.endDescriptionLabel.hidden = true
+                roundEndView?.nextRoundButton.setTitle("Exit game", forState: .Normal)
             } else {
-                endTitleLabel.text = "Night sets..."
                 let currentRound = game.rounds[roundIndex]
-                
-                var descriptionSegments = [String]()
-                if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                if MafiaClient.instance.isNight {
+                    roundEndView?.nextRoundButton.hidden = true
+                    if let killedPlayerId = currentRound.killedPlayerId {
+                        let player = playerNames[killedPlayerId]!
+                        //TODO: Add image to 
+//                        self.roundEndView?.deadPlayerImage.image = player.
+                        self.roundEndView?.endDescriptionLabel.text = "\(player.name) was killed by the Mafia! They were: \(player.role!)"
+                    }
+                } else if let lynchedPlayerId = currentRound.lynchedPlayerId {
                     let player = playerNames[lynchedPlayerId]!
-                    descriptionSegments.append("\(player.name) was lynched! They were: \(player.role!)")
+                    self.roundEndView?.endDescriptionLabel.text = "\(player.name) was lynched! They were: \(player.role!)"
                 }
-                if let killedPlayerId = currentRound.killedPlayerId {
-                    let player = playerNames[killedPlayerId]!
-                    descriptionSegments.append("\(player.name) was killed by the mafia! They were: \(player.role!)")
-                }
-                endDescriptionLabel.text = descriptionSegments.joinWithSeparator("\n")
+                MafiaClient.instance.isNight = !MafiaClient.instance.isNight
             }
         }
+        
         
     }
 
@@ -246,7 +254,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 } else if secondsLeft <= 0 {
                     nightView?.dialogueLabel.text = "Discuss!"
                     nightView?.voteButton.hidden = false
-                    MafiaClient.instance.isNight = false
                 }
             }
             self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"

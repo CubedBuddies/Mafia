@@ -14,6 +14,8 @@ import UIKit
 
 class NightOverlayView: UIView {
 
+    @IBOutlet weak var resultsView: UIView!
+    @IBOutlet weak var centerYconstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var voteButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
