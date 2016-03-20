@@ -15,7 +15,7 @@ protocol GameViewControllerDelegate {
     func selectPlayer(targetPlayerId: Int)
 }
 
-class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, NightOverlayViewDelegate {
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -52,13 +52,16 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
             if MafiaClient.instance.isNight == true{
+                self.roleMode = true
                 self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
                 self.nightView = NightOverlayView.instanceFromNib() 
                 self.view.addSubview(self.nightView!)
                 self.nightView!.frame = (self.nightView?.superview?.bounds)!
+                self.nightView?.delegate = self
+            } else {
+                self.showPlayerStats()
             }
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
-            self.showPlayerStats()
             self.roundEndView.hidden = true
         }
         
@@ -71,6 +74,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
+        
+        
         
         loadRoundData(MafiaClient.instance.game!)
     }
@@ -228,11 +233,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                         updatePlayerView(game)
                         nightView?.hidden = true
                     }
-                } else if secondsLeft < 8 && secondsLeft > 3 {
+                } else if secondsLeft < 8 && secondsLeft > 2 {
                     nightView?.hidden = false
                     nightView?.dialogueLabel.text = "Mafia Go Back to Sleep"
                     nightView?.dialogueLabel.sizeToFit()
-                } else if secondsLeft > 0 && secondsLeft < 3 {
+                } else if secondsLeft > 0 && secondsLeft < 2 {
                     //vibrate phone for all players
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                     nightView?.dialogueLabel.text = "Everyone Wake Up"
@@ -285,6 +290,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             }
             
             MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
+                print(String(EventType) + " " + String(targetPlayerId))
                 NSLog("Sent vote!")
             }, failure: { _ in
                 NSLog("Failed to select player")
@@ -336,6 +342,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
+    }
+    
+    func nightOverlayView(nightOverlayView: NightOverlayView, voteButtonPressed value: Bool) {
+        let vc = GameViewController()
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+
     }
     /*
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

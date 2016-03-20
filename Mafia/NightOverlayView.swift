@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol NightOverlayViewDelegate {
+    optional func nightOverlayView (nightOverlayView: NightOverlayView, voteButtonPressed value: Bool)
+}
+
 class NightOverlayView: UIView {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -16,8 +20,19 @@ class NightOverlayView: UIView {
     @IBOutlet weak var dialogueLabel: UILabel!
     var view: UIView!
     
+    weak var delegate: NightOverlayViewDelegate?
+    
     class func instanceFromNib() -> NightOverlayView {
         return UINib(nibName: "NightOverlayView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! NightOverlayView
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        voteButton.addTarget(self, action: "voteButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    func voteButtonPressed() {
+        delegate?.nightOverlayView!(self, voteButtonPressed: voteButton.touchInside)
     }
     
     /*
