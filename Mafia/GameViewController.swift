@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 protocol GameViewControllerDelegate {
     func getRoleMode() -> Bool
@@ -14,7 +15,7 @@ protocol GameViewControllerDelegate {
     func selectPlayer(targetPlayerId: Int)
 }
 
-class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, NightOverlayViewDelegate {
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -51,14 +52,17 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
             if MafiaClient.instance.isNight == true{
+                self.roleMode = true
                 self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
                 self.nightView = NightOverlayView.instanceFromNib() 
                 self.view.addSubview(self.nightView!)
+                self.nightView!.frame = (self.nightView?.superview?.bounds)!
+                self.nightView?.delegate = self
             } else {
-                self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
                 self.showPlayerStats()
-                self.roundEndView.hidden = true
             }
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
+            self.roundEndView.hidden = true
         }
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
@@ -70,6 +74,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
 
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
+        
+        
         
         loadRoundData(MafiaClient.instance.game!)
     }
@@ -210,15 +216,30 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
+            MafiaClient.instance.player?.role = .MAFIA
             if MafiaClient.instance.isNight == true {
                 nightView?.timeLabel.text = "00:\(String(format: "%02d", secondsLeft))"
                 if secondsLeft > 20 {
-                    nightView?.dialogueLabel.text = "Everyone Go To Sleep...Wait for Phone Vibration to Wake Up"
+                    nightView?.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
                     nightView?.dialogueLabel.sizeToFit()
-                } else if secondsLeft > 3 && secondsLeft < 20 {
+                } else if secondsLeft > 18 && secondsLeft < 20 {
+                    //vibrate phone if player is mafia
                     nightView?.dialogueLabel.text = "Mafia Wake Up"
                     nightView?.dialogueLabel.sizeToFit()
-                } else if secondsLeft > 0 && secondsLeft < 5 {
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                } else if secondsLeft < 18 && secondsLeft > 8{
+                    if MafiaClient.instance.player?.role == .MAFIA {
+                        showPlayerStats()
+                        updatePlayerView(game)
+                        nightView?.hidden = true
+                    }
+                } else if secondsLeft < 8 && secondsLeft > 2 {
+                    nightView?.hidden = false
+                    nightView?.dialogueLabel.text = "Mafia Go Back to Sleep"
+                    nightView?.dialogueLabel.sizeToFit()
+                } else if secondsLeft > 0 && secondsLeft < 2 {
+                    //vibrate phone for all players
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                     nightView?.dialogueLabel.text = "Everyone Wake Up"
                     nightView?.dialogueLabel.sizeToFit()
                     nightView?.imageView.image = UIImage(named: "sunrise")
@@ -227,11 +248,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     nightView?.voteButton.hidden = false
                     MafiaClient.instance.isNight = false
                 }
-            } else {
-                self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
-                showPlayerStats()
-                updatePlayerView(game)
             }
+            self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
+            showPlayerStats()
+            updatePlayerView(game)
         }
     }
     
@@ -270,6 +290,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             }
             
             MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
+                print(String(EventType) + " " + String(targetPlayerId))
                 NSLog("Sent vote!")
             }, failure: { _ in
                 NSLog("Failed to select player")
@@ -321,6 +342,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
+    }
+    
+    func nightOverlayView(nightOverlayView: NightOverlayView, voteButtonPressed value: Bool) {
+        let vc = GameViewController()
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+
     }
     /*
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

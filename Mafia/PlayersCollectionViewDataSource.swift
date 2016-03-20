@@ -48,7 +48,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
     init(view: UICollectionView, showVotes: Bool, playerFilter: ((Player) -> Bool)?) {
         collectionView = view
         filter = playerFilter
-        
+        votes = showVotes
         view.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
     }
     
