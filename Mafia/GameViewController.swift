@@ -15,7 +15,7 @@ protocol GameViewControllerDelegate {
     func selectPlayer(targetPlayerId: Int)
 }
 
-class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, NightOverlayViewDelegate {
+class GameViewController: UIViewController, GameViewControllerDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, RoundEndViewDelegate {
 
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -23,18 +23,16 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var playersCollectionView: UICollectionView!
-
-    // round end screen
-    @IBOutlet weak var roundEndView: UIView!
-    @IBOutlet weak var endTitleLabel: UILabel!
-    @IBOutlet weak var endDescriptionLabel: UILabel!
-    @IBOutlet weak var endRoundContinueButton: UIButton!
     
+    @IBOutlet weak var gameEndView: UIView! //RoundEndView that shows up in the GameViewController, not night mode
+
     var playersDataSource: PlayersCollectionViewDataSource?
     var updateTimer: NSTimer = NSTimer()
+    var nightTimer: NSTimer = NSTimer()
 
     var roundIndex = 0
     var nightView: NightOverlayView?
+    var roundEndView: RoundEndView?
     
     // whether they're viewing their role or not
     var roleMode = false
@@ -46,6 +44,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     var isPresenting: Bool = true
     var interactiveTransition: UIPercentDrivenInteractiveTransition!
     
+    //MARK: Display methods
     override func viewDidLoad() {
         super.viewDidLoad()
         print(MafiaClient.instance.game?.createdAt)
@@ -53,16 +52,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         dispatch_async(dispatch_get_main_queue()) {
             if MafiaClient.instance.isNight == true{
                 self.roleMode = true
-                self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
+                self.nightTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
                 self.nightView = NightOverlayView.instanceFromNib() 
                 self.view.addSubview(self.nightView!)
                 self.nightView!.frame = (self.nightView?.superview?.bounds)!
-                self.nightView?.delegate = self
             } else {
                 self.showPlayerStats()
             }
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
-            self.roundEndView.hidden = true
         }
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
@@ -71,11 +68,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView, showVotes: true, playerFilter: nil)
         playersDataSource!.delegate = self
         
-
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
-        
-        
         
         loadRoundData(MafiaClient.instance.game!)
     }
@@ -86,18 +80,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 self.dismissViewControllerAnimated(false, completion: nil)
             }
         }
-    }
-    
-    @IBAction func onAvatarTap(sender: AnyObject) {
-        roleMode = !roleMode
-        dispatch_async(dispatch_get_main_queue()) {
-            self.showPlayerStats()
-            self.playersDataSource!.showPlayerStats()
-        }
-    }
-    
-    func getRoleMode() -> Bool {
-        return roleMode
     }
     
     func showPlayerStats() {
@@ -122,12 +104,22 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     actionLabel.text = "Tap to Vote"
                 }
             }
+            
         }
     }
     
     func showRoundEndView() {
-        roundEndView.hidden = false
         endScreen()
+        self.roundEndView = RoundEndView.instanceFromNib()
+        self.roundEndView?.delegate = self
+        if MafiaClient.instance.isNight {
+            nightView?.resultsView.addSubview(self.roundEndView!)
+            nightView?.resultsView.hidden = false
+        } else {
+            self.gameEndView.addSubview(self.roundEndView!)
+            self.gameEndView.hidden = false
+        }
+        self.roundEndView!.frame = (self.roundEndView?.superview?.bounds)!
         
         if let game = MafiaClient.instance.game {
             var playerNames = [Int: Player]()
@@ -135,36 +127,55 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 playerNames[player.id] = player
             }
             
-            if game.state == .FINISHED {
+            if game.state != .FINISHED {
+                
+                let currentRound = game.rounds[roundIndex]
+                if MafiaClient.instance.isNight {
+                    roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
+                    self.roundEndView?.endTitleLabel.hidden = false
+                    self.roundEndView?.endDescriptionLabel.hidden = true
+                    if let killedPlayerId = currentRound.killedPlayerId {
+                        let player = playerNames[killedPlayerId]!
+                        self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
+                    } else {
+                        self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                    }
+                } else if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                    let player = playerNames[lynchedPlayerId]!
+                    self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
+                    self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                    roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
+                }
+                MafiaClient.instance.isNight = !MafiaClient.instance.isNight
+            } else {
                 switch game.winner! {
                 case .MAFIA:
-                    endTitleLabel.text = "Mafia wins!"
+                    roundEndView?.endTitleLabel.text = "Mafia wins!"
                 case .TOWNSPERSON:
-                    endTitleLabel.text = "Town wins!"
+                    roundEndView?.endTitleLabel.text = "Town wins!"
                 }
                 
-                endDescriptionLabel.hidden = true
-                endRoundContinueButton.setTitle("Exit game", forState: .Normal)
-            } else {
-                endTitleLabel.text = "Night sets..."
-                let currentRound = game.rounds[roundIndex]
-                
-                var descriptionSegments = [String]()
-                if let lynchedPlayerId = currentRound.lynchedPlayerId {
-                    let player = playerNames[lynchedPlayerId]!
-                    descriptionSegments.append("\(player.name) was lynched! They were: \(player.role!)")
-                }
-                if let killedPlayerId = currentRound.killedPlayerId {
-                    let player = playerNames[killedPlayerId]!
-                    descriptionSegments.append("\(player.name) was killed by the mafia! They were: \(player.role!)")
-                }
-                endDescriptionLabel.text = descriptionSegments.joinWithSeparator("\n")
+                roundEndView?.endDescriptionLabel.hidden = true
+                roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
         }
-        
+    }
+    
+    func endScreen() {
+        NSLog("Clearing game screen")
+        updateTimer.invalidate()
     }
 
-    @IBAction func onContinueToNextRound(sender: AnyObject) {
+    
+    @IBAction func onAvatarTap(sender: AnyObject) {
+        roleMode = !roleMode
+        dispatch_async(dispatch_get_main_queue()) {
+            self.showPlayerStats()
+            self.playersDataSource!.showPlayerStats()
+        }
+    }
+    
+    func roundEndView(roundEndView: RoundEndView, nextButtonPressed value: Bool) {
         NSLog("Transitioning to new round, from round \(roundIndex)")
         
         if MafiaClient.instance.game?.state == .FINISHED {
@@ -175,7 +186,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             }
         } else {
             let vc = GameViewController()
-            vc.roundIndex = roundIndex + 1
+            vc.roundIndex = (MafiaClient.instance.game?.rounds.count)!-1
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.presentViewController(vc, animated: true, completion: nil)
@@ -183,6 +194,49 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         }
     }
     
+    func getRoleMode() -> Bool {
+        return roleMode
+    }
+    
+    //MARK: Player Action Methods
+    func fakeVote(eventType: EventType, targetPlayerId: Int) {
+        if let round = MafiaClient.instance.game?.rounds[self.roundIndex] {
+            switch eventType {
+            case .KILL:
+                round.killVotes![MafiaClient.instance.player!.id] = targetPlayerId
+            case .LYNCH:
+                round.lynchVotes![MafiaClient.instance.player!.id] = targetPlayerId
+            }
+            
+            pendingEventType = eventType
+            pendingVote = targetPlayerId
+        }
+    }
+    
+    func selectPlayer(targetPlayerId: Int) {
+        if let player = MafiaClient.instance.player {
+            if player.state == .DEAD {
+                return
+            }
+            
+            let eventType: EventType = (roleMode && player.role == .MAFIA) ? .KILL : .LYNCH
+            fakeVote(eventType, targetPlayerId: targetPlayerId)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.updatePlayerView(MafiaClient.instance.game!)
+            }
+            
+            MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
+                print(String(EventType) + " " + String(targetPlayerId))
+                NSLog("Sent vote!")
+                }, failure: { _ in
+                    NSLog("Failed to select player")
+            })
+        }
+    }
+
+    
+    //MARK: Update and Loading Methods
     func updateHandler() {
         if pendingVote != nil {
             pendingEventType = nil
@@ -193,6 +247,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 dispatch_async(dispatch_get_main_queue()) {
                     if game.state == .FINISHED {
                         self.showRoundEndView()
+                        print ("jalskjdfklsa;ds")
                     } else {self
                         if self.pendingVote != nil {
                             self.fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
@@ -210,9 +265,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func loadRoundData(game: Game) {
+        print("round index is: " + String(self.roundIndex) + " game count is: " + String(game.rounds.count))
         if self.roundIndex < (game.rounds.count ?? 1) - 1 {
             // round is over, no point pulling data
             showRoundEndView()
+            print("poopypants")
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
@@ -245,8 +302,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     nightView?.imageView.image = UIImage(named: "sunrise")
                 } else if secondsLeft <= 0 {
                     nightView?.dialogueLabel.text = "Discuss!"
-                    nightView?.voteButton.hidden = false
-                    MafiaClient.instance.isNight = false
+                    nightTimer.invalidate()
                 }
             }
             self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
@@ -262,47 +318,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         self.playersCollectionView.reloadData()
     }
     
-    func fakeVote(eventType: EventType, targetPlayerId: Int) {
-        if let round = MafiaClient.instance.game?.rounds[self.roundIndex] {
-            switch eventType {
-            case .KILL:
-                round.killVotes![MafiaClient.instance.player!.id] = targetPlayerId
-            case .LYNCH:
-                round.lynchVotes![MafiaClient.instance.player!.id] = targetPlayerId
-            }
-            
-            pendingEventType = eventType
-            pendingVote = targetPlayerId
-        }
-    }
-
-    func selectPlayer(targetPlayerId: Int) {
-        if let player = MafiaClient.instance.player {
-            if player.state == .DEAD {
-                return
-            }
-            
-            let eventType: EventType = (roleMode && player.role == .MAFIA) ? .KILL : .LYNCH
-            fakeVote(eventType, targetPlayerId: targetPlayerId)
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.updatePlayerView(MafiaClient.instance.game!)
-            }
-            
-            MafiaClient.instance.addGameEvent(eventType, targetPlayerId: targetPlayerId, completion: { _ in
-                print(String(EventType) + " " + String(targetPlayerId))
-                NSLog("Sent vote!")
-            }, failure: { _ in
-                NSLog("Failed to select player")
-            })
-        }
-    }
     
-    func endScreen() {
-        NSLog("Clearing game screen")
-        updateTimer.invalidate()
-    }
-    
+    //MARK: transitions and animations
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
         let containerView = transitionContext.containerView()!
@@ -344,14 +361,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         return self
     }
     
-    func nightOverlayView(nightOverlayView: NightOverlayView, voteButtonPressed value: Bool) {
-        let vc = GameViewController()
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
-
-    }
+    
     /*
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         

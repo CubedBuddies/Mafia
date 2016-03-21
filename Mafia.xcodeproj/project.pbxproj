@@ -11,6 +11,8 @@
 		533EF9651C961EF0009F3D94 /* RoleRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */; };
 		53657CD21C9CBF0400EBD112 /* NightOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */; };
 		53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */; };
+		53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD51C9E681A00EBD112 /* RoundEndView.xib */; };
+		53657CD81C9E7A0F00EBD112 /* RoundEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53657CD71C9E7A0F00EBD112 /* RoundEndView.swift */; };
 		53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* CreateGameViewController.swift */; };
 		53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE91C877AE500163802 /* ResultsViewController.swift */; };
 		53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */; };
@@ -58,6 +60,8 @@
 		533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleRevealViewController.swift; sourceTree = "<group>"; };
 		53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NightOverlayView.swift; sourceTree = "<group>"; };
 		53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NightOverlayView.xib; sourceTree = "<group>"; };
+		53657CD51C9E681A00EBD112 /* RoundEndView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundEndView.xib; sourceTree = "<group>"; };
+		53657CD71C9E7A0F00EBD112 /* RoundEndView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundEndView.swift; sourceTree = "<group>"; };
 		53F21EE71C877A3100163802 /* CreateGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameViewController.swift; sourceTree = "<group>"; };
 		53F21EE91C877AE500163802 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */,
 				72F37DD01C8AAF5F00DF2B78 /* PlayersCollectionViewCell.swift */,
 				53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */,
+				53657CD71C9E7A0F00EBD112 /* RoundEndView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */,
 				72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */,
 				53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */,
+				53657CD51C9E681A00EBD112 /* RoundEndView.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */,
+				53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */,
 				72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */,
 				723AD9231C8568C10072849E /* LaunchScreen.storyboard in Resources */,
 				72B4C5111C8C075D000E8DC9 /* PlayersCollectionViewCell.xib in Resources */,
@@ -440,6 +447,7 @@
 				728BA8471C857C5400630365 /* GameViewController.swift in Sources */,
 				72C7D7DA1C88AE2300B26CDD /* Game.swift in Sources */,
 				728BA8431C857C4500630365 /* JoinGameViewController.swift in Sources */,
+				53657CD81C9E7A0F00EBD112 /* RoundEndView.swift in Sources */,
 				72C7D7DC1C88AE3900B26CDD /* Event.swift in Sources */,
 				53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */,
 				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
