@@ -32,7 +32,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_Girl1" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-nr-bmg">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jGq-nr-bmg">
                     <rect key="frame" x="110" y="37" width="100" height="100"/>
                     <color key="tintColor" red="1" green="0.01026766514" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
@@ -122,7 +122,6 @@
         </panGestureRecognizer>
     </objects>
     <resources>
-        <image name="Character_Girl1" width="100" height="100"/>
         <image name="board_black_line_texture_background_wood_55220_2560x1600-1" width="1563" height="2276"/>
     </resources>
 </document>

@@ -61,6 +61,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
+            imageFromSource.cameraDevice = UIImagePickerControllerCameraDevice.Front
         } else {
             imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
@@ -70,7 +71,8 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         avatarImageView.image = temp
-        avatarImageView.layer.cornerRadius = 30
+        avatarImageView.frame = avatarImageButton.frame
+
         avatarImageView.clipsToBounds = true
         avatarImageView.contentMode = .ScaleAspectFill
         self.dismissViewControllerAnimated(true, completion: nil)

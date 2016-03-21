@@ -123,7 +123,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="1563" height="2276"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Player Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Ac-LY-8jn">
-                                        <rect key="frame" x="46" y="341" width="229" height="50"/>
+                                        <rect key="frame" x="46" y="350" width="229" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="9OE-jg-sTs"/>
                                         </constraints>
@@ -140,15 +140,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_mystery_white" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-BR-9ah">
-                                        <rect key="frame" x="35" y="70" width="251" height="251"/>
+                                        <rect key="frame" x="45" y="100" width="230" height="230"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
+                                                <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9g-wh-rKr">
-                                        <rect key="frame" x="35" y="70" width="251" height="251"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9g-wh-rKr">
+                                        <rect key="frame" x="45" y="100" width="230" height="230"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="e9g-wh-rKr" secondAttribute="height" multiplier="1:1" id="Mwe-Ke-HyV"/>
                                         </constraints>
@@ -159,23 +159,23 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name required to join game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WP5-RO-lJe">
-                                        <rect key="frame" x="43" y="389" width="235" height="21"/>
+                                        <rect key="frame" x="43" y="397" width="235" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLd-ys-l7t">
-                                        <rect key="frame" x="46" y="383" width="229" height="3"/>
+                                        <rect key="frame" x="46" y="393" width="229" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="3" id="Cdd-nD-4PO"/>
+                                            <constraint firstAttribute="height" constant="2" id="Cdd-nD-4PO"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHC-DT-I77">
-                                        <rect key="frame" x="46" y="448" width="229" height="3"/>
+                                        <rect key="frame" x="46" y="458" width="229" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="3" id="LNG-Tb-F17"/>
+                                            <constraint firstAttribute="height" constant="2" id="LNG-Tb-F17"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNW-5s-R96">
@@ -196,13 +196,13 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Game code required to join game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIH-DD-AJI">
-                                        <rect key="frame" x="45" y="454" width="230" height="21"/>
+                                        <rect key="frame" x="45" y="463" width="230" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Game Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jml-qo-SHo">
-                                        <rect key="frame" x="46" y="406" width="229" height="50"/>
+                                        <rect key="frame" x="46" y="415" width="229" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Qi6-7J-znt"/>
                                         </constraints>
@@ -236,8 +236,8 @@
                                     <constraint firstAttribute="bottom" secondItem="sNW-5s-R96" secondAttribute="bottom" constant="30" id="XJI-MC-KTk"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="height" secondItem="Cw3-BR-9ah" secondAttribute="height" id="aAa-PS-T6r"/>
                                     <constraint firstItem="e9g-wh-rKr" firstAttribute="centerY" secondItem="Cw3-BR-9ah" secondAttribute="centerY" id="f6I-CK-Jzp"/>
-                                    <constraint firstItem="WP5-RO-lJe" firstAttribute="top" secondItem="GLd-ys-l7t" secondAttribute="bottom" constant="3" id="fMC-k0-9Na"/>
-                                    <constraint firstItem="e9g-wh-rKr" firstAttribute="top" secondItem="YNM-Gg-FLC" secondAttribute="top" constant="70" id="fxS-l1-GjB"/>
+                                    <constraint firstItem="WP5-RO-lJe" firstAttribute="top" secondItem="GLd-ys-l7t" secondAttribute="bottom" constant="2" id="fMC-k0-9Na"/>
+                                    <constraint firstItem="e9g-wh-rKr" firstAttribute="top" secondItem="YNM-Gg-FLC" secondAttribute="top" constant="100" id="fxS-l1-GjB"/>
                                     <constraint firstItem="GLd-ys-l7t" firstAttribute="width" secondItem="4Ac-LY-8jn" secondAttribute="width" id="gAz-v8-3PI"/>
                                     <constraint firstAttribute="trailing" secondItem="jml-qo-SHo" secondAttribute="trailing" constant="45" id="iih-rg-Kj7"/>
                                     <constraint firstItem="4Ac-LY-8jn" firstAttribute="top" secondItem="e9g-wh-rKr" secondAttribute="bottom" constant="20" id="ixs-w6-yiK"/>
@@ -270,6 +270,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="avatarImageView" destination="Cw3-BR-9ah" id="VrJ-b9-qCv"/>
+                        <outlet property="cameraButton" destination="e9g-wh-rKr" id="mxS-v6-K86"/>
                         <outlet property="codeErrorLabel" destination="RIH-DD-AJI" id="z2v-Ri-JUR"/>
                         <outlet property="gameCodeLabel" destination="jml-qo-SHo" id="Bgt-4n-7Ct"/>
                         <outlet property="joinButton" destination="sNW-5s-R96" id="3Gv-hW-3se"/>
@@ -298,10 +299,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="board_black_line_texture_background_wood_55220_2560x1600-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ru5-hI-61U">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1563" height="2276"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Player Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VGX-1Y-TIP">
-                                        <rect key="frame" x="45" y="212" width="230" height="50"/>
+                                        <rect key="frame" x="45" y="383" width="230" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="rad-ic-O4V"/>
                                         </constraints>
@@ -318,15 +319,15 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_mystery_white" translatesAutoresizingMaskIntoConstraints="NO" id="jd4-Ot-zN1">
-                                        <rect key="frame" x="99" y="70" width="122" height="122"/>
+                                        <rect key="frame" x="37" y="100" width="247" height="247"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heP-fC-pIT">
-                                        <rect key="frame" x="99" y="70" width="122" height="122"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heP-fC-pIT">
+                                        <rect key="frame" x="37" y="100" width="247" height="247"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="heP-fC-pIT" secondAttribute="height" multiplier="1:1" id="qch-HF-MAL"/>
                                         </constraints>
@@ -336,16 +337,16 @@
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player name required to create game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqC-Fo-aMK">
-                                        <rect key="frame" x="34" y="260" width="253" height="21"/>
+                                        <rect key="frame" x="34" y="431" width="253" height="21"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duY-G7-T4h">
-                                        <rect key="frame" x="45" y="254" width="230" height="3"/>
+                                        <rect key="frame" x="45" y="425" width="230" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="3" id="vPN-6i-HEL"/>
+                                            <constraint firstAttribute="height" constant="2" id="vPN-6i-HEL"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVH-9M-xpR">
@@ -369,22 +370,22 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="heP-fC-pIT" firstAttribute="centerX" secondItem="jd4-Ot-zN1" secondAttribute="centerX" id="1Je-c2-QiF"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="heP-fC-pIT" secondAttribute="trailing" constant="99" id="1Lg-UU-gHv"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="heP-fC-pIT" secondAttribute="trailing" constant="30" id="1Lg-UU-gHv"/>
                                     <constraint firstAttribute="bottom" secondItem="pVH-9M-xpR" secondAttribute="bottom" constant="30" id="4PC-8u-PGQ"/>
                                     <constraint firstAttribute="trailing" secondItem="pVH-9M-xpR" secondAttribute="trailing" constant="45" id="5OY-Kg-Ibd"/>
                                     <constraint firstItem="CqC-Fo-aMK" firstAttribute="centerX" secondItem="duY-G7-T4h" secondAttribute="centerX" id="5a7-81-GrH"/>
-                                    <constraint firstItem="heP-fC-pIT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f2T-gH-2JN" secondAttribute="leading" constant="99" id="AQu-2G-3Ai"/>
-                                    <constraint firstItem="CqC-Fo-aMK" firstAttribute="top" secondItem="duY-G7-T4h" secondAttribute="bottom" constant="3" id="CmA-nz-mnj"/>
+                                    <constraint firstItem="heP-fC-pIT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f2T-gH-2JN" secondAttribute="leading" constant="30" id="AQu-2G-3Ai"/>
+                                    <constraint firstItem="CqC-Fo-aMK" firstAttribute="top" secondItem="duY-G7-T4h" secondAttribute="bottom" constant="4" id="CmA-nz-mnj"/>
                                     <constraint firstAttribute="trailing" secondItem="VGX-1Y-TIP" secondAttribute="trailing" constant="45" id="Djx-Sw-1SU"/>
                                     <constraint firstItem="heP-fC-pIT" firstAttribute="centerY" secondItem="jd4-Ot-zN1" secondAttribute="centerY" id="FIj-Df-3lu"/>
-                                    <constraint firstItem="heP-fC-pIT" firstAttribute="top" secondItem="f2T-gH-2JN" secondAttribute="top" constant="70" id="QKF-en-ra8"/>
+                                    <constraint firstItem="heP-fC-pIT" firstAttribute="top" secondItem="f2T-gH-2JN" secondAttribute="top" constant="100" id="QKF-en-ra8"/>
                                     <constraint firstItem="heP-fC-pIT" firstAttribute="height" secondItem="jd4-Ot-zN1" secondAttribute="height" id="QlR-CY-euT"/>
-                                    <constraint firstItem="VGX-1Y-TIP" firstAttribute="bottom" secondItem="duY-G7-T4h" secondAttribute="bottom" constant="5" id="SOn-vi-2x6"/>
+                                    <constraint firstItem="VGX-1Y-TIP" firstAttribute="bottom" secondItem="duY-G7-T4h" secondAttribute="bottom" constant="6" id="SOn-vi-2x6"/>
                                     <constraint firstItem="duY-G7-T4h" firstAttribute="centerX" secondItem="VGX-1Y-TIP" secondAttribute="centerX" id="TiW-dQ-AqE"/>
                                     <constraint firstItem="duY-G7-T4h" firstAttribute="width" secondItem="VGX-1Y-TIP" secondAttribute="width" id="dPW-cT-nRA"/>
                                     <constraint firstItem="pVH-9M-xpR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VGX-1Y-TIP" secondAttribute="bottom" constant="50" id="eRY-gm-VDA"/>
                                     <constraint firstItem="pVH-9M-xpR" firstAttribute="leading" secondItem="f2T-gH-2JN" secondAttribute="leading" constant="46" id="ejH-se-zkv"/>
-                                    <constraint firstItem="VGX-1Y-TIP" firstAttribute="top" secondItem="heP-fC-pIT" secondAttribute="bottom" constant="20" id="fpI-WV-NTz"/>
+                                    <constraint firstItem="VGX-1Y-TIP" firstAttribute="top" secondItem="heP-fC-pIT" secondAttribute="bottom" constant="36" id="fpI-WV-NTz"/>
                                     <constraint firstItem="CqC-Fo-aMK" firstAttribute="centerX" secondItem="VGX-1Y-TIP" secondAttribute="centerX" id="g6h-4I-SW5"/>
                                     <constraint firstItem="heP-fC-pIT" firstAttribute="centerX" secondItem="f2T-gH-2JN" secondAttribute="centerX" id="hoI-j6-vWT"/>
                                     <constraint firstItem="VGX-1Y-TIP" firstAttribute="leading" secondItem="f2T-gH-2JN" secondAttribute="leading" constant="45" id="mB9-9h-plB"/>
@@ -654,10 +655,11 @@ with your fellow mafia</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpD-CM-1C7">
                                         <rect key="frame" x="64" y="110" width="192" height="192"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to reveal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
-                                                <rect key="frame" x="44" y="163" width="105" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to reveal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
+                                                <rect key="frame" x="44" y="168" width="105" height="24"/>
+                                                <color key="backgroundColor" red="0.72156862749999995" green="0.039215686270000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
-                                                <color key="textColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -665,7 +667,7 @@ with your fellow mafia</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
                                             <constraint firstItem="Phl-Pn-rcW" firstAttribute="centerX" secondItem="MpD-CM-1C7" secondAttribute="centerX" id="Jyx-Ch-7Ls"/>
-                                            <constraint firstAttribute="bottom" secondItem="Phl-Pn-rcW" secondAttribute="bottom" constant="5" id="N2h-Rw-DmQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Phl-Pn-rcW" secondAttribute="bottom" id="N2h-Rw-DmQ"/>
                                         </constraints>
                                     </view>
                                 </subviews>

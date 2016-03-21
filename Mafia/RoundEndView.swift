@@ -8,19 +8,18 @@
 
 import UIKit
 
+@objc protocol RoundEndViewDelegate {
+    optional func roundEndView(roundEndView: RoundEndView, nextButtonPressed value: Bool)
+}
+
 class RoundEndView: UIView {
 
-    @IBOutlet weak var nextRoundButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var endTitleLabel: UILabel!
     @IBOutlet weak var endDescriptionLabel: UILabel!
     @IBOutlet weak var deadPlayerImage: UIImageView!
     
-    //    @IBOutlet weak var roundEndView: UIView!
-    //    @IBOutlet weak var endTitleLabel: UILabel!
-    //    @IBOutlet weak var endDescriptionLabel: UILabel!
-    //    @IBOutlet weak var endRoundContinueButton: UIButton!
-    
-    
+    weak var delegate: RoundEndViewDelegate?
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -31,5 +30,15 @@ class RoundEndView: UIView {
     class func instanceFromNib() -> RoundEndView {
         return UINib(nibName: "RoundEndView", bundle: nil).instantiateWithOwner(nil, options: nil)[0] as! RoundEndView
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        nextButton.addTarget(self, action: "nextButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    func nextButtonPressed() {
+        delegate?.roundEndView!(self, nextButtonPressed: nextButton.touchInside)
+    }
+    
 
 }

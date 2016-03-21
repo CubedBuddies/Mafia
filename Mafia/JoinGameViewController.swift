@@ -11,6 +11,7 @@ import UIKit
 class JoinGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var cameraButton: UIButton!
     
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var gameCodeLabel: UITextField!
@@ -42,6 +43,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
+            imageFromSource.cameraDevice = UIImagePickerControllerCameraDevice.Front
         } else {
             imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
@@ -52,7 +54,8 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         avatarImageView.image = temp
-        avatarImageView.layer.cornerRadius = 30
+        avatarImageView.frame = cameraButton.frame
+        
         avatarImageView.clipsToBounds = true
         avatarImageView.contentMode = .ScaleAspectFill
         self.dismissViewControllerAnimated(true, completion: nil)

@@ -11,32 +11,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="parchment_background" translatesAutoresizingMaskIntoConstraints="NO" id="7ry-z0-9oL" customClass="rou">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="parchment_background" translatesAutoresizingMaskIntoConstraints="NO" id="7ry-z0-9oL">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mafia Wins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NY-5m-HHe">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mafia Wins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NY-5m-HHe">
                     <rect key="frame" x="93" y="39" width="134" height="35"/>
                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="25"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1B-7M-mko">
-                    <rect key="frame" x="50" y="82" width="220" height="220"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Character_mystery_black" translatesAutoresizingMaskIntoConstraints="NO" id="M1B-7M-mko">
+                    <rect key="frame" x="58" y="91" width="204" height="204"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-cF-9mX">
-                    <rect key="frame" x="46" y="370" width="229" height="55"/>
+                    <rect key="frame" x="46" y="383" width="229" height="55"/>
                     <color key="backgroundColor" red="0.72156862749999995" green="0.039215686270000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="20"/>
                     <state key="normal" title="Start Next Round">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Charles has died" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvA-p8-KHU">
-                    <rect key="frame" x="66" y="318" width="188" height="35"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A Civilian was lynched " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvA-p8-KHU">
+                    <rect key="frame" x="32" y="317" width="257" height="35"/>
                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="25"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="deadText" translatesAutoresizingMaskIntoConstraints="NO" id="9PP-IE-gPX">
+                    <rect key="frame" x="35" y="142" width="254" height="112"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -44,12 +47,14 @@
                 <outlet property="deadPlayerImage" destination="M1B-7M-mko" id="256-8P-pdS"/>
                 <outlet property="endDescriptionLabel" destination="dvA-p8-KHU" id="MJU-7Y-67D"/>
                 <outlet property="endTitleLabel" destination="4NY-5m-HHe" id="4SM-VE-vfY"/>
-                <outlet property="nextRoundButton" destination="XfE-cF-9mX" id="oSs-03-DPZ"/>
+                <outlet property="nextButton" destination="XfE-cF-9mX" id="CtK-b8-GYB"/>
             </connections>
             <point key="canvasLocation" x="327" y="214.5"/>
         </view>
     </objects>
     <resources>
+        <image name="Character_mystery_black" width="250" height="245"/>
+        <image name="deadText" width="495" height="207"/>
         <image name="parchment_background" width="986" height="1300"/>
     </resources>
 </document>
