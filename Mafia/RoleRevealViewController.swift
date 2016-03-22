@@ -18,8 +18,9 @@ class RoleRevealViewController: UIViewController {
     @IBOutlet weak var roleDescriptionLabel: UILabel!
     @IBOutlet weak var teamCollectionView: UICollectionView!
     
-    var roleImageView: UIImageView!
-    var avatarImageView: UIImageView!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var roleImageView: UIImageView!
+    
     var isBackShowing = true
     var mafiaCollectionViewDelegate: PlayersCollectionViewDataSource?
     
@@ -27,42 +28,28 @@ class RoleRevealViewController: UIViewController {
         super.viewDidLoad()
         
         if let player = MafiaClient.instance.player {
-            self.avatarImageView = UIImageView(image: player.getPlaceholderAvatar())
-            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: nil, success: { (request, response, image) -> Void in
+            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     self.avatarImageView.image = image
-                    self.avatarImageView.frame = self.roleImageView.frame
                 }
             }, failure: { (request, response, error) -> Void in
                 print(error)
             })
             
-            self.roleImageView = UIImageView(image: player.getRoleImage())
+            self.roleImageView.image = player.getRoleImage()
         }
         
-        roleView.layoutIfNeeded()
-        let viewHeight = roleView.frame.height
-        let viewWidth = roleView.frame.width
+        roleImageView.hidden = true
+        roleDescriptionLabel.hidden = true
+        nextButton.hidden = true
         
-        avatarImageView.frame = CGRectMake(0, 0, viewHeight, viewWidth)
-        roleImageView.frame = CGRectMake(0, 0, viewHeight, viewWidth)
-        avatarImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
-        roleImageView.center = roleView.convertPoint(roleView.center, fromCoordinateSpace: roleView.superview!)
-        roleView.addSubview(avatarImageView)
-//        avatarImageView.frame = (avatarImageView.superview?.bounds)!
-//        roleImageView.frame = (roleImageView.superview?.bounds)!
-
-//        tapNotificationLabel.bringSubviewToFront(roleView)
+        roleView.layoutIfNeeded()
         roleView.bringSubviewToFront(tapNotificationLabel)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         singleTap.numberOfTapsRequired = 1
-        
-        roleDescriptionLabel.hidden = true
         roleView.addGestureRecognizer(singleTap)
-        
-        nextButton.hidden = true
         
         // show fellow mafia mates
         teamCollectionView.hidden = true
@@ -82,9 +69,8 @@ class RoleRevealViewController: UIViewController {
     
     func tapped() {
         if isBackShowing {
-            UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: .TransitionFlipFromRight, completion: nil)
-            tapNotificationLabel.hidden = true
-            isBackShowing = false
+            UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
+            
             switch MafiaClient.instance.player!.role! {
             case .TOWNSPERSON:
                 roleDescriptionLabel.text = "Figure out who the mafia is and lynch them during the day."
@@ -96,11 +82,13 @@ class RoleRevealViewController: UIViewController {
                     self.teamCollectionView.reloadData()
                 }
             }
-            tapNotificationLabel.hidden = false
             roleDescriptionLabel.hidden = false
             nextButton.hidden = false
+            
+            tapNotificationLabel.hidden = false
+            isBackShowing = false
         } else {
-            UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: .TransitionFlipFromLeft, completion: nil)
+            UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
             tapNotificationLabel.hidden = true
             isBackShowing = true
         }
@@ -111,14 +99,5 @@ class RoleRevealViewController: UIViewController {
             self.presentViewController(GameViewController(), animated: true, completion: nil)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
