@@ -720,6 +720,7 @@ with your fellow mafia</string>
                                     <constraint firstAttribute="bottom" secondItem="7fG-1B-4dX" secondAttribute="bottom" constant="30" id="X1y-Gh-R6V"/>
                                     <constraint firstAttribute="trailing" secondItem="7fG-1B-4dX" secondAttribute="trailing" constant="45" id="YPd-aj-UU3"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MpD-CM-1C7" secondAttribute="trailing" constant="35" id="Z1v-8x-OW1"/>
+                                    <constraint firstItem="MpD-CM-1C7" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="64" id="a19-su-7tM"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="width" secondItem="qtN-sk-vFN" secondAttribute="width" id="aJ0-p0-4Cq"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="fSx-Ky-r1s"/>
                                     <constraint firstAttribute="trailing" secondItem="5ra-bp-k8X" secondAttribute="trailing" constant="30" id="j7b-mj-Nf5"/>
