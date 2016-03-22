@@ -27,6 +27,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             }
         }
     }
+    
     var players: [Player]?
     var round: Round? {
         didSet {

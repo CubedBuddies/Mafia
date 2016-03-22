@@ -15,6 +15,9 @@ import UIKit
 class RoundEndView: UIView {
 
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var descriptionBottomConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var descriptionTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var endTitleLabel: UILabel!
     @IBOutlet weak var endDescriptionLabel: UILabel!
     @IBOutlet weak var deadPlayerImage: UIImageView!

@@ -115,11 +115,7 @@
                 <action selector="onAvatarTap:" destination="-1" id="vbI-m3-2ul"/>
             </connections>
         </tapGestureRecognizer>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="yG3-Wf-NfB">
-            <connections>
-                <action selector="onPan:" destination="-1" id="nDR-5Y-jhK"/>
-            </connections>
-        </panGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="yG3-Wf-NfB"/>
     </objects>
     <resources>
         <image name="board_black_line_texture_background_wood_55220_2560x1600-1" width="1563" height="2276"/>

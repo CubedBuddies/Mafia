@@ -84,13 +84,27 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             
             self.showPlayerStats()
             
+//        // Do any additional setup after loading the view.
+//        dispatch_async(dispatch_get_main_queue()) {
+//            if MafiaClient.instance.isNight == true{
+//                self.roleMode = true
+//                self.nightTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
+//                self.nightView = NightOverlayView.instanceFromNib() 
+//                self.view.addSubview(self.nightView!)
+//                self.nightView!.frame = (self.nightView?.superview?.bounds)!
+//                self.playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: { (player: Player) -> Bool in
+//                    return player.role != .MAFIA
+//                })
+//            } else {
+//                self.showPlayerStats()
+//                self.playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: nil)
+//            }
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
         }
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
 
-        playersDataSource = PlayersCollectionViewDataSource(view: playersCollectionView, showVotes: true, playerFilter: nil)
         playersDataSource!.delegate = self
         
         playersCollectionView.delegate = playersDataSource
@@ -168,6 +182,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
                     self.roundEndView?.endTitleLabel.hidden = false
                     self.roundEndView?.endDescriptionLabel.hidden = true
+                    self.roundEndView?.descriptionBottomConstraint.constant = 0
+                    self.roundEndView?.descriptionTopConstraint.constant = 0
                     if let killedPlayerId = currentRound.killedPlayerId {
                         let player = playerNames[killedPlayerId]!
                         self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
@@ -189,7 +205,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 case .TOWNSPERSON:
                     roundEndView?.endTitleLabel.text = "Town wins!"
                 }
-                
                 roundEndView?.endDescriptionLabel.hidden = true
                 roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
