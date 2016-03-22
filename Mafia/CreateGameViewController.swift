@@ -11,6 +11,7 @@ import AVFoundation
 
 class CreateGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var avatarImageButton: UIButton!
     
@@ -48,9 +49,22 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
             }
         )
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+    }
 
-    func dismissKeyboardOnTap() {
-        playerNameTextField.endEditing(true)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
 
     //MARK: Configure Camera
@@ -78,13 +92,8 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    //MARK: Private Methods
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    //MARK: Keyboard methods
+    
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.font = UIFont(name: "Avenir", size: 26)
     }
@@ -92,6 +101,21 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
     func textFieldDidEndEditing(textField: UITextField) {
         resignFirstResponder()
     }
+    
+    func dismissKeyboardOnTap() {
+        playerNameTextField.endEditing(true)
+    }
+    
+    func keyboardWillShowNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
+    }
+    
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
+    }
+    
+    //MARK: Button Actions
+
 
     @IBAction func onNextButtonClick(sender: AnyObject) {
         if playerNameTextField.text == "" {
@@ -106,6 +130,25 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
         dispatch_async(dispatch_get_main_queue()) {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
+    }
+    
+     //MARK: Private Methods
+    
+    func updateBottomLayoutConstraintWithNotification(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        
+        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey]as! NSValue).CGRectValue()
+        let convertedKeyboardEndFrame = view.convertRect(keyboardEndFrame, fromView: view.window)
+        let rawAnimationCurve = (notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).unsignedIntValue << 16
+        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
+        
+        bottomConstraint.constant = CGRectGetMaxY(view.bounds) - CGRectGetMinY(convertedKeyboardEndFrame)
+        
+        UIView.animateWithDuration(animationDuration, delay: 0.0, options: [animationCurve, .BeginFromCurrentState], animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }, completion: nil)
+        
     }
     
     func setPendingState(isPending: Bool) {
