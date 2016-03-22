@@ -13,11 +13,11 @@ class TimerConstants: NSObject {
     static let PRE_ROLE_REVEAL = 5.0
     static let POST_ROLE_REVEAL = 5.0
     
-    // night overlay = 18.0
-    static let GO_TO_SLEEP = 3.0
+    // night overlay = 30.0
+    static let GO_TO_SLEEP = 7.0
     static let MAFIA_WAKE_UP = 5.0
-    static let MAFIA_NIGHTKILL = 5.0
-    static let MAFIA_SLEEP = 3.0
+    static let MAFIA_NIGHTKILL = 10.0
+    static let MAFIA_SLEEP = 6.0
     static let EVERYONE_WAKE_UP = 2.0
     
     static let NIGHT_OVERLAY_TIMERS = [GO_TO_SLEEP, MAFIA_WAKE_UP, MAFIA_NIGHTKILL, MAFIA_SLEEP, EVERYONE_WAKE_UP]
