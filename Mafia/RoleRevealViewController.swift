@@ -65,18 +65,18 @@ class RoleRevealViewController: UIViewController {
         teamCollectionView.dataSource = mafiaCollectionViewDelegate
         mafiaCollectionViewDelegate!.game = MafiaClient.instance.game
         
-        resetTimer()
+        resetTimer(TimerConstants.PRE_ROLE_REVEAL)
     }
     
-    func resetTimer() {
+    func resetTimer(time: Double) {
         autoAdvanceTimer?.invalidate()
-        autoAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "autoAdvance", userInfo: nil, repeats: false)
+        autoAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "autoAdvance", userInfo: nil, repeats: false)
     }
     
     func autoAdvance() {
         if !roleVisible {
             tapped()
-            resetTimer()
+            resetTimer(TimerConstants.POST_ROLE_REVEAL)
         } else {
             onNextButtonClicked(nil)
         }
@@ -89,8 +89,10 @@ class RoleRevealViewController: UIViewController {
     
     func tapped() {
         if isBackShowing {
-            roleVisible = true
-            resetTimer()
+            if !roleVisible {
+                roleVisible = true
+                resetTimer(TimerConstants.POST_ROLE_REVEAL)
+            }
             
             UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
             

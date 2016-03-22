@@ -28,6 +28,7 @@
 		728BA8471C857C5400630365 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA8461C857C5400630365 /* GameViewController.swift */; };
 		72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */; };
 		72B4C5111C8C075D000E8DC9 /* PlayersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */; };
+		72C1849B1CA0F007008C9ABC /* TimerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C1849A1CA0F007008C9ABC /* TimerConstants.swift */; };
 		72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7D71C88AE1300B26CDD /* Player.swift */; };
 		72C7D7DA1C88AE2300B26CDD /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7D91C88AE2300B26CDD /* Game.swift */; };
 		72C7D7DC1C88AE3900B26CDD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C7D7DB1C88AE3900B26CDD /* Event.swift */; };
@@ -83,6 +84,7 @@
 		728BA8461C857C5400630365 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		72B4C50E1C8C01B4000E8DC9 /* GameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		72B4C5101C8C075D000E8DC9 /* PlayersCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayersCollectionViewCell.xib; sourceTree = "<group>"; };
+		72C1849A1CA0F007008C9ABC /* TimerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerConstants.swift; sourceTree = "<group>"; };
 		72C7D7D71C88AE1300B26CDD /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		72C7D7D91C88AE2300B26CDD /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		72C7D7DB1C88AE3900B26CDD /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		72C7D7DE1C88B91500B26CDD /* API */ = {
 			isa = PBXGroup;
 			children = (
+				72C1849A1CA0F007008C9ABC /* TimerConstants.swift */,
 				72C7D7DF1C88B93200B26CDD /* MafiaClient.swift */,
 			);
 			name = API;
@@ -452,6 +455,7 @@
 				53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */,
 				728BA8451C857C4D00630365 /* LobbyViewController.swift in Sources */,
 				53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */,
+				72C1849B1CA0F007008C9ABC /* TimerConstants.swift in Sources */,
 				72C7D7D81C88AE1300B26CDD /* Player.swift in Sources */,
 				53657CD21C9CBF0400EBD112 /* NightOverlayView.swift in Sources */,
 				723AD9191C8568C10072849E /* AppDelegate.swift in Sources */,
