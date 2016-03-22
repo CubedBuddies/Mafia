@@ -113,16 +113,21 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func showRoundEndView() {
-        endScreen()
+        updateTimer.invalidate()
+        
         self.roundEndView = RoundEndView.instanceFromNib()
         self.roundEndView?.delegate = self
-        if MafiaClient.instance.isNight {
-            nightView?.resultsView.addSubview(self.roundEndView!)
-            nightView?.resultsView.hidden = false
+        
+        if nightView!.hidden {
+            // ended during day
+            gameEndView.addSubview(self.roundEndView!)
+            gameEndView.hidden = false
         } else {
-            self.gameEndView.addSubview(self.roundEndView!)
-            self.gameEndView.hidden = false
+            // ended during night
+            nightView!.resultsView.addSubview(self.roundEndView!)
+            nightView!.resultsView.hidden = false
         }
+        
         self.roundEndView!.frame = (self.roundEndView?.superview?.bounds)!
         
         if let game = MafiaClient.instance.game {
@@ -150,6 +155,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
                     roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
                 }
+                
                 MafiaClient.instance.isNight = !MafiaClient.instance.isNight
             } else {
                 switch game.winner! {
@@ -163,11 +169,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
         }
-    }
-    
-    func endScreen() {
-        NSLog("Clearing game screen")
-        updateTimer.invalidate()
     }
 
     
@@ -238,7 +239,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             })
         }
     }
-
     
     //MARK: Update and Loading Methods
     func updateHandler() {
@@ -249,14 +249,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         MafiaClient.instance.pollGameStatus(
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
-                    if game.state == .FINISHED {
-                        self.showRoundEndView()
-                    } else {self
-                        if self.pendingVote != nil {
-                            self.fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
-                        }
-                        self.loadRoundData(game)
-                    }
+                    self.loadRoundData(game)
                 }
             },
             failure: { NSLog("Failed to poll game status") }
@@ -271,37 +264,39 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     func updateNightEvents() {
         dispatch_async(dispatch_get_main_queue()) {
             // before each segment, update text / UI
+            let nightView = self.nightView!
+            
             switch self.nightIndex {
             case 0:
-                self.nightView?.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
+                nightView.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
             case 1:
                 // TODO: vibrate phone if player is mafia
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 
-                self.nightView?.dialogueLabel.text = "Mafia Wake Up"
+                nightView.dialogueLabel.text = "Mafia Wake Up"
             case 2:
                 if MafiaClient.instance.player?.role == .MAFIA {
                     self.showPlayerStats()
                     self.updatePlayerView(MafiaClient.instance.game!)
-                    self.nightView?.hidden = true
+                    nightView.hidden = true
                 }
             case 3:
-                self.nightView?.hidden = false
-                self.nightView?.dialogueLabel.text = "Mafia Go Back to Sleep"
+                nightView.hidden = false
+                nightView.dialogueLabel.text = "Mafia Go Back to Sleep"
             case 4:
                 // vibrate phone for all players
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 
-                self.nightView?.dialogueLabel.text = "Everyone Wake Up\n\nDiscuss!"
-                self.nightView?.imageView.image = UIImage(named: "sunrise")
+                nightView.dialogueLabel.text = "Everyone Wake Up\n\nDiscuss!"
+                nightView.imageView.image = UIImage(named: "sunrise")
             case 5:
-                self.nightView?.hidden = true
+                nightView.hidden = true
                 return
             default:
                 NSLog("Error, invalid night event index.")
             }
             
-            self.nightView?.dialogueLabel.sizeToFit()
+            nightView.dialogueLabel.sizeToFit()
             self.resetTimer(TimerConstants.NIGHT_OVERLAY_TIMERS[self.nightIndex])
             
             self.nightIndex++
@@ -309,18 +304,25 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func loadRoundData(game: Game) {
-        if self.roundIndex < (game.rounds.count ?? 1) - 1 {
-            // round is over, no point pulling data
+        
+        if game.state == .FINISHED {
             showRoundEndView()
-            print("Round end")
         } else {
-            let round = game.rounds[self.roundIndex]
-            let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
+            if pendingVote != nil {
+                fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
+            }
             
-            self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
-            
-            showPlayerStats()
-            updatePlayerView(game)
+            if roundIndex < (game.rounds.count ?? 1) - 1 {
+                showRoundEndView()
+            } else {
+                let round = game.rounds[self.roundIndex]
+                let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
+                
+                timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
+                
+                showPlayerStats()
+                updatePlayerView(game)
+            }
         }
     }
     

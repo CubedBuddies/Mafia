@@ -28,8 +28,8 @@
                         <constraint firstAttribute="width" secondItem="eBW-sh-ApH" secondAttribute="height" multiplier="320:465" id="TQj-ge-1rP"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-Zg-R7y">
-                    <rect key="frame" x="139" y="49" width="78" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-Zg-R7y">
+                    <rect key="frame" x="139" y="50" width="42" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -38,6 +38,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="v26-wA-ngS" secondAttribute="bottom" id="9hF-4R-jbF"/>
+                <constraint firstItem="xGD-Zg-R7y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="CHz-DB-niN"/>
                 <constraint firstItem="VNT-Og-cKQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="49" id="Es1-zF-xWT"/>
                 <constraint firstItem="v26-wA-ngS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ll2-14-4wN"/>
                 <constraint firstAttribute="trailing" secondItem="v26-wA-ngS" secondAttribute="trailing" id="PIW-Vi-vzG"/>
@@ -48,6 +49,7 @@
                 <constraint firstItem="eBW-sh-ApH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="esv-1Z-F1j"/>
                 <constraint firstItem="v26-wA-ngS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="jed-1N-N7U"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VNT-Og-cKQ" secondAttribute="trailing" constant="48" id="lNc-ir-HPD"/>
+                <constraint firstItem="xGD-Zg-R7y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mCs-Ep-czf"/>
             </constraints>
             <connections>
                 <outlet property="centerYconstraint" destination="TQJ-PM-FXh" id="oa1-po-oW0"/>
