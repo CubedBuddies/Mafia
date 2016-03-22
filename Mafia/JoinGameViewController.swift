@@ -28,8 +28,6 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         let tapper = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboardOnTap"))
         tapper.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapper);
-
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {

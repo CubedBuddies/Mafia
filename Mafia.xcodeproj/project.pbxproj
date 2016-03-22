@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		190443E1485D2FFEF59F3AE5 /* Pods_Mafia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C92B4D80CCE2CB3CC0C6C6 /* Pods_Mafia.framework */; };
+		530938271CA0FD5900E00CE6 /* Rooster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 530938251CA0FD5900E00CE6 /* Rooster.mp3 */; };
+		5309382B1CA101E200E00CE6 /* Lullaby.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5309382A1CA101E200E00CE6 /* Lullaby.mp3 */; };
+		5309382D1CA1021B00E00CE6 /* Clock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5309382C1CA1021B00E00CE6 /* Clock.mp3 */; };
 		533EF9651C961EF0009F3D94 /* RoleRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */; };
 		53657CD21C9CBF0400EBD112 /* NightOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */; };
 		53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */; };
@@ -58,6 +61,9 @@
 /* Begin PBXFileReference section */
 		069F015EFBBC401E98FDA902 /* Pods-Mafia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.debug.xcconfig"; sourceTree = "<group>"; };
 		1412AB255EFD31CCB9358A65 /* Pods-Mafia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mafia.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mafia/Pods-Mafia.release.xcconfig"; sourceTree = "<group>"; };
+		530938251CA0FD5900E00CE6 /* Rooster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rooster.mp3; sourceTree = "<group>"; };
+		5309382A1CA101E200E00CE6 /* Lullaby.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lullaby.mp3; sourceTree = "<group>"; };
+		5309382C1CA1021B00E00CE6 /* Clock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Clock.mp3; sourceTree = "<group>"; };
 		533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleRevealViewController.swift; sourceTree = "<group>"; };
 		53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NightOverlayView.swift; sourceTree = "<group>"; };
 		53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NightOverlayView.xib; sourceTree = "<group>"; };
@@ -129,6 +135,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		530938231CA0FD5200E00CE6 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				5309382A1CA101E200E00CE6 /* Lullaby.mp3 */,
+				5309382C1CA1021B00E00CE6 /* Clock.mp3 */,
+				530938251CA0FD5900E00CE6 /* Rooster.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		53F21EF11C8C315E00163802 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +181,7 @@
 		723AD9171C8568C10072849E /* Mafia */ = {
 			isa = PBXGroup;
 			children = (
+				530938231CA0FD5200E00CE6 /* Sounds */,
 				727297781C9A65B9004D3E54 /* View Helpers */,
 				72B4C5121C8C096F000E8DC9 /* Nibs */,
 				53F21EF11C8C315E00163802 /* Views */,
@@ -371,6 +388,9 @@
 				53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */,
 				53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */,
 				72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */,
+				5309382D1CA1021B00E00CE6 /* Clock.mp3 in Resources */,
+				5309382B1CA101E200E00CE6 /* Lullaby.mp3 in Resources */,
+				530938271CA0FD5900E00CE6 /* Rooster.mp3 in Resources */,
 				723AD9231C8568C10072849E /* LaunchScreen.storyboard in Resources */,
 				72B4C5111C8C075D000E8DC9 /* PlayersCollectionViewCell.xib in Resources */,
 				723AD9201C8568C10072849E /* Assets.xcassets in Resources */,

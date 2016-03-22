@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 protocol GameViewControllerDelegate {
     func getRoleMode() -> Bool
@@ -45,11 +46,35 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     var isPresenting: Bool = true
     var interactiveTransition: UIPercentDrivenInteractiveTransition!
     
+    var didPlayLullaby: Bool = false
+    var didPlayRooster: Bool = false
+    var didPlayClock: Bool = false
+    
+    var roosterAudioPlayer: AVAudioPlayer!
+    var clockAudioPlayer: AVAudioPlayer!
+    var lullabyAudioPlayer: AVAudioPlayer!
+    
     //MARK: Display methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.roleMode = true
+        
+        do {
+            let roosterSoundURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Rooster", ofType: "mp3")!)
+            roosterAudioPlayer = try AVAudioPlayer(contentsOfURL: roosterSoundURL)
+            roosterAudioPlayer.prepareToPlay()
+            
+            let clockSoundURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Clock", ofType: "mp3")!)
+            clockAudioPlayer = try AVAudioPlayer(contentsOfURL: clockSoundURL)
+            clockAudioPlayer.prepareToPlay()
+            
+            let lullabySoundURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Lullaby", ofType: "mp3")!)
+            lullabyAudioPlayer = try AVAudioPlayer(contentsOfURL: lullabySoundURL)
+            lullabyAudioPlayer.prepareToPlay()
+        } catch {
+            print("Unable to load a sound")
+        }
         
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
@@ -268,12 +293,20 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             
             switch self.nightIndex {
             case 0:
-                nightView.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
+                nightView.dialogueLabel.text = "Everyone Go To Sleep..."
+                if !self.didPlayLullaby {
+                    self.didPlayLullaby = true
+                    self.lullabyAudioPlayer.play()
+                }
             case 1:
+                nightView.dialogueLabel.text = "Mafia Wake Up"
+                
                 // TODO: vibrate phone if player is mafia
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                
-                nightView.dialogueLabel.text = "Mafia Wake Up"
+                if !self.didPlayClock {
+                    self.didPlayClock = true
+                    self.clockAudioPlayer.play()
+                }
             case 2:
                 if MafiaClient.instance.player?.role == .MAFIA {
                     self.showPlayerStats()
@@ -284,13 +317,22 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 nightView.hidden = false
                 nightView.dialogueLabel.text = "Mafia Go Back to Sleep"
             case 4:
-                // vibrate phone for all players
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                
                 nightView.dialogueLabel.text = "Everyone Wake Up\n\nDiscuss!"
                 nightView.imageView.image = UIImage(named: "sunrise")
+                
+                // vibrate phone for all players
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                if !self.didPlayRooster {
+                    self.didPlayRooster = true
+                    self.roosterAudioPlayer.play()
+                }
             case 5:
                 nightView.hidden = true
+                
+                // Reset all sounds
+                self.didPlayLullaby = false
+                self.didPlayClock = false
+                self.didPlayRooster = false
                 return
             default:
                 NSLog("Error, invalid night event index.")
@@ -375,31 +417,4 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
-    
-    
-    /*
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        
-        interactiveTransition = UIPercentDrivenInteractiveTransition()
-        //Setting the completion speed gets rid of a weird bounce effect bug when transitions complete
-        interactiveTransition.completionSpeed = 0.99
-        return interactiveTransition
-    }
-    
-    @IBAction func onPan(sender: UIPanGestureRecognizer) {
-        let translation = sender.translationInView(view)
-        let dx = translation.x
-        if (sender.state == UIGestureRecognizerState.Began){
-            dismissViewControllerAnimated(true, completion: nil)
-        } else if (sender.state == UIGestureRecognizerState.Changed){
-            interactiveTransition.updateInteractiveTransition(dx / view.frame.width)
-        } else if sender.state == UIGestureRecognizerState.Ended {
-            let velocity = sender.velocityInView(view).x
-            if velocity > 0 {
-                interactiveTransition.finishInteractiveTransition()
-            } else {
-                interactiveTransition.cancelInteractiveTransition()
-            }
-        }
-    }*/
 }
