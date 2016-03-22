@@ -24,7 +24,8 @@ class RoleRevealViewController: UIViewController {
     var isBackShowing = true
     var mafiaCollectionViewDelegate: PlayersCollectionViewDataSource?
     
-    var autoAdvanceTimer: NSTimer?
+    var revealAdvanceTimer: NSTimer?
+    var finalAdvanceTimer: NSTimer?
     var roleVisible = false
     
     override func viewDidLoad() {
@@ -65,18 +66,13 @@ class RoleRevealViewController: UIViewController {
         teamCollectionView.dataSource = mafiaCollectionViewDelegate
         mafiaCollectionViewDelegate!.game = MafiaClient.instance.game
         
-        resetTimer(TimerConstants.PRE_ROLE_REVEAL)
+        revealAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(TimerConstants.PRE_ROLE_REVEAL, target: self, selector: "tapped", userInfo: nil, repeats: false)
+        finalAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(TimerConstants.TOTAL_ROLE_REVEAL, target: self, selector: "showGame", userInfo: nil, repeats: false)
     }
     
-    func resetTimer(time: Double) {
-        autoAdvanceTimer?.invalidate()
-        autoAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "autoAdvance", userInfo: nil, repeats: false)
-    }
-    
-    func autoAdvance() {
+    func revealRole() {
         if !roleVisible {
             tapped()
-            resetTimer(TimerConstants.POST_ROLE_REVEAL)
         } else {
             onNextButtonClicked(nil)
         }
@@ -89,10 +85,8 @@ class RoleRevealViewController: UIViewController {
     
     func tapped() {
         if isBackShowing {
-            if !roleVisible {
-                roleVisible = true
-                resetTimer(TimerConstants.POST_ROLE_REVEAL)
-            }
+            roleVisible = true
+            revealAdvanceTimer?.invalidate()
             
             UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
             
@@ -120,7 +114,13 @@ class RoleRevealViewController: UIViewController {
     }
 
     @IBAction func onNextButtonClicked(sender: AnyObject?) {
-        autoAdvanceTimer?.invalidate()
+        nextButton.setTitle("Get ready...", forState: .Normal)
+    }
+    
+    func showGame() {
+        revealAdvanceTimer?.invalidate()
+        finalAdvanceTimer?.invalidate()
+        
         dispatch_async(dispatch_get_main_queue()) {
             self.presentViewController(GameViewController(), animated: true, completion: nil)
         }

@@ -9,9 +9,10 @@
 import UIKit
 
 class TimerConstants: NSObject {
-    // role reveal view controller = 10.0
+    // role reveal view controller
     static let PRE_ROLE_REVEAL = 5.0
-    static let POST_ROLE_REVEAL = 5.0
+    // role reveal must spend exactly this amount of time:
+    static let TOTAL_ROLE_REVEAL = 10.0
     
     // night overlay = 30.0
     static let GO_TO_SLEEP = 7.0
