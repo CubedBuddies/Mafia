@@ -29,6 +29,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     var playersDataSource: PlayersCollectionViewDataSource?
     var updateTimer: NSTimer = NSTimer()
     var nightTimer: NSTimer = NSTimer()
+    var nightIndex: Int = 0
 
     var roundIndex = 0
     var nightView: NightOverlayView?
@@ -47,18 +48,17 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     //MARK: Display methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(MafiaClient.instance.game?.createdAt)
+        
+        self.roleMode = true
+        
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
-            if MafiaClient.instance.isNight == true{
-                self.roleMode = true
-                self.nightTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
-                self.nightView = NightOverlayView.instanceFromNib() 
-                self.view.addSubview(self.nightView!)
-                self.nightView!.frame = (self.nightView?.superview?.bounds)!
-            } else {
-                self.showPlayerStats()
-            }
+            self.nightView = NightOverlayView.instanceFromNib()
+            self.view.addSubview(self.nightView!)
+            self.nightView!.frame = (self.nightView?.superview?.bounds)!
+            
+            self.showPlayerStats()
+            
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
         }
         
@@ -72,9 +72,13 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         playersCollectionView.dataSource = playersDataSource
         
         loadRoundData(MafiaClient.instance.game!)
+        
+        resetTimer(TimerConstants.GO_TO_SLEEP)
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.updateNightEvents()
+        
         if MafiaClient.instance.game!.state == .FINISHED {
             dispatch_async(dispatch_get_main_queue()) {
                 self.dismissViewControllerAnimated(false, completion: nil)
@@ -247,7 +251,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 dispatch_async(dispatch_get_main_queue()) {
                     if game.state == .FINISHED {
                         self.showRoundEndView()
-                        print ("jalskjdfklsa;ds")
                     } else {self
                         if self.pendingVote != nil {
                             self.fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
@@ -260,8 +263,49 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         )
     }
     
+    func resetTimer(time: Double) {
+        nightTimer.invalidate()
+        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "updateNightEvents", userInfo: nil, repeats: false)
+    }
+    
     func updateNightEvents() {
-        loadRoundData(MafiaClient.instance.game!)
+        dispatch_async(dispatch_get_main_queue()) {
+            // before each segment, update text / UI
+            switch self.nightIndex {
+            case 0:
+                self.nightView?.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
+            case 1:
+                // TODO: vibrate phone if player is mafia
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+                self.nightView?.dialogueLabel.text = "Mafia Wake Up"
+            case 2:
+                if MafiaClient.instance.player?.role == .MAFIA {
+                    self.showPlayerStats()
+                    self.updatePlayerView(MafiaClient.instance.game!)
+                    self.nightView?.hidden = true
+                }
+            case 3:
+                self.nightView?.hidden = false
+                self.nightView?.dialogueLabel.text = "Mafia Go Back to Sleep"
+            case 4:
+                // vibrate phone for all players
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+                self.nightView?.dialogueLabel.text = "Everyone Wake Up\n\nDiscuss!"
+                self.nightView?.imageView.image = UIImage(named: "sunrise")
+            case 5:
+                self.nightView?.hidden = true
+                return
+            default:
+                NSLog("Error, invalid night event index.")
+            }
+            
+            self.nightView?.dialogueLabel.sizeToFit()
+            self.resetTimer(TimerConstants.NIGHT_OVERLAY_TIMERS[self.nightIndex])
+            
+            self.nightIndex++
+        }
     }
     
     func loadRoundData(game: Game) {
@@ -272,39 +316,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))
-            MafiaClient.instance.player?.role = .MAFIA
-            if MafiaClient.instance.isNight == true {
-                nightView?.timeLabel.text = "00:\(String(format: "%02d", secondsLeft))"
-                if secondsLeft > 20 {
-                    nightView?.dialogueLabel.text = "Everyone Go To Sleep...\n\nWait for Phone Vibration to Wake Up"
-                    nightView?.dialogueLabel.sizeToFit()
-                } else if secondsLeft > 18 && secondsLeft < 20 {
-                    //vibrate phone if player is mafia
-                    nightView?.dialogueLabel.text = "Mafia Wake Up"
-                    nightView?.dialogueLabel.sizeToFit()
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                } else if secondsLeft < 18 && secondsLeft > 8{
-                    if MafiaClient.instance.player?.role == .MAFIA {
-                        showPlayerStats()
-                        updatePlayerView(game)
-                        nightView?.hidden = true
-                    }
-                } else if secondsLeft < 8 && secondsLeft > 2 {
-                    nightView?.hidden = false
-                    nightView?.dialogueLabel.text = "Mafia Go Back to Sleep"
-                    nightView?.dialogueLabel.sizeToFit()
-                } else if secondsLeft > 0 && secondsLeft < 2 {
-                    //vibrate phone for all players
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                    nightView?.dialogueLabel.text = "Everyone Wake Up"
-                    nightView?.dialogueLabel.sizeToFit()
-                    nightView?.imageView.image = UIImage(named: "sunrise")
-                } else if secondsLeft <= 0 {
-                    nightView?.dialogueLabel.text = "Discuss!"
-                    nightTimer.invalidate()
-                }
-            }
+            
             self.timerLabel.text = "00:\(String(format: "%02d", secondsLeft))"
+            
             showPlayerStats()
             updatePlayerView(game)
         }
