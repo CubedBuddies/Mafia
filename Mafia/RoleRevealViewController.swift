@@ -24,6 +24,9 @@ class RoleRevealViewController: UIViewController {
     var isBackShowing = true
     var mafiaCollectionViewDelegate: PlayersCollectionViewDataSource?
     
+    var autoAdvanceTimer: NSTimer?
+    var roleVisible = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,9 +60,26 @@ class RoleRevealViewController: UIViewController {
             
             return player.role == .MAFIA
         }
+        
         teamCollectionView.delegate = mafiaCollectionViewDelegate
         teamCollectionView.dataSource = mafiaCollectionViewDelegate
         mafiaCollectionViewDelegate!.game = MafiaClient.instance.game
+        
+        resetTimer()
+    }
+    
+    func resetTimer() {
+        autoAdvanceTimer?.invalidate()
+        autoAdvanceTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "autoAdvance", userInfo: nil, repeats: false)
+    }
+    
+    func autoAdvance() {
+        if !roleVisible {
+            tapped()
+            resetTimer()
+        } else {
+            onNextButtonClicked(nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +89,9 @@ class RoleRevealViewController: UIViewController {
     
     func tapped() {
         if isBackShowing {
+            roleVisible = true
+            resetTimer()
+            
             UIView.transitionFromView(avatarImageView, toView: roleImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
             
             switch MafiaClient.instance.player!.role! {
@@ -85,16 +108,17 @@ class RoleRevealViewController: UIViewController {
             roleDescriptionLabel.hidden = false
             nextButton.hidden = false
             
-            tapNotificationLabel.hidden = false
+            tapNotificationLabel.hidden = true
             isBackShowing = false
         } else {
             UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
-            tapNotificationLabel.hidden = true
+            tapNotificationLabel.hidden = false
             isBackShowing = true
         }
     }
 
-    @IBAction func onNextButtonClicked(sender: AnyObject) {
+    @IBAction func onNextButtonClicked(sender: AnyObject?) {
+        autoAdvanceTimer?.invalidate()
         dispatch_async(dispatch_get_main_queue()) {
             self.presentViewController(GameViewController(), animated: true, completion: nil)
         }

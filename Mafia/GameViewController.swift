@@ -265,11 +265,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func loadRoundData(game: Game) {
-        print("round index is: " + String(self.roundIndex) + " game count is: " + String(game.rounds.count))
         if self.roundIndex < (game.rounds.count ?? 1) - 1 {
             // round is over, no point pulling data
             showRoundEndView()
-            print("poopypants")
+            print("Round end")
         } else {
             let round = game.rounds[self.roundIndex]
             let secondsLeft = Int(round.expiresAt!.timeIntervalSinceDate(NSDate(timeIntervalSinceNow: 0)))

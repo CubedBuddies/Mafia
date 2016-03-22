@@ -100,44 +100,14 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         let player = MafiaClient.instance.game!.players[indexPath.row]
         cell.playerNameLabel.text = player.name
-        print(MafiaClient.instance.player?.id)
         if(player.name != MafiaClient.instance.player?.name) {
             cell.leaveButton.hidden = true
         }
         
         cell.delegate = self
-
         return cell
     }
     
-    
-    
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-//        let deleteButton = UITableViewRowAction(style: .Normal, title: "Delete") { (action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
-//            let currPlayer = MafiaClient.instance.game?.players[indexPath.row]
-//            MafiaClient.instance.deletePlayer((currPlayer?.id)!,
-//                completion: { (game: Game) -> Void in
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        MafiaClient.instance.game?.players.removeAtIndex(indexPath.row)
-//                        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-////                        print(game.players.count)
-//                    }
-//                }, failure: { NSLog("Failed to delete player")}
-//            )
-//        }
-//        deleteButton.backgroundColor = UIColor(red: 0.686, green: 0.0039, blue: 0.0, alpha: 1.0)
-//        
-//        return [deleteButton]
-//    }
-//    
-//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        return true
-//    }
-//    
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        // you need to implement this method too or you can't swipe to display the actions
-//    }
-
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MafiaClient.instance.game?.players.count ?? 0
     }
@@ -154,15 +124,4 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("failed to remove player from game")
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
