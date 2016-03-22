@@ -10,6 +10,7 @@ import UIKit
 
 class JoinGameViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
     
@@ -31,11 +32,26 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         // Do any additional setup after loading the view.
     }
     
-    func dismissKeyboardOnTap() {
-        nameLabel.endEditing(true)
-        gameCodeLabel.endEditing(true)
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
+    //add observers for when keyboard shows
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //remove observers when keyboard disappears
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //MARK: Camera Methods
     @IBAction func onAvatarButtonClick(sender: AnyObject) {
         let imageFromSource = UIImagePickerController()
         imageFromSource.delegate = self
@@ -61,25 +77,22 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: Keyboard methods
+    
+    func dismissKeyboardOnTap() {
+        nameLabel.endEditing(true)
+        gameCodeLabel.endEditing(true)
     }
     
-    func setPendingState(isPending: Bool) {
-        self.nameLabel.enabled = false
-        self.gameCodeLabel.enabled = false
-        self.joinButton.enabled = false
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            if isPending {
-                self.originalJoinButtonText = self.joinButton.titleLabel!.text
-                self.joinButton.setTitle("Joining game...", forState: .Normal)
-            } else {
-                self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
-            }
-        }
+    func keyboardWillShowNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
     }
+    
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
+    }
+
+    //MARK: IBActions for button clicks
     
     @IBAction func onNextButtonClick(sender: AnyObject) {
         nameErrorLabel.hidden = nameLabel.text != ""
@@ -129,5 +142,37 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
         }))
         
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    //MARK: Private Methods
+    func updateBottomLayoutConstraintWithNotification(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        
+        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey]as! NSValue).CGRectValue()
+        let convertedKeyboardEndFrame = view.convertRect(keyboardEndFrame, fromView: view.window)
+        let rawAnimationCurve = (notification.userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).unsignedIntValue << 16
+        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
+        
+        bottomConstraint.constant = CGRectGetMaxY(view.bounds) - CGRectGetMinY(convertedKeyboardEndFrame)
+        
+        UIView.animateWithDuration(animationDuration, delay: 0.0, options: [animationCurve, .BeginFromCurrentState], animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }, completion: nil)
+        
+    }
+    func setPendingState(isPending: Bool) {
+        self.nameLabel.enabled = false
+        self.gameCodeLabel.enabled = false
+        self.joinButton.enabled = false
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            if isPending {
+                self.originalJoinButtonText = self.joinButton.titleLabel!.text
+                self.joinButton.setTitle("Joining game...", forState: .Normal)
+            } else {
+                self.joinButton.setTitle(self.originalJoinButtonText, forState: .Normal)
+            }
+        }
     }
 }
