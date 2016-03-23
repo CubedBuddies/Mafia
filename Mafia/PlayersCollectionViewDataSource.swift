@@ -91,8 +91,10 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             
             if player.state == .DEAD {
                 cell.nameLabel.text = "DEAD"
+                cell.voteLabel.hidden = true
             } else {
                 cell.nameLabel.text = player.name
+                cell.voteLabel.hidden = false
             }
             if votes {
                 if delegate?.getRoleMode() == true && (MafiaClient.instance.player?.role == .MAFIA) {
