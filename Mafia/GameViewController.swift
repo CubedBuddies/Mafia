@@ -74,19 +74,19 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             print("Unable to load a sound")
         }
         
-        // for showing mafia voting
+        // to show mafia voting
         roleMode = true
+        showPlayerStats()
         dispatch_async(dispatch_get_main_queue()) {
             // start at night
             self.nightView = NightOverlayView.instanceFromNib()
             self.view.addSubview(self.nightView!)
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
             
-            self.showPlayerStats()
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
         }
         
-        // to make the VC slide in from the right
+        // to make the screen slide in from the right
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
         
@@ -102,12 +102,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     override func viewWillAppear(animated: Bool) {
         self.updateNightEvents()
-        
-        if MafiaClient.instance.game!.state == .FINISHED {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.dismissViewControllerAnimated(false, completion: nil)
-            }
-        }
     }
     
     func showPlayerStats() {
@@ -141,18 +135,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         
         self.roundEndView = RoundEndView.instanceFromNib()
         self.roundEndView?.delegate = self
-        
-        if nightView!.hidden {
-            // ended during day
-            gameEndView.addSubview(self.roundEndView!)
-            gameEndView.hidden = false
-        } else {
-            // ended during night
-            nightView!.resultsView.addSubview(self.roundEndView!)
-            nightView!.resultsView.hidden = false
-        }
-        
-        self.roundEndView!.frame = (self.roundEndView?.superview?.bounds)!
+        self.roundEndView?.frame = (self.roundEndView?.superview?.bounds)!
         
         if let game = MafiaClient.instance.game {
             var playerNames = [Int: Player]()
@@ -163,8 +146,18 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             if game.state != .FINISHED {
                 
                 let currentRound = game.rounds[roundIndex]
-                if MafiaClient.instance.isNight {
-                    roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
+                if nightView!.hidden {
+                    // ended during day
+                    gameEndView.addSubview(self.roundEndView!)
+                    gameEndView.hidden = false
+                    
+                    self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                } else {
+                    // ended during night
+                    nightView!.resultsView.addSubview(self.roundEndView!)
+                    nightView!.resultsView.hidden = false
+                    
+                    self.roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
                     self.roundEndView?.endTitleLabel.hidden = false
                     self.roundEndView?.endDescriptionLabel.hidden = true
                     self.roundEndView?.descriptionBottomConstraint.constant = 0
@@ -172,25 +165,22 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     if let killedPlayerId = currentRound.killedPlayerId {
                         let player = playerNames[killedPlayerId]!
                         self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
-                    } else {
-                        self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                    } else if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                        let player = playerNames[lynchedPlayerId]!
+                        self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
+                        self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                        self.roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
                     }
-                } else if let lynchedPlayerId = currentRound.lynchedPlayerId {
-                    let player = playerNames[lynchedPlayerId]!
-                    self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
-                    self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
-                    roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
                 }
-                MafiaClient.instance.isNight = !MafiaClient.instance.isNight
             } else {
                 switch game.winner! {
                 case .MAFIA:
-                    roundEndView?.endTitleLabel.text = "Mafia wins!"
+                    self.roundEndView?.endTitleLabel.text = "Mafia wins!"
                 case .TOWNSPERSON:
-                    roundEndView?.endTitleLabel.text = "Town wins!"
+                    self.roundEndView?.endTitleLabel.text = "Town wins!"
                 }
-                roundEndView?.endDescriptionLabel.hidden = true
-                roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
+                self.roundEndView?.endDescriptionLabel.hidden = true
+                self.roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
         }
     }
@@ -284,7 +274,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func resetTimer(time: Double) {
         nightTimer.invalidate()
-        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: "updateNightEvents", userInfo: nil, repeats: false)
+        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: #selector(GameViewController.updateNightEvents), userInfo: nil, repeats: false)
     }
     
     func updateNightEvents() {
@@ -344,7 +334,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             nightView.dialogueLabel.sizeToFit()
             self.resetTimer(TimerConstants.NIGHT_OVERLAY_TIMERS[self.nightIndex])
             
-            self.nightIndex++
+            self.nightIndex += 1
         }
     }
     
