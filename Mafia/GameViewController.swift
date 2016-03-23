@@ -155,7 +155,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             
             let currentRound = game.rounds[roundIndex]
             
-            roundEndView?.endDescriptionLabel.hidden = true
             roundEndView?.descriptionBottomConstraint.constant = 0
             roundEndView?.descriptionTopConstraint.constant = 0
             
@@ -187,6 +186,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     roundEndView?.endDescriptionLabel.hidden = true
                 }
                 
+                roundEndView?.endTitleLabel.sizeToFit()
+                roundEndView?.endDescriptionLabel.sizeToFit()
                 roundEndView?.nextButton.setTitle("Start voting", forState: .Normal)
             }
         } else {
@@ -349,7 +350,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 nightView.hidden = false
                 nightView.dialogueLabel.text = "Mafia Go Back to Sleep"
             case 4:
-                nightView.dialogueLabel.text = "Everyone Wake Up\n\nDiscuss!"
+                nightView.dialogueLabel.text = "Everyone Wake Up!"
                 nightView.imageView.image = UIImage(named: "sunrise")
                 
                 // vibrate phone for all players
@@ -359,8 +360,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     self.roosterAudioPlayer.play()
                 }
             case 5:
-                // show night round end
-                self.showRoundEndView()
+                // night round end will be shown when new round is loaded
+                break
             case 6:
                 // Reset all sounds
                 self.didPlayLullaby = false
