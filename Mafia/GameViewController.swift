@@ -83,28 +83,14 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
             
             self.showPlayerStats()
-            
-//        // Do any additional setup after loading the view.
-//        dispatch_async(dispatch_get_main_queue()) {
-//            if MafiaClient.instance.isNight == true{
-//                self.roleMode = true
-//                self.nightTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: true)
-//                self.nightView = NightOverlayView.instanceFromNib() 
-//                self.view.addSubview(self.nightView!)
-//                self.nightView!.frame = (self.nightView?.superview?.bounds)!
-//                self.playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: { (player: Player) -> Bool in
-//                    return player.role != .MAFIA
-//                })
-//            } else {
-//                self.showPlayerStats()
-//                self.playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: nil)
-//            }
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
         }
         
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
-
+        
+        playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: nil)
+    
         playersDataSource!.delegate = self
         
         playersCollectionView.delegate = playersDataSource
