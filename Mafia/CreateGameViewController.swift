@@ -182,7 +182,7 @@ class CreateGameViewController: UIViewController, UINavigationControllerDelegate
                     
                     // manually insert player data, so they show up before the next network request finishes
                     MafiaClient.instance.game!.players.append(Player(playerName: self.playerNameTextField.text!))
-                    
+                    MafiaClient.instance.player?.avatarImage = self.avatarImageView.image
                     dispatch_async(dispatch_get_main_queue()) {
                         self.performSegueWithIdentifier("newGame2LobbySegue", sender: self)
                     }

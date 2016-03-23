@@ -16,6 +16,7 @@ class RoleRevealViewController: UIViewController {
     @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var whiteFrameImage: UIImageView!
     @IBOutlet weak var tapNotificationLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roleView: UIView!
@@ -36,16 +37,27 @@ class RoleRevealViewController: UIViewController {
         super.viewDidLoad()
         
         if let player = MafiaClient.instance.player {
-            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.avatarImageView.image = image
-                }
-            }, failure: { (request, response, error) -> Void in
-                print(error)
-            })
+//            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
+//                
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    self.avatarImageView.image = image
+//                }
+//            }, failure: { (request, response, error) -> Void in
+//                print(error)
+//            })
             
+            //TODO: MafiaClient.instance.player is always nil!!!!
+            if MafiaClient.instance.player?.avatarImage != nil {
+                self.avatarImageView.image = MafiaClient.instance.player?.avatarImage
+
+            } else {
+                self.avatarImageView.image = UIImage(named: "Character_mystery_white")
+            }
+            self.avatarImageView.layer.cornerRadius = 10
+            self.avatarImageView.clipsToBounds = true
+
             self.roleImageView.image = player.getRoleImage()
+            self.roleImageView.contentMode = .ScaleAspectFill
         }
         
         roleImageView.hidden = true
@@ -54,6 +66,7 @@ class RoleRevealViewController: UIViewController {
         
         roleView.layoutIfNeeded()
         roleView.bringSubviewToFront(tapNotificationLabel)
+        roleView.bringSubviewToFront(whiteFrameImage)
         
         let singleTap = UITapGestureRecognizer(target: self, action: Selector("tapped"))
         singleTap.numberOfTapsRequired = 1
@@ -112,10 +125,12 @@ class RoleRevealViewController: UIViewController {
             nextButton.hidden = false
             
             tapNotificationLabel.hidden = true
+            whiteFrameImage.hidden = true
             isBackShowing = false
         } else {
             UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: [.TransitionFlipFromLeft, .ShowHideTransitionViews], completion: nil)
             tapNotificationLabel.hidden = false
+            whiteFrameImage.hidden = false
             isBackShowing = true
         }
     }

@@ -58,7 +58,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.roleMode = true
+//        self.roleMode = true
         
         do {
             let roosterSoundURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Rooster", ofType: "mp3")!)
@@ -78,10 +78,12 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         
         // Do any additional setup after loading the view.
         dispatch_async(dispatch_get_main_queue()) {
-            self.nightView = NightOverlayView.instanceFromNib()
-            self.view.addSubview(self.nightView!)
-            self.nightView!.frame = (self.nightView?.superview?.bounds)!
-            
+            if MafiaClient.instance.isNight {
+                self.roleMode = true
+                self.nightView = NightOverlayView.instanceFromNib()
+                self.view.addSubview(self.nightView!)
+                self.nightView!.frame = (self.nightView?.superview?.bounds)!
+            }
             self.showPlayerStats()
             self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
         }
@@ -96,8 +98,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
         
-        loadRoundData(MafiaClient.instance.game!)
-        
+        if !MafiaClient.instance.isNight {
+            loadRoundData(MafiaClient.instance.game!)
+        }
         resetTimer(TimerConstants.GO_TO_SLEEP)
     }
     
@@ -182,7 +185,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
                     roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
                 }
-                
                 MafiaClient.instance.isNight = !MafiaClient.instance.isNight
             } else {
                 switch game.winner! {
@@ -328,7 +330,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     self.roosterAudioPlayer.play()
                 }
             case 5:
-                nightView.hidden = true
+                self.showRoundEndView()
+            case 6:
+//                nightView.hidden = true
                 
                 // Reset all sounds
                 self.didPlayLullaby = false

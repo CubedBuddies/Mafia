@@ -20,8 +20,9 @@ class TimerConstants: NSObject {
     static let MAFIA_NIGHTKILL = 10.0
     static let MAFIA_SLEEP = 6.0
     static let EVERYONE_WAKE_UP = 2.0
+    static let NIGHT_END = 0.0
     
-    static let NIGHT_OVERLAY_TIMERS = [GO_TO_SLEEP, MAFIA_WAKE_UP, MAFIA_NIGHTKILL, MAFIA_SLEEP, EVERYONE_WAKE_UP]
+    static let NIGHT_OVERLAY_TIMERS = [GO_TO_SLEEP, MAFIA_WAKE_UP, MAFIA_NIGHTKILL, MAFIA_SLEEP, EVERYONE_WAKE_UP, NIGHT_END]
     
     // round end
 }

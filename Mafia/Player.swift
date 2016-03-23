@@ -16,7 +16,7 @@ class Player: NSObject {
     var state: PlayerState = .ALIVE
     var isGameCreator: Bool?
     var avatarUrl: String = ""
-    
+    var avatarImage: UIImage?
     var createdAt: NSDate?
     var updatedAt: NSDate?
     

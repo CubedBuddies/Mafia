@@ -683,7 +683,7 @@ with your fellow mafia</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Reveal Role" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
-                                                <rect key="frame" x="0.0" y="5" width="193" height="28"/>
+                                                <rect key="frame" x="0.0" y="10" width="193" height="28"/>
                                                 <color key="backgroundColor" red="0.72156862749999995" green="0.039215686270000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="PCz-dC-SdU"/>
@@ -717,7 +717,7 @@ with your fellow mafia</string>
                                             <constraint firstAttribute="trailing" secondItem="Abi-74-9dM" secondAttribute="trailing" id="YYe-df-Rwy"/>
                                             <constraint firstItem="WXZ-uZ-MFa" firstAttribute="leading" secondItem="MpD-CM-1C7" secondAttribute="leading" id="akk-nR-7jf"/>
                                             <constraint firstAttribute="trailing" secondItem="uWr-Bn-RtV" secondAttribute="trailing" id="f7a-2w-uBZ"/>
-                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="top" constant="5" id="ia1-sb-zNt"/>
+                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="top" constant="10" id="ia1-sb-zNt"/>
                                             <constraint firstAttribute="trailing" secondItem="WXZ-uZ-MFa" secondAttribute="trailing" id="lIB-Zu-pTX"/>
                                             <constraint firstItem="Abi-74-9dM" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="u9c-ua-EdG"/>
                                         </constraints>
@@ -767,6 +767,7 @@ with your fellow mafia</string>
                         <outlet property="roleView" destination="MpD-CM-1C7" id="vLI-Xc-MNT"/>
                         <outlet property="tapNotificationLabel" destination="Phl-Pn-rcW" id="QL4-Tt-NmV"/>
                         <outlet property="teamCollectionView" destination="E2z-9O-IyG" id="6q0-5l-gh7"/>
+                        <outlet property="whiteFrameImage" destination="uWr-Bn-RtV" id="j4a-nI-M1i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g88-Z7-tfi" userLabel="First Responder" sceneMemberID="firstResponder"/>

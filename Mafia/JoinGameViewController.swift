@@ -67,6 +67,7 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let temp: UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
+        MafiaClient.instance.player?.avatarImage = temp
         avatarImageView.image = temp
         avatarImageView.frame = cameraButton.frame
         
