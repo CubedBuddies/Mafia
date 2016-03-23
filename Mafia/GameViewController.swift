@@ -135,7 +135,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         
         self.roundEndView = RoundEndView.instanceFromNib()
         self.roundEndView?.delegate = self
-        self.roundEndView?.frame = (self.roundEndView?.superview?.bounds)!
         
         if let game = MafiaClient.instance.game {
             var playerNames = [Int: Player]()
@@ -193,6 +192,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 self.roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
         }
+        
+        self.roundEndView?.frame = (self.roundEndView?.superview?.bounds)!
     }
 
     
