@@ -146,30 +146,40 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             if game.state != .FINISHED {
                 
                 let currentRound = game.rounds[roundIndex]
-                if nightView!.hidden {
-                    // ended during day
-                    gameEndView.addSubview(self.roundEndView!)
-                    gameEndView.hidden = false
+                
+                if let roundEndView = self.roundEndView {
+                    roundEndView.endDescriptionLabel.hidden = true
+                    roundEndView.descriptionBottomConstraint.constant = 0
+                    roundEndView.descriptionTopConstraint.constant = 0
                     
-                    self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
-                } else {
-                    // ended during night
-                    nightView!.resultsView.addSubview(self.roundEndView!)
-                    nightView!.resultsView.hidden = false
-                    
-                    self.roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
-                    self.roundEndView?.endTitleLabel.hidden = false
-                    self.roundEndView?.endDescriptionLabel.hidden = true
-                    self.roundEndView?.descriptionBottomConstraint.constant = 0
-                    self.roundEndView?.descriptionTopConstraint.constant = 0
-                    if let killedPlayerId = currentRound.killedPlayerId {
-                        let player = playerNames[killedPlayerId]!
-                        self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
-                    } else if let lynchedPlayerId = currentRound.lynchedPlayerId {
-                        let player = playerNames[lynchedPlayerId]!
-                        self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
-                        self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
-                        self.roundEndView?.nextButton.setTitle("Start Next Round", forState: .Normal)
+                    // describe what happened
+                    if nightView!.hidden {
+                        // day round ended
+                        gameEndView.addSubview(self.roundEndView!)
+                        gameEndView.hidden = false
+                        
+                        if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                            let player = playerNames[lynchedPlayerId]!
+                            self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
+                            self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                        }
+                        
+                        self.roundEndView?.nextButton.setTitle("Start next round", forState: .Normal)
+                    } else {
+                        // night round ended
+                        nightView!.resultsView.addSubview(self.roundEndView!)
+                        nightView!.resultsView.hidden = false
+                        
+                        if let killedPlayerId = currentRound.killedPlayerId {
+                            let player = playerNames[killedPlayerId]!
+                            self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
+                            self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                        } else {
+                            // no deaths during night
+                            self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                        }
+                        
+                        roundEndView.nextButton.setTitle("Vote", forState: .Normal)
                     }
                 }
             } else {
