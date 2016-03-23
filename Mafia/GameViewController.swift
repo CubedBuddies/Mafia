@@ -225,17 +225,35 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             if nightView!.hidden {
                 // continue to night
-                let vc = GameViewController()
-                vc.roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.presentViewController(vc, animated: true, completion: nil)
+                if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
+                    buffer = 1
+                } else {
+                    advanceToNight()
                 }
             } else {
-                roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
-                nightView?.hidden = true
+                if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
+                    buffer = 2
+                } else {
+                    advanceToDay()
+                }
             }
         }
+    }
+    // 0 = none, 1 = on round load, go to night, 2 = on round load, go to day
+    var buffer = 0
+    
+    func advanceToNight() {
+        let vc = GameViewController()
+        vc.roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func advanceToDay() {
+        nightView?.hidden = true
+        roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
     }
     
     func getRoleMode() -> Bool {
@@ -361,6 +379,13 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func loadRoundData(game: Game) {
+        if buffer == 1 {
+            buffer = 0
+            advanceToNight()
+        } else if buffer == 2 {
+            buffer = 0
+            advanceToDay()
+        }
         
         if game.state == .FINISHED {
             showRoundEndView()
