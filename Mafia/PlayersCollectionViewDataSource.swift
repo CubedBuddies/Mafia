@@ -50,6 +50,7 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
         collectionView = view
         filter = playerFilter
         votes = showVotes
+        
         view.registerNib(UINib(nibName: "PlayersCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "playerCell")
     }
     

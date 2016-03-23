@@ -58,8 +58,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.roleMode = true
-        
         do {
             let roosterSoundURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Rooster", ofType: "mp3")!)
             roosterAudioPlayer = try AVAudioPlayer(contentsOfURL: roosterSoundURL)
@@ -76,31 +74,29 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             print("Unable to load a sound")
         }
         
-        // Do any additional setup after loading the view.
+        // for showing mafia voting
+        roleMode = true
         dispatch_async(dispatch_get_main_queue()) {
-            if MafiaClient.instance.isNight {
-                self.roleMode = true
-                self.nightView = NightOverlayView.instanceFromNib()
-                self.view.addSubview(self.nightView!)
-                self.nightView!.frame = (self.nightView?.superview?.bounds)!
-            }
+            // start at night
+            self.nightView = NightOverlayView.instanceFromNib()
+            self.view.addSubview(self.nightView!)
+            self.nightView!.frame = (self.nightView?.superview?.bounds)!
+            
             self.showPlayerStats()
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
         }
         
+        // to make the VC slide in from the right
         modalPresentationStyle = UIModalPresentationStyle.Custom
         transitioningDelegate = self
         
+        // create players data source
         playersDataSource = PlayersCollectionViewDataSource(view: self.playersCollectionView, showVotes: true, playerFilter: nil)
     
         playersDataSource!.delegate = self
-        
         playersCollectionView.delegate = playersDataSource
         playersCollectionView.dataSource = playersDataSource
         
-        if !MafiaClient.instance.isNight {
-            loadRoundData(MafiaClient.instance.game!)
-        }
         resetTimer(TimerConstants.GO_TO_SLEEP)
     }
     
