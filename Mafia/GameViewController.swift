@@ -363,6 +363,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 // night round end will be shown when new round is loaded
                 break
             case 6:
+                // mafia have finished voting
+                self.roleMode = false
+                
                 // Reset all sounds
                 self.didPlayLullaby = false
                 self.didPlayClock = false
