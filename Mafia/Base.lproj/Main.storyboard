@@ -628,7 +628,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fG-1B-4dX">
-                                        <rect key="frame" x="46" y="503" width="229" height="55"/>
+                                        <rect key="frame" x="46" y="488" width="229" height="55"/>
                                         <color key="backgroundColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="J8c-hA-497"/>
@@ -642,7 +642,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ra-bp-k8X">
-                                        <rect key="frame" x="30" y="438" width="260" height="47"/>
+                                        <rect key="frame" x="30" y="423" width="260" height="47"/>
                                         <string key="text">Kill someone each night
 with your fellow mafia</string>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
@@ -650,10 +650,10 @@ with your fellow mafia</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="E2z-9O-IyG">
-                                        <rect key="frame" x="40" y="329" width="250" height="100"/>
+                                        <rect key="frame" x="40" y="329" width="255" height="85"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="E2z-9O-IyG" secondAttribute="height" multiplier="2.5:1" id="4cF-ZH-Cxf"/>
-                                            <constraint firstAttribute="height" constant="100" id="T4h-xc-pda"/>
+                                            <constraint firstAttribute="width" secondItem="E2z-9O-IyG" secondAttribute="height" multiplier="3:1" id="4cF-ZH-Cxf"/>
+                                            <constraint firstAttribute="height" constant="85" id="T4h-xc-pda"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VRL-V7-JHA">
                                             <size key="itemSize" width="50" height="50"/>
@@ -663,7 +663,7 @@ with your fellow mafia</string>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="playerCell" id="Bfm-ms-EZa">
-                                                <rect key="frame" x="0.0" y="25" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="18" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -682,14 +682,8 @@ with your fellow mafia</string>
                                                     <constraint firstAttribute="width" secondItem="WXZ-uZ-MFa" secondAttribute="height" multiplier="1:1" id="fg7-WN-C3E"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abi-74-9dM">
-                                                <rect key="frame" x="0.0" y="0.0" width="193" height="193"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="Abi-74-9dM" secondAttribute="height" multiplier="1:1" id="A5R-5a-Tpy"/>
-                                                </constraints>
-                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Reveal Role" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
-                                                <rect key="frame" x="0.0" y="0.0" width="193" height="28"/>
+                                                <rect key="frame" x="0.0" y="5" width="193" height="28"/>
                                                 <color key="backgroundColor" red="0.72156862749999995" green="0.039215686270000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="PCz-dC-SdU"/>
@@ -698,6 +692,18 @@ with your fellow mafia</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteFrame_noLabel" translatesAutoresizingMaskIntoConstraints="NO" id="uWr-Bn-RtV">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="193"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="uWr-Bn-RtV" secondAttribute="height" multiplier="1:1" id="vVE-6C-8te"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abi-74-9dM">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="193"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Abi-74-9dM" secondAttribute="height" multiplier="1:1" id="A5R-5a-Tpy"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -706,9 +712,12 @@ with your fellow mafia</string>
                                             <constraint firstItem="WXZ-uZ-MFa" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="CbA-Il-G8P"/>
                                             <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
                                             <constraint firstItem="Phl-Pn-rcW" firstAttribute="centerX" secondItem="MpD-CM-1C7" secondAttribute="centerX" id="Jyx-Ch-7Ls"/>
+                                            <constraint firstItem="uWr-Bn-RtV" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="PZ1-49-XrX"/>
+                                            <constraint firstItem="uWr-Bn-RtV" firstAttribute="leading" secondItem="MpD-CM-1C7" secondAttribute="leading" id="Uhp-cg-mLn"/>
                                             <constraint firstAttribute="trailing" secondItem="Abi-74-9dM" secondAttribute="trailing" id="YYe-df-Rwy"/>
                                             <constraint firstItem="WXZ-uZ-MFa" firstAttribute="leading" secondItem="MpD-CM-1C7" secondAttribute="leading" id="akk-nR-7jf"/>
-                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="top" id="ia1-sb-zNt"/>
+                                            <constraint firstAttribute="trailing" secondItem="uWr-Bn-RtV" secondAttribute="trailing" id="f7a-2w-uBZ"/>
+                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="top" constant="5" id="ia1-sb-zNt"/>
                                             <constraint firstAttribute="trailing" secondItem="WXZ-uZ-MFa" secondAttribute="trailing" id="lIB-Zu-pTX"/>
                                             <constraint firstItem="Abi-74-9dM" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="u9c-ua-EdG"/>
                                         </constraints>
@@ -717,7 +726,7 @@ with your fellow mafia</string>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="5ra-bp-k8X" firstAttribute="top" secondItem="E2z-9O-IyG" secondAttribute="bottom" constant="9" id="6aM-gL-MDZ"/>
-                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="40" id="En8-zh-xSJ"/>
+                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="40" id="JbX-Ey-4SB"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="35" id="Lgg-1m-eJO"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="top" secondItem="ObQ-0W-ebe" secondAttribute="bottom" constant="48" id="NFe-W8-B8A"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="centerY" secondItem="qtN-sk-vFN" secondAttribute="centerY" id="NSB-vS-N5c"/>
@@ -818,6 +827,7 @@ with your fellow mafia</string>
         <image name="board_black_line_texture_background_wood_55220_2560x1600-1" width="1563" height="2276"/>
         <image name="home" width="25" height="25"/>
         <image name="whiteFrame" width="250" height="250"/>
+        <image name="whiteFrame_noLabel" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IP9-q3-hWE"/>
