@@ -83,7 +83,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.view.addSubview(self.nightView!)
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
             
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("updateHandler"), userInfo: nil, repeats: true)
         }
         
         // to make the screen slide in from the right
@@ -228,22 +228,17 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             if nightView!.hidden {
                 // continue to night
-                if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
-                    advanceToNight()
-                }
+                advanceToNight()
             } else {
-                if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
-                    advanceToDay()
-                }
+                advanceToDay()
             }
         }
     }
     
     func advanceToNight() {
-        let vc = GameViewController()
-        vc.roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
-        
         dispatch_async(dispatch_get_main_queue()) {
+            let vc = GameViewController()
+            vc.roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
             self.presentViewController(vc, animated: true, completion: nil)
         }
     }
@@ -312,7 +307,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func resetTimer(time: Double) {
         nightTimer.invalidate()
-        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: #selector(GameViewController.updateNightEvents), userInfo: nil, repeats: false)
+        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: Selector("updateNightEvents"), userInfo: nil, repeats: false)
     }
     
     func updateNightEvents() {

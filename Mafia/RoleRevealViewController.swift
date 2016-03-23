@@ -37,14 +37,14 @@ class RoleRevealViewController: UIViewController {
         super.viewDidLoad()
         
         if let player = MafiaClient.instance.player {
-//            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
-//                
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    self.avatarImageView.image = image
-//                }
-//            }, failure: { (request, response, error) -> Void in
-//                print(error)
-//            })
+            self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.avatarImageView.image = image
+                }
+            }, failure: { (request, response, error) -> Void in
+                print(error)
+            })
             
             //TODO: MafiaClient.instance.player is always nil!!!!
             if MafiaClient.instance.player?.avatarImage != nil {
