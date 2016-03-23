@@ -278,6 +278,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self.loadRoundData(game)
+                    print(game.rounds[self.roundIndex].killedPlayerId)
+                    
                 }
             },
             failure: { NSLog("Failed to poll game status") }
