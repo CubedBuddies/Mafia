@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol RoundEndViewDelegate {
-    optional func roundEndView(roundEndView: RoundEndView, nextButtonPressed value: Bool)
+    optional func continueFromRoundEnd(roundEndView: RoundEndView, nextButtonPressed value: Bool)
 }
 
 class RoundEndView: UIView {
@@ -36,11 +36,11 @@ class RoundEndView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        nextButton.addTarget(self, action: "nextButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        nextButton.addTarget(self, action: #selector(RoundEndView.nextButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     func nextButtonPressed() {
-        delegate?.roundEndView!(self, nextButtonPressed: nextButton.touchInside)
+        delegate?.continueFromRoundEnd!(self, nextButtonPressed: nextButton.touchInside)
     }
     
 

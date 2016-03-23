@@ -273,8 +273,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self.loadRoundData(game)
-                    print(game.rounds[self.roundIndex].killedPlayerId)
-                    
                 }
             },
             failure: { NSLog("Failed to poll game status") }
@@ -327,6 +325,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     self.roosterAudioPlayer.play()
                 }
             case 5:
+                // show night round end
                 self.showRoundEndView()
             case 6:
 //                nightView.hidden = true
@@ -356,7 +355,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
             }
             
-            if roundIndex < (game.rounds.count ?? 1) - 1 {
+            if roundIndex < (game.rounds.count ?? 1) - 2 {
                 showRoundEndView()
             } else {
                 let round = game.rounds[self.roundIndex]
@@ -407,16 +406,16 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         return 0.5
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }
