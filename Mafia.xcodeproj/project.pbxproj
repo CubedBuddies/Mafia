@@ -16,6 +16,9 @@
 		53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */; };
 		53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD51C9E681A00EBD112 /* RoundEndView.xib */; };
 		53657CD81C9E7A0F00EBD112 /* RoundEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53657CD71C9E7A0F00EBD112 /* RoundEndView.swift */; };
+		53A7844F1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53A7844E1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf */; };
+		53A784501CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53A7844E1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf */; };
+		53A784511CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53A7844E1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf */; };
 		53F21EE81C877A3100163802 /* CreateGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE71C877A3100163802 /* CreateGameViewController.swift */; };
 		53F21EEA1C877AE500163802 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EE91C877AE500163802 /* ResultsViewController.swift */; };
 		53F21EF31C8C319A00163802 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */; };
@@ -69,6 +72,7 @@
 		53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NightOverlayView.xib; sourceTree = "<group>"; };
 		53657CD51C9E681A00EBD112 /* RoundEndView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundEndView.xib; sourceTree = "<group>"; };
 		53657CD71C9E7A0F00EBD112 /* RoundEndView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundEndView.swift; sourceTree = "<group>"; };
+		53A7844E1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "a_stamperbrk_[allfont.net].ttf"; path = "../../../../Downloads/a_stamperbrk_[allfont.net].ttf"; sourceTree = "<group>"; };
 		53F21EE71C877A3100163802 /* CreateGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameViewController.swift; sourceTree = "<group>"; };
 		53F21EE91C877AE500163802 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		53F21EF21C8C319A00163802 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				723AD91F1C8568C10072849E /* Assets.xcassets */,
 				723AD9211C8568C10072849E /* LaunchScreen.storyboard */,
 				723AD9241C8568C10072849E /* Info.plist */,
+				53A7844E1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf */,
 			);
 			path = Mafia;
 			sourceTree = "<group>";
@@ -386,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */,
+				53A7844F1CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */,
 				53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */,
 				72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */,
 				5309382D1CA1021B00E00CE6 /* Clock.mp3 in Resources */,
@@ -402,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A784501CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A784511CA13BFB0015D9AA /* a_stamperbrk_[allfont.net].ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

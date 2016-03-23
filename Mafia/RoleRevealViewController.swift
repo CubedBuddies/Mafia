@@ -11,7 +11,11 @@ import AFNetworking
 
 class RoleRevealViewController: UIViewController {
 
-
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewAspectConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var tapNotificationLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roleView: UIView!
@@ -99,6 +103,9 @@ class RoleRevealViewController: UIViewController {
             switch MafiaClient.instance.player!.role! {
             case .TOWNSPERSON:
                 roleDescriptionLabel.text = "Figure out who the mafia is and lynch them during the day."
+//                self.teamCollectionView.hidden = false
+                self.collectionViewBottomConstraint.constant = 0
+                self.collectionViewHeightConstraint.constant = 0
                 
             case .MAFIA:
                 dispatch_async(dispatch_get_main_queue()) {
@@ -113,7 +120,7 @@ class RoleRevealViewController: UIViewController {
             tapNotificationLabel.hidden = true
             isBackShowing = false
         } else {
-            UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: [.TransitionFlipFromRight, .ShowHideTransitionViews], completion: nil)
+            UIView.transitionFromView(roleImageView, toView: avatarImageView, duration: 1.0, options: [.TransitionFlipFromLeft, .ShowHideTransitionViews], completion: nil)
             tapNotificationLabel.hidden = false
             isBackShowing = true
         }

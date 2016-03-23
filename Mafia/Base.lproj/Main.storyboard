@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -622,13 +622,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your role" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObQ-0W-ebe">
-                                        <rect key="frame" x="111" y="30" width="98" height="31"/>
+                                        <rect key="frame" x="111" y="30" width="98" height="32"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fG-1B-4dX">
-                                        <rect key="frame" x="46" y="483" width="229" height="55"/>
+                                        <rect key="frame" x="46" y="503" width="229" height="55"/>
                                         <color key="backgroundColor" red="0.68627450980000004" green="0.0039215686269999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="J8c-hA-497"/>
@@ -642,7 +642,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ra-bp-k8X">
-                                        <rect key="frame" x="30" y="416" width="260" height="47"/>
+                                        <rect key="frame" x="30" y="438" width="260" height="47"/>
                                         <string key="text">Kill someone each night
 with your fellow mafia</string>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
@@ -650,9 +650,10 @@ with your fellow mafia</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="E2z-9O-IyG">
-                                        <rect key="frame" x="40" y="328" width="240" height="80"/>
+                                        <rect key="frame" x="40" y="329" width="250" height="100"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="E2z-9O-IyG" secondAttribute="height" multiplier="3:1" id="4cF-ZH-Cxf"/>
+                                            <constraint firstAttribute="width" secondItem="E2z-9O-IyG" secondAttribute="height" multiplier="2.5:1" id="4cF-ZH-Cxf"/>
+                                            <constraint firstAttribute="height" constant="100" id="T4h-xc-pda"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VRL-V7-JHA">
                                             <size key="itemSize" width="50" height="50"/>
@@ -662,7 +663,7 @@ with your fellow mafia</string>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="playerCell" id="Bfm-ms-EZa">
-                                                <rect key="frame" x="0.0" y="15" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="25" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -673,17 +674,26 @@ with your fellow mafia</string>
                                         </cells>
                                     </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpD-CM-1C7">
-                                        <rect key="frame" x="64" y="109" width="193" height="193"/>
+                                        <rect key="frame" x="64" y="110" width="193" height="193"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-uZ-MFa">
-                                                <rect key="frame" x="0.0" y="0.0" width="193" height="169"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-uZ-MFa">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="193"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="WXZ-uZ-MFa" secondAttribute="height" multiplier="1:1" id="fg7-WN-C3E"/>
+                                                </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abi-74-9dM">
-                                                <rect key="frame" x="0.0" y="0.0" width="193" height="169"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="193"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Abi-74-9dM" secondAttribute="height" multiplier="1:1" id="A5R-5a-Tpy"/>
+                                                </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to reveal" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
-                                                <rect key="frame" x="44" y="169" width="105" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Reveal Role" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phl-Pn-rcW">
+                                                <rect key="frame" x="0.0" y="0.0" width="193" height="28"/>
                                                 <color key="backgroundColor" red="0.72156862749999995" green="0.039215686270000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="PCz-dC-SdU"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -691,33 +701,31 @@ with your fellow mafia</string>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="bottom" id="2KB-qJ-G9z"/>
+                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="width" secondItem="Abi-74-9dM" secondAttribute="width" id="1i4-SI-IgV"/>
                                             <constraint firstItem="Abi-74-9dM" firstAttribute="leading" secondItem="MpD-CM-1C7" secondAttribute="leading" id="70l-VC-88G"/>
                                             <constraint firstItem="WXZ-uZ-MFa" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="CbA-Il-G8P"/>
                                             <constraint firstAttribute="width" secondItem="MpD-CM-1C7" secondAttribute="height" multiplier="1:1" id="DHU-Gs-bAM"/>
                                             <constraint firstItem="Phl-Pn-rcW" firstAttribute="centerX" secondItem="MpD-CM-1C7" secondAttribute="centerX" id="Jyx-Ch-7Ls"/>
-                                            <constraint firstAttribute="bottom" secondItem="Phl-Pn-rcW" secondAttribute="bottom" id="N2h-Rw-DmQ"/>
                                             <constraint firstAttribute="trailing" secondItem="Abi-74-9dM" secondAttribute="trailing" id="YYe-df-Rwy"/>
                                             <constraint firstItem="WXZ-uZ-MFa" firstAttribute="leading" secondItem="MpD-CM-1C7" secondAttribute="leading" id="akk-nR-7jf"/>
+                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="WXZ-uZ-MFa" secondAttribute="top" id="ia1-sb-zNt"/>
                                             <constraint firstAttribute="trailing" secondItem="WXZ-uZ-MFa" secondAttribute="trailing" id="lIB-Zu-pTX"/>
                                             <constraint firstItem="Abi-74-9dM" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="top" id="u9c-ua-EdG"/>
-                                            <constraint firstItem="Phl-Pn-rcW" firstAttribute="top" secondItem="Abi-74-9dM" secondAttribute="bottom" id="w2R-EA-hXf"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="40" id="JbX-Ey-4SB"/>
+                                    <constraint firstItem="5ra-bp-k8X" firstAttribute="top" secondItem="E2z-9O-IyG" secondAttribute="bottom" constant="9" id="6aM-gL-MDZ"/>
+                                    <constraint firstItem="E2z-9O-IyG" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="40" id="En8-zh-xSJ"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="35" id="Lgg-1m-eJO"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="top" secondItem="ObQ-0W-ebe" secondAttribute="bottom" constant="48" id="NFe-W8-B8A"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="centerY" secondItem="qtN-sk-vFN" secondAttribute="centerY" id="NSB-vS-N5c"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="Qbd-In-i8O"/>
                                     <constraint firstItem="7fG-1B-4dX" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="46" id="Rsb-Gq-u6c"/>
-                                    <constraint firstItem="7fG-1B-4dX" firstAttribute="top" secondItem="5ra-bp-k8X" secondAttribute="bottom" constant="20" id="TkT-NA-XUc"/>
+                                    <constraint firstItem="7fG-1B-4dX" firstAttribute="top" secondItem="5ra-bp-k8X" secondAttribute="bottom" constant="18" id="TkT-NA-XUc"/>
                                     <constraint firstItem="5ra-bp-k8X" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="30" id="UoA-RE-J2X"/>
                                     <constraint firstItem="ObQ-0W-ebe" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="V9U-wV-O4D"/>
-                                    <constraint firstItem="7fG-1B-4dX" firstAttribute="top" secondItem="E2z-9O-IyG" secondAttribute="bottom" constant="75" id="WbO-Cz-GfH"/>
-                                    <constraint firstAttribute="bottom" secondItem="7fG-1B-4dX" secondAttribute="bottom" constant="30" id="X1y-Gh-R6V"/>
                                     <constraint firstAttribute="trailing" secondItem="7fG-1B-4dX" secondAttribute="trailing" constant="45" id="YPd-aj-UU3"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MpD-CM-1C7" secondAttribute="trailing" constant="35" id="Z1v-8x-OW1"/>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="leading" secondItem="qtN-sk-vFN" secondAttribute="leading" constant="64" id="a19-su-7tM"/>
@@ -725,7 +733,6 @@ with your fellow mafia</string>
                                     <constraint firstItem="MpD-CM-1C7" firstAttribute="centerX" secondItem="qtN-sk-vFN" secondAttribute="centerX" id="fSx-Ky-r1s"/>
                                     <constraint firstAttribute="trailing" secondItem="5ra-bp-k8X" secondAttribute="trailing" constant="30" id="j7b-mj-Nf5"/>
                                     <constraint firstItem="ObQ-0W-ebe" firstAttribute="top" secondItem="qtN-sk-vFN" secondAttribute="top" constant="30" id="m1E-yv-ECX"/>
-                                    <constraint firstAttribute="trailing" secondItem="E2z-9O-IyG" secondAttribute="trailing" constant="40" id="oGh-SO-JtB"/>
                                     <constraint firstItem="E2z-9O-IyG" firstAttribute="top" secondItem="MpD-CM-1C7" secondAttribute="bottom" constant="26" id="wDf-2i-Ncs"/>
                                     <constraint firstItem="G11-5L-NiZ" firstAttribute="height" secondItem="qtN-sk-vFN" secondAttribute="height" id="yzY-vu-daD"/>
                                 </constraints>
@@ -741,6 +748,10 @@ with your fellow mafia</string>
                     </view>
                     <connections>
                         <outlet property="avatarImageView" destination="WXZ-uZ-MFa" id="nzG-j3-F2W"/>
+                        <outlet property="collectionViewAspectConstraint" destination="4cF-ZH-Cxf" id="Kg0-rU-NUy"/>
+                        <outlet property="collectionViewBottomConstraint" destination="6aM-gL-MDZ" id="Y7N-XC-zil"/>
+                        <outlet property="collectionViewHeightConstraint" destination="T4h-xc-pda" id="5xm-Bt-FJU"/>
+                        <outlet property="collectionViewTopConstraint" destination="wDf-2i-Ncs" id="VY2-Uj-rtH"/>
                         <outlet property="nextButton" destination="7fG-1B-4dX" id="bLf-KA-M92"/>
                         <outlet property="roleDescriptionLabel" destination="5ra-bp-k8X" id="Q6g-WW-cJz"/>
                         <outlet property="roleImageView" destination="Abi-74-9dM" id="tWO-sj-zLg"/>
