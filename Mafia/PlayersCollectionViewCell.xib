@@ -13,20 +13,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="55j-wt-TVc">
-                    <rect key="frame" x="18" y="17" width="65" height="65"/>
+                    <rect key="frame" x="18" y="10" width="65" height="65"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="55j-wt-TVc" secondAttribute="height" multiplier="1:1" id="N7i-an-syM"/>
                         <constraint firstAttribute="width" constant="65" id="g8v-bM-LGQ"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Uw-dV-7qJ">
-                    <rect key="frame" x="35" y="76" width="31" height="24"/>
-                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                    <rect key="frame" x="37" y="76" width="27" height="21"/>
+                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-xp-JAz">
-                    <rect key="frame" x="13" y="13" width="30" height="30"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-xp-JAz">
+                    <rect key="frame" x="8" y="0.0" width="30" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ox-YX-lCa">
                             <rect key="frame" x="10" y="5" width="11" height="21"/>
@@ -36,6 +36,10 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.1944795667" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Pow-Hr-SCp"/>
+                        <constraint firstAttribute="width" constant="30" id="x7Y-f7-6Q2"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="15"/>
@@ -44,9 +48,11 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="2Uw-dV-7qJ" secondAttribute="bottom" id="Apj-hi-oRX"/>
+                <constraint firstItem="myZ-xp-JAz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="GO7-KN-tli"/>
+                <constraint firstItem="myZ-xp-JAz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ymh-Uh-QzH"/>
                 <constraint firstItem="55j-wt-TVc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ebn-n1-knS"/>
-                <constraint firstItem="55j-wt-TVc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fPc-oe-EEy"/>
+                <constraint firstItem="55j-wt-TVc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-8" id="fPc-oe-EEy"/>
+                <constraint firstItem="2Uw-dV-7qJ" firstAttribute="top" secondItem="55j-wt-TVc" secondAttribute="bottom" constant="1" id="kOF-Nt-dGq"/>
                 <constraint firstItem="2Uw-dV-7qJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uID-Gr-Msf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
