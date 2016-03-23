@@ -10,7 +10,6 @@ import UIKit
 
 class MafiaClient: NSObject {
     static let BASE_URL = "https://mafia-backend.herokuapp.com"
-    var isNight: Bool = true
     var token: String?
     var _player: Player?
     var player: Player? {

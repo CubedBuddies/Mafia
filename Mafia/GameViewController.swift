@@ -160,9 +160,12 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                         let player = playerNames[lynchedPlayerId]!
                         roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
                         roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                    } else {
+                        roundEndView?.endTitleLabel.text = "No one was lynched."
+                        roundEndView?.endDescriptionLabel.hidden = true
                     }
                     
-                    roundEndView?.nextButton.setTitle("Start next round", forState: .Normal)
+                    roundEndView?.nextButton.setTitle("Enter the night", forState: .Normal)
                 } else {
                     // night round ended
                     nightView!.resultsView.addSubview(self.roundEndView!)
@@ -175,9 +178,10 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     } else {
                         // no deaths during night
                         roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                        roundEndView?.endDescriptionLabel.hidden = true
                     }
                     
-                    roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
+                    roundEndView?.nextButton.setTitle("Start voting", forState: .Normal)
                 }
             } else {
                 switch game.winner! {
@@ -207,17 +211,24 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         NSLog("Transitioning to new round, from round \(roundIndex)")
         
         if MafiaClient.instance.game?.state == .FINISHED {
+            // game over, return to main menu
             dispatch_async(dispatch_get_main_queue()) {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateInitialViewController()
                 self.presentViewController(vc!, animated: true, completion: nil)
             }
         } else {
-            let vc = GameViewController()
-            vc.roundIndex = (MafiaClient.instance.game?.rounds.count)!-1
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.presentViewController(vc, animated: true, completion: nil)
+            if nightView!.hidden {
+                // continue to night
+                let vc = GameViewController()
+                vc.roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.presentViewController(vc, animated: true, completion: nil)
+                }
+            } else {
+                roundIndex = (MafiaClient.instance.game?.rounds.count)! - 1
+                nightView?.hidden = true
             }
         }
     }
@@ -328,8 +339,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 // show night round end
                 self.showRoundEndView()
             case 6:
-//                nightView.hidden = true
-                
                 // Reset all sounds
                 self.didPlayLullaby = false
                 self.didPlayClock = false
