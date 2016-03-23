@@ -166,6 +166,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     let player = playerNames[lynchedPlayerId]!
                     roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
                     roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                    roundEndView?.deadPlayerImage.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
                 } else {
                     roundEndView?.endTitleLabel.text = "No one was lynched."
                     roundEndView?.endDescriptionLabel.hidden = true
@@ -180,6 +181,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                     let player = playerNames[killedPlayerId]!
                     roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
                     roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                    roundEndView?.deadPlayerImage.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
                 } else {
                     // no deaths during night
                     roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
