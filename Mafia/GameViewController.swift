@@ -133,8 +133,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     func showRoundEndView() {
         updateTimer.invalidate()
         
-        self.roundEndView = RoundEndView.instanceFromNib()
-        self.roundEndView?.delegate = self
+        roundEndView = RoundEndView.instanceFromNib()
+        roundEndView?.delegate = self
         
         if let game = MafiaClient.instance.game {
             var playerNames = [Int: Player]()
@@ -146,54 +146,52 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 
                 let currentRound = game.rounds[roundIndex]
                 
-                if let roundEndView = self.roundEndView {
-                    roundEndView.endDescriptionLabel.hidden = true
-                    roundEndView.descriptionBottomConstraint.constant = 0
-                    roundEndView.descriptionTopConstraint.constant = 0
+                roundEndView?.endDescriptionLabel.hidden = true
+                roundEndView?.descriptionBottomConstraint.constant = 0
+                roundEndView?.descriptionTopConstraint.constant = 0
+                
+                // describe what happened
+                if nightView!.hidden {
+                    // day round ended
+                    gameEndView.addSubview(self.roundEndView!)
+                    gameEndView.hidden = false
                     
-                    // describe what happened
-                    if nightView!.hidden {
-                        // day round ended
-                        gameEndView.addSubview(self.roundEndView!)
-                        gameEndView.hidden = false
-                        
-                        if let lynchedPlayerId = currentRound.lynchedPlayerId {
-                            let player = playerNames[lynchedPlayerId]!
-                            self.roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
-                            self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
-                        }
-                        
-                        self.roundEndView?.nextButton.setTitle("Start next round", forState: .Normal)
-                    } else {
-                        // night round ended
-                        nightView!.resultsView.addSubview(self.roundEndView!)
-                        nightView!.resultsView.hidden = false
-                        
-                        if let killedPlayerId = currentRound.killedPlayerId {
-                            let player = playerNames[killedPlayerId]!
-                            self.roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
-                            self.roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
-                        } else {
-                            // no deaths during night
-                            self.roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
-                        }
-                        
-                        roundEndView.nextButton.setTitle("Vote", forState: .Normal)
+                    if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                        let player = playerNames[lynchedPlayerId]!
+                        roundEndView?.endTitleLabel.text = "\(player.name) was lynched."
+                        roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
                     }
+                    
+                    roundEndView?.nextButton.setTitle("Start next round", forState: .Normal)
+                } else {
+                    // night round ended
+                    nightView!.resultsView.addSubview(self.roundEndView!)
+                    nightView!.resultsView.hidden = false
+                    
+                    if let killedPlayerId = currentRound.killedPlayerId {
+                        let player = playerNames[killedPlayerId]!
+                        roundEndView?.endTitleLabel.text = "\(player.name) was killed by the Mafia."
+                        roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                    } else {
+                        // no deaths during night
+                        roundEndView?.endTitleLabel.text = "Mafia failed to kill any players"
+                    }
+                    
+                    roundEndView?.nextButton.setTitle("Vote", forState: .Normal)
                 }
             } else {
                 switch game.winner! {
                 case .MAFIA:
-                    self.roundEndView?.endTitleLabel.text = "Mafia wins!"
+                    roundEndView?.endTitleLabel.text = "Mafia wins!"
                 case .TOWNSPERSON:
-                    self.roundEndView?.endTitleLabel.text = "Town wins!"
+                    roundEndView?.endTitleLabel.text = "Town wins!"
                 }
-                self.roundEndView?.endDescriptionLabel.hidden = true
-                self.roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
+                roundEndView?.endDescriptionLabel.hidden = true
+                roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
             }
         }
         
-        self.roundEndView?.frame = (self.roundEndView?.superview?.bounds)!
+        roundEndView?.frame = (self.roundEndView?.superview?.bounds)!
     }
 
     
@@ -205,7 +203,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         }
     }
     
-    func roundEndView(roundEndView: RoundEndView, nextButtonPressed value: Bool) {
+    func continueFromRoundEnd(roundEndView: RoundEndView, nextButtonPressed value: Bool) {
         NSLog("Transitioning to new round, from round \(roundIndex)")
         
         if MafiaClient.instance.game?.state == .FINISHED {
