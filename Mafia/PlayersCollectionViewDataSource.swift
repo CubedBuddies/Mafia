@@ -91,9 +91,11 @@ class PlayersCollectionViewDataSource: NSObject, UICollectionViewDataSource, UIC
             
             if player.state == .DEAD {
                 cell.nameLabel.text = "DEAD"
+                cell.voteBubble.hidden = true
                 cell.voteLabel.hidden = true
             } else {
                 cell.nameLabel.text = player.name
+                cell.voteBubble.hidden = false
                 cell.voteLabel.hidden = false
             }
             if votes {
