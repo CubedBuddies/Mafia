@@ -83,7 +83,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.view.addSubview(self.nightView!)
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
             
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
         }
         
         // to make the screen slide in from the right
@@ -227,21 +227,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             if nightView!.hidden {
                 // continue to night
                 if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
-                    buffer = 1
-                } else {
                     advanceToNight()
                 }
             } else {
                 if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
-                    buffer = 2
-                } else {
                     advanceToDay()
                 }
             }
         }
     }
-    // 0 = none, 1 = on round load, go to night, 2 = on round load, go to day
-    var buffer = 0
     
     func advanceToNight() {
         let vc = GameViewController()
@@ -383,14 +377,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     }
     
     func loadRoundData(game: Game) {
-        if buffer == 1 {
-            buffer = 0
-            advanceToNight()
-        } else if buffer == 2 {
-            buffer = 0
-            advanceToDay()
-        }
-        
         if game.state == .FINISHED {
             showRoundEndView()
         } else {
