@@ -100,6 +100,8 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
             return
         }
         
+        setPendingState(true)
+        
         MafiaClient.instance.joinGame(gameCodeLabel.text!,
             playerName: nameLabel.text!,
             avatarImageView: avatarImageView,
@@ -108,14 +110,14 @@ class JoinGameViewController: UIViewController, UINavigationControllerDelegate, 
                 
                 MafiaClient.instance.pollGameStatus(completion: { (game) -> Void in
                     
-                    self.setPendingState(true)
+                    self.setPendingState(false)
                     dispatch_async(dispatch_get_main_queue()) {
                         self.performSegueWithIdentifier("joinGameSegue", sender: self)
                     }
                     
                     }) { () -> Void in
                         // join anyways, it just won't have lobby data
-                        self.setPendingState(true)
+                        self.setPendingState(false)
                         dispatch_async(dispatch_get_main_queue()) {
                             self.performSegueWithIdentifier("joinGameSegue", sender: self)
                         }
