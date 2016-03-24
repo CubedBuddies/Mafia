@@ -151,10 +151,9 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             nightView!.resultsView.hidden = false
         }
         
+        let currentRound = game.rounds[roundIndex]
+        
         if game.state != .FINISHED {
-            
-            let currentRound = game.rounds[roundIndex]
-            
             roundEndView?.descriptionBottomConstraint.constant = 0
             roundEndView?.descriptionTopConstraint.constant = 0
             
@@ -193,13 +192,26 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 roundEndView?.nextButton.setTitle("Start voting", forState: .Normal)
             }
         } else {
+            if let lynchedPlayerId = currentRound.lynchedPlayerId {
+                let player = playerNames[lynchedPlayerId]!
+                roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                roundEndView?.endDescriptionLabel.hidden = false
+                roundEndView?.deadPlayerImage.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
+            } else if let killedPlayerId = currentRound.killedPlayerId {
+                let player = playerNames[killedPlayerId]!
+                roundEndView?.endDescriptionLabel.text = "\(player.name) was \(player.role!)"
+                roundEndView?.endDescriptionLabel.hidden = false
+                roundEndView?.deadPlayerImage.setImageWithURL(player.getAvatarUrl(), placeholderImage: player.getPlaceholderAvatar())
+            } else {
+                roundEndView?.endDescriptionLabel.hidden = true
+            }
+
             switch game.winner! {
             case .MAFIA:
                 roundEndView?.endTitleLabel.text = "Mafia wins!"
             case .TOWNSPERSON:
                 roundEndView?.endTitleLabel.text = "Town wins!"
             }
-            roundEndView?.endDescriptionLabel.hidden = true
             roundEndView?.nextButton.setTitle("Exit game", forState: .Normal)
         }
         
