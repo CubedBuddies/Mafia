@@ -43,7 +43,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func onStartGameClick(sender: AnyObject) {
         
         pendingState(true)
-        self.refreshTimer.invalidate()
+        refreshTimer.invalidate()
         
         MafiaClient.instance.startGame(
             completion: { (_: Game) in
@@ -86,6 +86,7 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     // check if game was already started
                     if game.state == .IN_PROGRESS {
+                        self.refreshTimer.invalidate()
                         self.performSegueWithIdentifier("startGameSegue", sender: self)
                     }
                 }
@@ -113,6 +114,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func playerCell(playerCell: PlayerTableViewCell, leaveButtonPressed value: Bool) {
+        refreshTimer.invalidate()
+        
         MafiaClient.instance.deletePlayer((MafiaClient.instance.player?.id)!,
             completion: { (game: Game) -> Void in
                 dispatch_async(dispatch_get_main_queue()) {
