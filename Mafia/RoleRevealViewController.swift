@@ -46,10 +46,8 @@ class RoleRevealViewController: UIViewController {
                 print(error)
             })
             
-            //TODO: MafiaClient.instance.player is always nil!!!!
             if MafiaClient.instance.player?.avatarImage != nil {
                 self.avatarImageView.image = MafiaClient.instance.player?.avatarImage
-
             } else {
                 self.avatarImageView.image = UIImage(named: "Character_mystery_white")
             }
