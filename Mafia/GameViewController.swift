@@ -311,11 +311,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
                 dispatch_async(dispatch_get_main_queue()) {
                     self.loadRoundData(game)
                 }
-                
-                if self.pendingVote != nil {
-                    self.pendingEventType = nil
-                    self.pendingVote = nil
-                }
             },
             failure: { NSLog("Failed to poll game status") }
         )
@@ -395,6 +390,11 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             if pendingVote != nil {
                 fakeVote(self.pendingEventType!, targetPlayerId: self.pendingVote!)
+                
+                if self.pendingVote != nil {
+                    self.pendingEventType = nil
+                    self.pendingVote = nil
+                }
             }
             
             if roundIndex < (game.rounds.count ?? 1) - 1 {
