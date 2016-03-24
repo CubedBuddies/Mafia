@@ -36,7 +36,7 @@ class RoundEndView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        nextButton.addTarget(self, action: #selector(RoundEndView.nextButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        nextButton.addTarget(self, action: "nextButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     func nextButtonPressed() {

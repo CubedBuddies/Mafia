@@ -83,7 +83,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.view.addSubview(self.nightView!)
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
             
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameViewController.updateHandler), userInfo: nil, repeats: true)
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateHandler", userInfo: nil, repeats: true)
         }
         
         // to make the screen slide in from the right
@@ -228,6 +228,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
         } else {
             if nightView!.hidden {
                 // continue to night
+                print("round index: " + String(roundIndex))
+                print(MafiaClient.instance.game?.rounds.count)
                 if roundIndex == (MafiaClient.instance.game?.rounds.count)! - 1 {
                     advanceToNight()
                 }
@@ -312,7 +314,8 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     func resetTimer(time: Double) {
         nightTimer.invalidate()
-        nightTimer = NSTimer.scheduledTimerWithTimeInterval(time, target: self, selector: #selector(GameViewController.updateNightEvents), userInfo: nil, repeats: false)
+        
+        nightTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateNightEvents", userInfo: nil, repeats: false)
     }
     
     func updateNightEvents() {
