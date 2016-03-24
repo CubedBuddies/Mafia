@@ -82,7 +82,7 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             self.nightView = NightOverlayView.instanceFromNib()
             self.view.addSubview(self.nightView!)
             self.nightView!.frame = (self.nightView?.superview?.bounds)!
-            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateHandler", userInfo: nil, repeats: true)
+            self.updateTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "updateHandler", userInfo: nil, repeats: true)
 
         }
         

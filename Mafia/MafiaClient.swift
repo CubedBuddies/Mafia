@@ -180,12 +180,17 @@ class MafiaClient: NSObject {
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
 
                 if statusCode < 400 {
-                    let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data!, options:[]) as! NSDictionary
-                    
-                    let newGame = Game(fromResponse: responseDictionary)
-                    self.cacheGame(newGame)
-                    completion(newGame)
+                    if let data = data {
+                        NSLog("API error: data is nil")
+                        let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                            data, options:[]) as! NSDictionary
+                        
+                        let newGame = Game(fromResponse: responseDictionary)
+                        self.cacheGame(newGame)
+                        completion(newGame)
+                    } else {
+                        failure()
+                    }
                 } else {
                     failure()
                 }
