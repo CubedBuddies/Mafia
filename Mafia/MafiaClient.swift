@@ -148,16 +148,20 @@ class MafiaClient: NSObject {
         if let token = token {
             sendRequest(MafiaClient.BASE_URL + "/games/\(token)", method: "GET", data: nil) {
                 (data, response, error) -> Void in
-                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                if let response = response as? NSHTTPURLResponse {
+                    let statusCode = response.statusCode
 
-                if statusCode < 400 {
-                    let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data!, options:[]) as! NSDictionary
+                    if statusCode < 400 {
+                        let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                            data!, options:[]) as! NSDictionary
 
-                    let newGame = Game(fromResponse: responseDictionary)
-                    self.cacheGame(newGame)
-                    
-                    completion(newGame)
+                        let newGame = Game(fromResponse: responseDictionary)
+                        self.cacheGame(newGame)
+                        
+                        completion(newGame)
+                    } else {
+                        failure()
+                    }
                 } else {
                     failure()
                 }

@@ -294,14 +294,15 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
     
     //MARK: Update and Loading Methods
     func updateHandler() {
-        if pendingVote != nil {
-            pendingEventType = nil
-            pendingVote = nil
-        }
         MafiaClient.instance.pollGameStatus(
             completion: { (game: Game) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self.loadRoundData(game)
+                }
+                
+                if self.pendingVote != nil {
+                    self.pendingEventType = nil
+                    self.pendingVote = nil
                 }
             },
             failure: { NSLog("Failed to poll game status") }
