@@ -367,11 +367,6 @@ class GameViewController: UIViewController, GameViewControllerDelegate, UIViewCo
             case 6:
                 // mafia have finished voting
                 self.roleMode = false
-                
-                // Reset all sounds
-                self.didPlayLullaby = false
-                self.didPlayClock = false
-                self.didPlayRooster = false
                 return
             default:
                 NSLog("Error, invalid night event index.")
