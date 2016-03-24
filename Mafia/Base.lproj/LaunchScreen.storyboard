@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,14 +15,42 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UJ-lY-JhE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MafiaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="p0Y-d3-QNl">
+                                        <rect key="frame" x="37" y="176" width="246" height="101"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="p0Y-d3-QNl" secondAttribute="height" multiplier="246:101" id="8cn-vq-0UQ"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="p0Y-d3-QNl" firstAttribute="top" secondItem="4UJ-lY-JhE" secondAttribute="top" constant="176" id="DtQ-Zv-pk8"/>
+                                    <constraint firstItem="p0Y-d3-QNl" firstAttribute="centerX" secondItem="4UJ-lY-JhE" secondAttribute="centerX" id="jxX-cG-FXy"/>
+                                    <constraint firstItem="p0Y-d3-QNl" firstAttribute="leading" secondItem="4UJ-lY-JhE" secondAttribute="leading" constant="37" id="oI6-LI-b1q"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4UJ-lY-JhE" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="IWn-FT-pb5"/>
+                            <constraint firstItem="4UJ-lY-JhE" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="PgV-0q-x6F"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="4UJ-lY-JhE" secondAttribute="bottom" id="nMr-oO-oye"/>
+                            <constraint firstAttribute="trailing" secondItem="4UJ-lY-JhE" secondAttribute="trailing" id="vze-Pb-DFe"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="28" y="355"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="MafiaLogo" width="556" height="212"/>
+    </resources>
 </document>
