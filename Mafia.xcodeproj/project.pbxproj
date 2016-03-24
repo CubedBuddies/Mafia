@@ -11,6 +11,7 @@
 		530938271CA0FD5900E00CE6 /* Rooster.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 530938251CA0FD5900E00CE6 /* Rooster.mp3 */; };
 		5309382B1CA101E200E00CE6 /* Lullaby.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5309382A1CA101E200E00CE6 /* Lullaby.mp3 */; };
 		5309382D1CA1021B00E00CE6 /* Clock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5309382C1CA1021B00E00CE6 /* Clock.mp3 */; };
+		532787C31CA373BA00373552 /* stamper.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 532787C21CA373BA00373552 /* stamper.ttf */; };
 		533EF9651C961EF0009F3D94 /* RoleRevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */; };
 		53657CD21C9CBF0400EBD112 /* NightOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */; };
 		53657CD41C9CBF1A00EBD112 /* NightOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */; };
@@ -64,6 +65,7 @@
 		530938251CA0FD5900E00CE6 /* Rooster.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rooster.mp3; sourceTree = "<group>"; };
 		5309382A1CA101E200E00CE6 /* Lullaby.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lullaby.mp3; sourceTree = "<group>"; };
 		5309382C1CA1021B00E00CE6 /* Clock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Clock.mp3; sourceTree = "<group>"; };
+		532787C21CA373BA00373552 /* stamper.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = stamper.ttf; sourceTree = SOURCE_ROOT; };
 		533EF9641C961EF0009F3D94 /* RoleRevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleRevealViewController.swift; sourceTree = "<group>"; };
 		53657CD11C9CBF0400EBD112 /* NightOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NightOverlayView.swift; sourceTree = "<group>"; };
 		53657CD31C9CBF1A00EBD112 /* NightOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NightOverlayView.xib; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				72C7D7DD1C88AE9600B26CDD /* Models */,
 				728BA8481C857E0400630365 /* View Controllers */,
 				723AD9181C8568C10072849E /* AppDelegate.swift */,
+				532787C21CA373BA00373552 /* stamper.ttf */,
 				723AD91C1C8568C10072849E /* Main.storyboard */,
 				723AD91F1C8568C10072849E /* Assets.xcassets */,
 				723AD9211C8568C10072849E /* LaunchScreen.storyboard */,
@@ -389,6 +392,7 @@
 				53657CD61C9E681A00EBD112 /* RoundEndView.xib in Resources */,
 				72B4C50F1C8C01B4000E8DC9 /* GameViewController.xib in Resources */,
 				5309382D1CA1021B00E00CE6 /* Clock.mp3 in Resources */,
+				532787C31CA373BA00373552 /* stamper.ttf in Resources */,
 				5309382B1CA101E200E00CE6 /* Lullaby.mp3 in Resources */,
 				530938271CA0FD5900E00CE6 /* Rooster.mp3 in Resources */,
 				723AD9231C8568C10072849E /* LaunchScreen.storyboard in Resources */,

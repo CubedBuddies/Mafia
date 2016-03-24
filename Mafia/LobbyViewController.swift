@@ -14,12 +14,16 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startGameButton: UIButton!
 
+    @IBOutlet weak var titleLabel: UILabel!
+    
     var refreshTimer: NSTimer = NSTimer()
     var originalStartButtonText: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        titleLabel.font = UIFont(name: "a_StamperBrk", size: 40)
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()

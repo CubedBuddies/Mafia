@@ -26,6 +26,8 @@ class RoleRevealViewController: UIViewController {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var roleImageView: UIImageView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
     var isBackShowing = true
     var mafiaCollectionViewDelegate: PlayersCollectionViewDataSource?
     
@@ -35,6 +37,8 @@ class RoleRevealViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleLabel.font = UIFont(name: "a_StamperBrk", size: 40)
         
         if let player = MafiaClient.instance.player {
             self.avatarImageView.setImageWithURLRequest(NSURLRequest(URL: player.getAvatarUrl()), placeholderImage: player.getPlaceholderAvatar(), success: { (request, response, image) -> Void in
