@@ -123,6 +123,8 @@ class LobbyViewController: UIViewController, UITableViewDelegate, UITableViewDat
         MafiaClient.instance.deletePlayer((MafiaClient.instance.player?.id)!,
             completion: { (game: Game) -> Void in
                 dispatch_async(dispatch_get_main_queue()) {
+                    MafiaClient.instance.game = nil
+                    
                     let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                     let homeView: HomeViewController = storyboard.instantiateViewControllerWithIdentifier("HomeViewController") as! HomeViewController
                     UIApplication.sharedApplication().keyWindow?.rootViewController = homeView
